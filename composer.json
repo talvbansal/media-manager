@@ -1,0 +1,48 @@
+{
+  "name": "talvbansal/easel-media-manager",
+  "description": "A media browser and uploader for laravel apps written in vue js and bootstrap",
+  "keywords": [
+    "media",
+    "media manager",
+    "blog",
+    "files",
+    "file uploader",
+    "uploader",
+    "laravel",
+    "easel",
+    "developers",
+    "minimal",
+    "vue.js",
+    "bootstrap"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Talvinder Bansal",
+      "email": "talvbansal@hotmail.com",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=5.6",
+    "dflydev/apache-mime-types": "^1.0",
+    "mockery/mockery": "^0.9.5"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^5.0",
+    "illuminate/support": "^5.3",
+    "illuminate/routing": "^5.3",
+    "orchestra/testbench": "~3.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "TalvBansal\\MediaManager\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "classmap": [
+      "tests/TestCase.php"
+    ]
+  },
+  "minimum-stability": "dev"
+}

@@ -1,0 +1,96 @@
+// File Uploader Styles
+#easel-file-picker {
+
+  .easel-file-browser {
+    height: 100%;
+    margin-bottom: 0;
+    margin-top: 0;
+    min-height: 200px;
+    padding: 1rem;
+    width: auto;
+
+    &.modal-dialog{
+      margin-top: 2rem;
+    }
+
+    .modal-header {
+      border-bottom: 1px solid rgb(240, 240, 240);
+    }
+
+    .modal-footer {
+      border-top: 1px solid rgb(240, 240, 240);
+
+      &.vertical-center {
+
+        .item-count {
+          flex: 1 0 0;
+          text-align: left;
+        }
+        .buttons {
+          flex: 4 0 0;
+        }
+      }
+
+    }
+
+    .word-wrappable {
+      word-wrap: break-word;
+    }
+
+    $editor-height : 60vh;
+    .easel-file-picker-list {
+      height: $editor-height;
+      overflow-y: scroll;
+
+      .table {
+        tbody {
+          tr {
+            &:last-child {
+              td {
+                padding-bottom: 7px;
+              }
+            }
+
+            td {
+              transition: background-color 0.15s ease-in-out 0.05s;
+              padding-left: 7px;
+              a{
+                margin-left: 0.5em;
+              }
+            }
+
+            th {
+              &:first-child {
+                padding-left: 7px;
+              }
+            }
+          }
+        }
+      }
+
+    }
+
+    .easel-file-picker-sidebar {
+      height: $editor-height;
+      overflow-y: auto;
+      border-left: 1px solid rgb(240, 240, 240);
+    }
+
+    .easel-file-picker-preview-table {
+      margin-top: 1em;
+
+      td {
+        border-width: 0;
+
+        &.description {
+          text-transform: uppercase;
+          font-weight: 500;
+        }
+
+        &.file-value {
+          word-break: break-all;
+        }
+      }
+    }
+  }
+}
