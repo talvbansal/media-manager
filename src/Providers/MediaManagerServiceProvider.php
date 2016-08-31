@@ -7,19 +7,7 @@
  */
 namespace TalvBansal\MediaManager\Providers;
 
-use Collective\Html\FormFacade;
-use Collective\Html\HtmlFacade;
-use Collective\Html\HtmlServiceProvider;
-use Easel\Console\Commands\InstallCommand;
-use Easel\Console\Commands\UpdateCommand;
-use Easel\Models\BlogUserInterface;
-use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
-use Laravel\Scout\ScoutServiceProvider;
-use Proengsoft\JsValidation\Facades\JsValidatorFacade;
-use Proengsoft\JsValidation\JsValidationServiceProvider;
-use Spatie\Backup\BackupServiceProvider;
-use TeamTNT\Scout\TNTSearchScoutServiceProvider;
 
 /**
  * Class MediaBrowserServiceProvider.
@@ -79,5 +67,4 @@ class MediaManagerServiceProvider extends ServiceProvider
             MEDIA_MANAGER_BASE_PATH.'/resources/assets/storage' => storage_path('app/public'),
         ]);
     }
-
 }
