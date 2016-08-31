@@ -1,5 +1,5 @@
 {
-  "name": "talvbansal/easel-media-manager",
+  "name": "talvbansal/media-manager",
   "description": "A media browser and uploader for laravel apps written in vue js and bootstrap",
   "keywords": [
     "media",
