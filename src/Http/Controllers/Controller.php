@@ -5,7 +5,6 @@
  * Date: 30/08/16
  * Time: 22:47.
  */
-
 namespace TalvBansal\MediaManager\Http\Controllers;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;

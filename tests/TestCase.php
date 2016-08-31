@@ -32,7 +32,6 @@ class TestCase extends \Orchestra\Testbench\TestCase
      */
     protected function getEnvironmentSetUp($app)
     {
-
         $app['path.base'] = realpath(__DIR__.'../src');
 
         $app['config']->set('database.default', 'test');
@@ -48,7 +47,6 @@ class TestCase extends \Orchestra\Testbench\TestCase
             'driver' => 'local',
             'root'   => $this->getPublicDir(),
         ]);
-
     }
 
     public function getTempDirectory($suffix = '')
@@ -61,9 +59,8 @@ class TestCase extends \Orchestra\Testbench\TestCase
         return $this->getTempDirectory().'/app/public'.($suffix == '' ? '' : '/'.$suffix);
     }
 
-    public function getStoragePath( $path = 'app')
+    public function getStoragePath($path = 'app')
     {
-        return realpath(storage_path( $path ));
+        return realpath(storage_path($path));
     }
-
 }

@@ -7,10 +7,10 @@
  */
 namespace TalvBansal\MediaManager\Http\Controllers;
 
+use Illuminate\Http\Request;
 use TalvBansal\MediaManager\Http\Requests\UploadFileRequest;
 use TalvBansal\MediaManager\Http\Requests\UploadNewFolderRequest;
 use TalvBansal\MediaManager\Services\MediaManager;
-use Illuminate\Http\Request;
 
 /**
  * Class FileManagerController.
