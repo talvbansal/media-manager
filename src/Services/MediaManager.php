@@ -32,7 +32,7 @@ class MediaManager
      */
     public function __construct(PhpRepository $mimeDetect)
     {
-        $this->disk = Storage::disk(config('easel.uploads.storage'));
+        $this->disk = Storage::disk('public');
         $this->mimeDetect = $mimeDetect;
     }
 
@@ -356,6 +356,6 @@ class MediaManager
      */
     private function fileRelativePath($path)
     {
-        return rtrim(config('easel.uploads.webpath'), '/').'/'.ltrim($path, '/');
+        return '/storage/'.ltrim($path, '/');
     }
 }
