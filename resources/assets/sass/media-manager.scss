@@ -1,3 +1,32 @@
+@import 'icon-code.scss';
+
+// Loading Animation
+
+@keyframes anim-rotate {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.spinner {
+  display: inline-block;
+  font-size:4em;
+  height: 1em;
+  line-height: 1;
+  margin: .5em;
+  animation: anim-rotate 2s infinite linear;
+  color: #333;
+  text-shadow: 0 0 .25em rgba(255,255,255, .3);
+}
+.spinner--steps {
+  animation: anim-rotate 1s infinite steps(8);
+}
+.spinner--steps2 {
+  animation: anim-rotate 1s infinite steps(12);
+}
+
 // File Uploader Styles
 #easel-file-picker {
 
@@ -93,4 +122,56 @@
       }
     }
   }
+}
+
+// Notifications
+.alert {
+  padding-left: 30px;
+  font-size: 13px;
+}
+
+.alert span {
+  cursor: pointer;
+}
+
+.alert:not(.alert-dismissible) {
+  padding-right: 30px;
+}
+
+.alert.alert-dismissable {
+  padding-right: 44px;
+}
+
+.alert-inverse {
+  background-color: #333333;
+  border-color: transparent;
+  color: #ffffff;
+}
+
+.alert-inverse hr {
+  border-top-color: rgba(0, 0, 0, 0);
+}
+
+.alert-inverse .alert-link {
+  color: #e6e6e6;
+}
+
+.growl-animated.alert-inverse {
+  box-shadow: 0 0 5px rgba(51, 51, 51, 0.5);
+}
+
+.growl-animated.alert-info {
+  box-shadow: 0 0 5px rgba(33, 150, 243, 0.5);
+}
+
+.growl-animated.alert-success {
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
+.growl-animated.alert-warning {
+  box-shadow: 0 0 5px rgba(255, 193, 7, 0.5);
+}
+
+.growl-animated.alert-danger {
+  box-shadow: 0 0 5px rgba(244, 67, 54, 0.5);
 }

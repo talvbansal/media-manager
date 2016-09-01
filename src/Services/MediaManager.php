@@ -333,7 +333,7 @@ class MediaManager
         /** @var UploadedFile $file */
         foreach ($files as $file) {
             if (!$file->isValid()) {
-                $this->errors[] = trans('easel::messages.upload_error', ['entity' => $file->getClientOriginalName()]);
+                $this->errors[] = trans('media-manager::messages.upload_error', ['entity' => $file->getClientOriginalName()]);
 
                 continue;
             }

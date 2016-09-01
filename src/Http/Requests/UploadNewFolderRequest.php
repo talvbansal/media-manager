@@ -1,6 +1,6 @@
 <?php
 
-namespace TalvBansal\MediaBrowser\Http\Requests;
+namespace TalvBansal\MediaManager\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 

@@ -1,0 +1,108 @@
+@import "icons";
+
+@font-face {
+  font-family: 'icomoon';
+  src:
+          url('#{$icomoon-font-path}/icomoon.ttf?zh9hoa') format('truetype'),
+          url('#{$icomoon-font-path}/icomoon.woff?zh9hoa') format('woff'),
+          url('#{$icomoon-font-path}/icomoon.svg?zh9hoa#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-home {
+  &:before {
+    content: $icon-home;
+  }
+}
+.icon-pencil {
+  &:before {
+    content: $icon-pencil;
+  }
+}
+.icon-image {
+  &:before {
+    content: $icon-image;
+  }
+}
+.icon-images {
+  &:before {
+    content: $icon-images;
+  }
+}
+.icon-file-empty {
+  &:before {
+    content: $icon-file-empty;
+  }
+}
+.icon-files-empty {
+  &:before {
+    content: $icon-files-empty;
+  }
+}
+.icon-file-picture {
+  &:before {
+    content: $icon-file-picture;
+  }
+}
+.icon-folder {
+  &:before {
+    content: $icon-folder;
+  }
+}
+.icon-folder-plus {
+  &:before {
+    content: $icon-folder-plus;
+  }
+}
+.icon-upload {
+  &:before {
+    content: $icon-upload;
+  }
+}
+.icon-spinner2 {
+  &:before {
+    content: $icon-spinner2;
+  }
+}
+.icon-spinner8 {
+  &:before {
+    content: $icon-spinner8;
+  }
+}
+.icon-cogs {
+  &:before {
+    content: $icon-cogs;
+  }
+}
+.icon-bin {
+  &:before {
+    content: $icon-bin;
+  }
+}
+.icon-loop2 {
+  &:before {
+    content: $icon-loop2;
+  }
+}
+.icon-arrow-right {
+  &:before {
+    content: $icon-arrow-right;
+  }
+}
+

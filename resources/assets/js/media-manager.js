@@ -12,3 +12,32 @@ VueTouch.registerCustomEvent('doubletap', {
     type: 'tap',
     taps: 2
 });
+
+
+function systemNotification(message, type){
+
+    if( !type ) type = 'inverse';
+
+    $.growl({
+        message: message
+    },{
+        type: type,
+        allow_dismiss: false,
+        label: 'Cancel',
+        className: 'btn-xs btn-inverse',
+        placement: {
+            from: 'top',
+            align: 'right'
+        },
+        delay: 3800,
+        z_index: 1061,
+        animate: {
+            enter: 'animated fadeInDown',
+            exit: 'animated fadeOutUp'
+        },
+        offset: {
+            x: 20,
+            y: 85
+        }
+    });
+}

@@ -61,12 +61,12 @@ class MediaController extends Controller
             $result = $this->mediaManager->createDirectory($folder);
 
             if ($result !== true) {
-                $error = $result ?: trans('easel::messages.create_error', ['entity' => 'directory']);
+                $error = $result ?: trans('media-manager::messages.create_error', ['entity' => 'directory']);
 
                 return $this->errorResponse($error);
             }
 
-            return ['success' => trans('easel::messages.create_success', ['entity' => 'folder'])];
+            return ['success' => trans('media-manager::messages.create_success', ['entity' => 'folder'])];
         } catch (\Exception $e) {
             return $this->errorResponse($e->getMessage());
         }
@@ -87,12 +87,12 @@ class MediaController extends Controller
         try {
             $result = $this->mediaManager->deleteDirectory($folder);
             if ($result !== true) {
-                $error = $result ?: trans('easel::messages.delete_error', ['entity' => 'folder']);
+                $error = $result ?: trans('media-manager::messages.delete_error', ['entity' => 'folder']);
 
                 return $this->errorResponse($error);
             }
 
-            return ['success' => trans('easel::messages.delete_success', ['entity' => 'folder'])];
+            return ['success' => trans('media-manager::messages.delete_success', ['entity' => 'folder'])];
         } catch (\Exception $e) {
             return $this->errorResponse($e->getMessage());
         }
@@ -108,12 +108,12 @@ class MediaController extends Controller
             $result = $this->mediaManager->deleteFile($path);
 
             if ($result !== true) {
-                $error = $result ?: trans('easel::messages.delete_error', ['entity' => 'File']);
+                $error = $result ?: trans('media-manager::messages.delete_error', ['entity' => 'File']);
 
                 return $this->errorResponse($error);
             }
 
-            return ['success' => trans('easel::messages.delete_success', ['entity' => 'File'])];
+            return ['success' => trans('media-manager::messages.delete_success', ['entity' => 'File'])];
         } catch (\Exception $e) {
             return $this->errorResponse($e->getMessage());
         }
@@ -134,7 +134,7 @@ class MediaController extends Controller
 
             $response = $this->mediaManager->saveFiles($files, $folder);
             $errors = $this->mediaManager->errors();
-            $response = trans('easel::messages.upload_success', ['entity' => $response.' New '.str_plural('File', $response)]);
+            $response = trans('media-manager::messages.upload_success', ['entity' => $response.' New '.str_plural('File', $response)]);
 
             if (!empty($errors)) {
                 return $this->errorResponse($errors, [$response]);
@@ -162,12 +162,12 @@ class MediaController extends Controller
             $result = $this->mediaManager->rename($path, $original, $newName);
 
             if ($result !== true) {
-                $error = $result ?: trans('easel::messages.rename_error', ['entity' => $type]);
+                $error = $result ?: trans('media-manager::messages.rename_error', ['entity' => $type]);
 
                 return $this->errorResponse($error);
             }
 
-            return ['success' => trans('easel::messages.rename_success', ['entity' => $type])];
+            return ['success' => trans('media-manager::messages.rename_success', ['entity' => $type])];
         } catch (\Exception $e) {
             return $this->errorResponse($e->getMessage());
         }
@@ -192,12 +192,12 @@ class MediaController extends Controller
             $result = $this->mediaManager->move($currentFile, $newFile, ($type == 'Folder'));
 
             if ($result !== true) {
-                $error = $result ?: trans('easel::messages.move_error', ['entity' => $type]);
+                $error = $result ?: trans('media-manager::messages.move_error', ['entity' => $type]);
 
                 return $this->errorResponse($error);
             }
 
-            return ['success' => trans('easel::messages.move_success', ['entity' => $type])];
+            return ['success' => trans('media-manager::messages.move_success', ['entity' => $type])];
         } catch (\Exception $e) {
             return $this->errorResponse($e->getMessage());
         }
