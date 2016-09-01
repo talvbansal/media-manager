@@ -95,6 +95,12 @@
       .table {
         tbody {
           tr {
+            &.active{
+              td{
+                background-color: #fffcbe;
+              }
+            }
+
             &:last-child {
               td {
                 padding-bottom: 7px;
