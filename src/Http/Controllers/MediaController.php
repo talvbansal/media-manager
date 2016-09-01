@@ -34,7 +34,7 @@ class MediaController extends Controller
 
     public function index()
     {
-        return view('easel::backend.media.index');
+        return view('media-manager::media.index');
     }
 
     /**

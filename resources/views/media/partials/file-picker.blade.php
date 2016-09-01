@@ -165,7 +165,7 @@
     </div>
 </div>
 
-@include('easel::backend.media.partials.modals.create-folder')
-@include('easel::backend.media.partials.modals.rename-item')
-@include('easel::backend.media.partials.modals.move-item')
-@include('easel::backend.media.partials.js.file-manager-mixin')
+@include('media-manager::media.partials.modals.create-folder')
+@include('media-manager::media.partials.modals.rename-item')
+@include('media-manager::media.partials.modals.move-item')
+@include('media-manager::media.partials.js.file-manager-mixin')
