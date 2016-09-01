@@ -3,9 +3,9 @@
 @font-face {
   font-family: 'icomoon';
   src:
-          url('#{$icomoon-font-path}/icomoon.ttf?zh9hoa') format('truetype'),
-          url('#{$icomoon-font-path}/icomoon.woff?zh9hoa') format('woff'),
-          url('#{$icomoon-font-path}/icomoon.svg?zh9hoa#icomoon') format('svg');
+          url('#{$icomoon-font-path}/icomoon.ttf?m63k59') format('truetype'),
+          url('#{$icomoon-font-path}/icomoon.woff?m63k59') format('woff'),
+          url('#{$icomoon-font-path}/icomoon.svg?m63k59#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -55,9 +55,24 @@
     content: $icon-files-empty;
   }
 }
+.icon-file-text2 {
+  &:before {
+    content: $icon-file-text2;
+  }
+}
 .icon-file-picture {
   &:before {
     content: $icon-file-picture;
+  }
+}
+.icon-file-music {
+  &:before {
+    content: $icon-file-music;
+  }
+}
+.icon-file-video {
+  &:before {
+    content: $icon-file-video;
   }
 }
 .icon-folder {
@@ -68,6 +83,16 @@
 .icon-folder-plus {
   &:before {
     content: $icon-folder-plus;
+  }
+}
+.icon-folder-upload {
+  &:before {
+    content: $icon-folder-upload;
+  }
+}
+.icon-price-tags {
+  &:before {
+    content: $icon-price-tags;
   }
 }
 .icon-upload {
@@ -85,14 +110,49 @@
     content: $icon-spinner8;
   }
 }
-.icon-cogs {
+.icon-cog {
   &:before {
-    content: $icon-cogs;
+    content: $icon-cog;
+  }
+}
+.icon-pie-chart {
+  &:before {
+    content: $icon-pie-chart;
+  }
+}
+.icon-stats-dots {
+  &:before {
+    content: $icon-stats-dots;
   }
 }
 .icon-bin {
   &:before {
     content: $icon-bin;
+  }
+}
+.icon-bin2 {
+  &:before {
+    content: $icon-bin2;
+  }
+}
+.icon-switch {
+  &:before {
+    content: $icon-switch;
+  }
+}
+.icon-point-up {
+  &:before {
+    content: $icon-point-up;
+  }
+}
+.icon-cross {
+  &:before {
+    content: $icon-cross;
+  }
+}
+.icon-checkmark {
+  &:before {
+    content: $icon-checkmark;
   }
 }
 .icon-loop2 {
@@ -105,4 +165,3 @@
     content: $icon-arrow-right;
   }
 }
-

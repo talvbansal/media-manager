@@ -31,12 +31,33 @@
 #easel-file-picker {
 
   .easel-file-browser {
+    color: #5e5e5e;
     height: 100%;
     margin-bottom: 0;
     margin-top: 0;
     min-height: 200px;
     padding: 1rem;
     width: auto;
+
+    .breadcrumb{
+      background-color: transparent;
+      border-bottom: 1px solid #f0f0f0;
+      li{
+        a{
+          color: #a9a9a9;
+          &.active {
+            color: #7c7c7c;
+          }
+        }
+      }
+
+      li + li::before {
+        color: #ccc;
+        content: "/ ";
+        padding: 0 5px;
+      }
+
+    }
 
     &.modal-dialog{
       margin-top: 2rem;
@@ -83,6 +104,7 @@
             td {
               transition: background-color 0.15s ease-in-out 0.05s;
               padding-left: 7px;
+              border-top: 1px solid #f0f0f0;
               a{
                 margin-left: 0.5em;
               }

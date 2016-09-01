@@ -2388,7 +2388,7 @@
 @charset "UTF-8";
 @font-face {
   font-family: 'icomoon';
-  src: url("../fonts/icomoon.ttf?zh9hoa") format("truetype"), url("../fonts/icomoon.woff?zh9hoa") format("woff"), url("../fonts/icomoon.svg?zh9hoa#icomoon") format("svg");
+  src: url("../fonts/icomoon.ttf?m63k59") format("truetype"), url("../fonts/icomoon.woff?m63k59") format("woff"), url("../fonts/icomoon.svg?m63k59#icomoon") format("svg");
   font-weight: normal;
   font-style: normal; }
 
@@ -2423,14 +2423,29 @@
 .icon-files-empty:before {
   content: ""; }
 
+.icon-file-text2:before {
+  content: ""; }
+
 .icon-file-picture:before {
   content: ""; }
+
+.icon-file-music:before {
+  content: ""; }
+
+.icon-file-video:before {
+  content: ""; }
 
 .icon-folder:before {
   content: ""; }
 
 .icon-folder-plus:before {
   content: ""; }
+
+.icon-folder-upload:before {
+  content: ""; }
+
+.icon-price-tags:before {
+  content: ""; }
 
 .icon-upload:before {
   content: ""; }
@@ -2441,11 +2456,32 @@
 .icon-spinner8:before {
   content: ""; }
 
-.icon-cogs:before {
-  content: ""; }
+.icon-cog:before {
+  content: ""; }
+
+.icon-pie-chart:before {
+  content: ""; }
+
+.icon-stats-dots:before {
+  content: ""; }
 
 .icon-bin:before {
   content: ""; }
+
+.icon-bin2:before {
+  content: ""; }
+
+.icon-switch:before {
+  content: ""; }
+
+.icon-point-up:before {
+  content: ""; }
+
+.icon-cross:before {
+  content: ""; }
+
+.icon-checkmark:before {
+  content: ""; }
 
 .icon-loop2:before {
   content: ""; }
@@ -2489,12 +2525,24 @@
   animation: anim-rotate 1s infinite steps(12); }
 
 #easel-file-picker .easel-file-browser {
+  color: #5e5e5e;
   height: 100%;
   margin-bottom: 0;
   margin-top: 0;
   min-height: 200px;
   padding: 1rem;
   width: auto; }
+  #easel-file-picker .easel-file-browser .breadcrumb {
+    background-color: transparent;
+    border-bottom: 1px solid #f0f0f0; }
+    #easel-file-picker .easel-file-browser .breadcrumb li a {
+      color: #a9a9a9; }
+      #easel-file-picker .easel-file-browser .breadcrumb li a.active {
+        color: #7c7c7c; }
+    #easel-file-picker .easel-file-browser .breadcrumb li + li::before {
+      color: #ccc;
+      content: "/ ";
+      padding: 0 5px; }
   #easel-file-picker .easel-file-browser.modal-dialog {
     margin-top: 2rem; }
   #easel-file-picker .easel-file-browser .modal-header {
@@ -2518,7 +2566,8 @@
     #easel-file-picker .easel-file-browser .easel-file-picker-list .table tbody tr td {
       -webkit-transition: background-color 0.15s ease-in-out 0.05s;
       transition: background-color 0.15s ease-in-out 0.05s;
-      padding-left: 7px; }
+      padding-left: 7px;
+      border-top: 1px solid #f0f0f0; }
       #easel-file-picker .easel-file-browser .easel-file-picker-list .table tbody tr td a {
         margin-left: 0.5em; }
     #easel-file-picker .easel-file-browser .easel-file-picker-list .table tbody tr th:first-child {
