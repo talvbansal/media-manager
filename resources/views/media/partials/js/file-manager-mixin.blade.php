@@ -15,12 +15,10 @@
             newFolderName: null,
             newItemName: null,
             allDirectories: {},
-            newFolderLocation: null,
-            isMobile : false
+            newFolderLocation: null
         },
 
         ready: function () {
-            this.isMobile = ( $('html').hasClass('ismobile') );
 
             // Create Folder
             var createFolderModal = $('#easel-new-folder');

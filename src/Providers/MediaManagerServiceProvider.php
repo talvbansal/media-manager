@@ -17,12 +17,12 @@ class MediaManagerServiceProvider extends ServiceProvider
     public function boot()
     {
         // Load the view files
-        $this->loadViewsFrom(MEDIA_MANAGER_BASE_PATH.'/resources/views', 'easel');
+        $this->loadViewsFrom(MEDIA_MANAGER_BASE_PATH.'/resources/views', 'media-manager');
         // Load language files
-        $this->loadTranslationsFrom(MEDIA_MANAGER_BASE_PATH.'/resources/lang', 'easel');
+        $this->loadTranslationsFrom(MEDIA_MANAGER_BASE_PATH.'/resources/lang', 'media-manager');
 
         if ($this->app->runningInConsole()) {
-            $this->defineRoutes();
+            $this->defineResources();
         }
     }
 
@@ -40,31 +40,13 @@ class MediaManagerServiceProvider extends ServiceProvider
     }
 
     /**
-     * Load Easel specific routes.
-     */
-    private function defineRoutes()
-    {
-        /*if (!$this->app->routesAreCached()) {
-            \Route::group(['namespace' => 'Easel\Http\Controllers'],
-                function ($router) {
-                    require MEDIA_MANAGER_BASE_PATH.'/src/Http/routes.php';
-                }
-            );
-        }*/
-    }
-
-    /**
-     * Publish assets / images / css / js / views to host application
+     * Publish views to host application
      * This is only when the application is run in the console.
      */
     private function defineResources()
     {
         $this->publishes([
-            MEDIA_MANAGER_BASE_PATH.'/public' => base_path('public'),
-        ]);
-
-        $this->publishes([
-            MEDIA_MANAGER_BASE_PATH.'/resources/assets/storage' => storage_path('app/public'),
-        ]);
+            MEDIA_MANAGER_BASE_PATH.'/public' => public_path('/vendor/talvbansal/mediamanager'),
+        ], 'media-manager');
     }
 }
