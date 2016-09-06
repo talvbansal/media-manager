@@ -14,22 +14,23 @@ VueTouch.registerCustomEvent('doubletap', {
 });
 
 
-function systemNotification(message, type){
+function systemNotification(message, type, time){
 
     if( !type ) type = 'inverse';
+    if( !time ) time = 3800;
 
     $.growl({
         message: message
     },{
         type: type,
-        allow_dismiss: false,
+        allow_dismiss: true,
         label: 'Cancel',
         className: 'btn-xs btn-inverse',
         placement: {
             from: 'top',
             align: 'right'
         },
-        delay: 3800,
+        delay: time,
         z_index: 1061,
         animate: {
             enter: 'animated fadeInDown',
