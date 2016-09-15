@@ -2,6 +2,7 @@
  * Created by talv on 30/08/16.
  */
 var elixir = require('laravel-elixir');
+require('laravel-elixir-vue');
 
 elixir(function (mix) {
     mix.sass([
@@ -15,6 +16,8 @@ elixir(function (mix) {
     mix.copy('node_modules/vue/dist/vue.js', 'public/js/vue.js');
     mix.copy('node_modules/vue-resource/dist/vue-resource.js', 'public/js/vue-resource.js');
     mix.copy('node_modules/vue-touch/vue-touch.js', 'public/js/vue-touch.js');
+
+    mix.webpack('mediamanager.js');
 
     mix.copy('resources/assets/fonts', 'public/fonts/');
 
