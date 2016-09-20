@@ -48,5 +48,6 @@ class MediaManagerServiceProvider extends ServiceProvider
         $this->publishes([
             MEDIA_MANAGER_BASE_PATH.'/public' => public_path('/vendor/talvbansal/mediamanager'),
         ], 'media-manager');
+
     }
 }

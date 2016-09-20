@@ -17,11 +17,11 @@ elixir(function (mix) {
     mix.copy('node_modules/vue-resource/dist/vue-resource.js', 'public/js/vue-resource.js');
     mix.copy('node_modules/vue-touch/vue-touch.js', 'public/js/vue-touch.js');
 
-    mix.webpack('mediamanager.js');
+    mix.webpack('mediamanager.js', 'public/js/mediamanager.js');
 
     mix.copy('resources/assets/fonts', 'public/fonts/');
 
-    mix.scripts(['bootstrap-growl.min.js', 'media-manager.js'], 'public/js/media-manager.js')
+    mix.scripts(['bootstrap-growl.min.js', 'media-manager.js'], 'public/js/media-manager.js');
 
     mix.phpUnit();
 });

@@ -154,6 +154,7 @@
                     <button type="button" class="btn btn-primary" v-show="currentFile && !isFolder(currentFile) && isModal" @click="selectFile(currentFile)">
                         Select File
                     </button>
+
                     <button type="button" class="btn btn-default" v-if="isModal" data-dismiss="modal">
                         Close
                     </button>

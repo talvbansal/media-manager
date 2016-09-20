@@ -1,6 +1,6 @@
 <template>
     <div class="modal-mask" @click="close" v-show="show" transition="modal">
-        <div class="modal-container" @click.stop>
+        <div class="modal-container" @click.stop  :class="[size]">
             <slot></slot>
         </div>
     </div>
@@ -28,6 +28,18 @@
         box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
         transition: all .3s ease;
         font-family: Helvetica, Arial, sans-serif;
+    }
+
+    .modal-container.small{
+        margin: 3em auto;
+        min-width: 600px;
+        width: 33%;
+    }
+
+    .modal-container.medium{
+        margin: 3em auto;
+        min-width: 600px;
+        width: 66%;
     }
 
     .modal-header h3 {
@@ -74,22 +86,34 @@
 </style>
 <script>
     export default {
-        props: ['show', 'onClose', 'onOpen'],
+        props: {
+            show: {
+                required: false
+            },
+            onClose: {
+                required: false
+            },
+            onOpen: {
+                required: false
+            },
+            size: {
+                default: null
+            }
+        },
         methods: {
             open: function()
             {
                 this.show = true;
-                this.onOpen();
             },
 
             close: function () {
-                this.onClose();
+                this.show = false;
             }
         },
         ready: function () {
             document.addEventListener("keydown", (e) => {
                 if (this.show && e.keyCode == 27) {
-                    this.onClose();
+                    this.close();
                 }
             });
         }
