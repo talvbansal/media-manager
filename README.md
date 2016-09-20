@@ -34,7 +34,7 @@
 
 - [PHP](https://php.net) >= 5.6
 - [Composer](https://getcomposer.org)
-- An exsiting [Laravel 5.3](https://laravel.com/docs/master/installation) project
+- An existing [Laravel 5.3](https://laravel.com/docs/master/installation) project
 
 
 <h3>Installation</h3>
@@ -50,10 +50,15 @@
     ```
     \TalvBansal\MediaManager\Providers\MediaManagerServiceProvider,
     ```
-3. The service provider **does not** automatically register the routes needed for the media manager to work since it is likley that you will want to add middleware to the routes. You can add the following line to your routes file and then wrap it with whichever middleware is necessary for your application
+3. The service provider **does not** automatically register the routes needed for the media manager to work since it is likely that you will want to add middleware to the routes. You can add the following line to your routes file and then wrap it with whichever middleware is necessary for your application
 
     ```
     \TalvBansal\MediaManager\Http\Routes::mediaBrowser();
     ```
 
+4. Publish the assets for the media browser
+    
+    ```
+    php artisan vendor:publish --tag=media-manager
+    ```
    
