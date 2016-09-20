@@ -49,14 +49,14 @@
         ready: function () {
             document.addEventListener("keydown", (e) => {
                 if (this.show && e.keyCode == 13) {
-                    this.createFolder();
+                    this.renameItem();
                 }
             });
         },
 
         methods: {
             close: function () {
-                this.newFolderName = null;
+                this.newItemName = null;
                 this.loading = false;
                 this.show = false;
             },

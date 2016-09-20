@@ -30,6 +30,26 @@
 // File Uploader Styles
 #easel-file-picker {
 
+  .modal-header {
+    border-bottom: 1px solid rgb(240, 240, 240);
+  }
+
+  .modal-footer {
+    border-top: 1px solid rgb(240, 240, 240);
+
+    &.vertical-center {
+
+      .item-count {
+        flex: 1 0 0;
+        text-align: left;
+      }
+      .buttons {
+        flex: 4 0 0;
+      }
+    }
+
+  }
+
   .easel-file-browser {
     color: #5e5e5e;
     height: 100%;
@@ -63,25 +83,7 @@
       margin-top: 2rem;
     }
 
-    .modal-header {
-      border-bottom: 1px solid rgb(240, 240, 240);
-    }
 
-    .modal-footer {
-      border-top: 1px solid rgb(240, 240, 240);
-
-      &.vertical-center {
-
-        .item-count {
-          flex: 1 0 0;
-          text-align: left;
-        }
-        .buttons {
-          flex: 4 0 0;
-        }
-      }
-
-    }
 
     .word-wrappable {
       word-wrap: break-word;
