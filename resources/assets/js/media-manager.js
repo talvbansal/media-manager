@@ -1,43 +1,47 @@
-Vue.filter('moment', function(value, format) {
-    return moment.utc(value).local().format(format);
-});
+/**
+ * First we will load all of this project's JavaScript dependencies which
+ * include Vue and Vue Resource. This gives a great starting point for
+ * building robust, powerful web applications using Vue and Laravel.
+ */
 
-Vue.filter('humanFileSize',  function (size) {
-    var i = Math.floor(Math.log(size) / Math.log(1024));
-    return ( size / Math.pow(1024, i) ).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][i];
-});
+require('./base');
 
+require('hammerjs');
+
+import FileManagerMixin from './mixins/file-manager-mixin';
+Vue.mixin(FileManagerMixin);
+
+import VueTouch from 'vue-touch';
 Vue.use(VueTouch);
+
 VueTouch.registerCustomEvent('doubletap', {
     type: 'tap',
     taps: 2
 });
 
+/**
+ * Register Vue components
+ */
+Vue.component('media-modal', require('./components/MediaModal.vue'));
+Vue.component('media-create-folder-modal', require('./components/CreateFolderModal.vue'));
+Vue.component('media-move-item-modal', require('./components/MoveItemModal.vue'));
+Vue.component('media-rename-item-modal', require('./components/RenameItemModal.vue'));
+Vue.component('media-manager', require('./components/MediaManager.vue'));
 
-function systemNotification(message, type){
+/**
+ * Register Vue Filters
+ */
+Vue.filter('humanFileSize',  function (size) {
+    var i = Math.floor(Math.log(size) / Math.log(1024));
+    return ( size / Math.pow(1024, i) ).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][i];
+});
 
-    if( !type ) type = 'inverse';
+// Date Formatting Filter
+Vue.filter('moment', function( date, format ){
 
-    $.growl({
-        message: message
-    },{
-        type: type,
-        allow_dismiss: false,
-        label: 'Cancel',
-        className: 'btn-xs btn-inverse',
-        placement: {
-            from: 'top',
-            align: 'right'
-        },
-        delay: 3800,
-        z_index: 1061,
-        animate: {
-            enter: 'animated fadeInDown',
-            exit: 'animated fadeOutUp'
-        },
-        offset: {
-            x: 20,
-            y: 85
-        }
-    });
-}
+    if( ! date ) return null;
+
+    if( ! format ) format = 'DD/MM/YYYY LTS';
+
+    return moment().utc(date).local().format(format)
+});
