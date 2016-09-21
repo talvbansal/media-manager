@@ -20,8 +20,8 @@
         <img src="https://poser.pugx.org/talvbansal/media-manager/downloads" alt="Downloads" />
     </a>
     
-    <a href="https://insight.sensiolabs.com/projects/06d23269-ac1d-4465-b542-9c38b31f8d91" target="_blank">
-        <img src="https://img.shields.io/sensiolabs/i/06d23269-ac1d-4465-b542-9c38b31f8d91.svg?style=flat-square" alt="SensioLabsInsight"/>
+    <a href="https://insight.sensiolabs.com/projects/5079adde-e1f8-437e-bc76-285981053298" target="_blank">
+        <img src="https://img.shields.io/sensiolabs/i/5079adde-e1f8-437e-bc76-285981053298.svg?style=flat-square" alt="SensioLabsInsight"/>
     </a>
     
     <a href="https://github.com/talvbansal/media-manager/blob/master/licence" target="_blank">
@@ -62,3 +62,50 @@
     php artisan vendor:publish --tag=media-manager
     ```
    
+    These assets don't get automatically put into your `public` folder, instead they'll appear in a subfolder called `talvbansal` within your Laravel projects's `resources/assets` folder. 
+    The reason for this is so that you can bundle the resources into your existing scripts using your project's `gulpfile.js` 
+
+    Below is an example of what that may looks like:
+    ```
+    //gulpfile.js
+    var elixir = require('laravel-elixir');
+    
+    require('laravel-elixir-vue');
+    
+    elixir(function(mix) {
+        mix.sass([
+            '../talvbansal/media-manager/css/media-manager.css',
+            'app.scss'
+        ]);
+        
+        mix.webpack(['../talvbansal/media-manager/js/media-manager.js','app.js']);
+        
+        mix.copy( 'resources/assets/talvbansal/media-manager/fonts', 'public/fonts' );
+   
+    });
+    
+    ```
+
+5. Start using the media-manager components!
+
+
+<h3>Media Manager Components</h3>
+
+This package will register 2 new `vue.js` components:
+- `<media-manager>`
+- `<media-modal>`
+    
+The `<media-manager>` component is the core component that provides all of the media manager functionality and `<media-modal>` is a component used to build the internal modal windows of the media manager. 
+The `<media-modal>` component can also be used to open the media manager itself inside a modal window.
+
+<h4>Stand Alone Media Manager</h4>
+- To do
+
+<h4>Modal Window Media Manager</h4>
+- To do
+
+<h3>Notification Events</h3>
+- To do
+
+<h3>Selected Item Events</h3>
+- To do
