@@ -66,7 +66,7 @@
 
             <div class="row">
 
-                <div :class="{ 'col-sm-12' : !currentFile || isFolder(currentFile), 'col-sm-9' : currentFile && ! isFolder(currentFile) }" class="col-xs-12">
+                <div :class="{ 'col-sm-12' : !currentFile || isFolder(currentFile), 'col-sm-9  col-lg-10' : currentFile && ! isFolder(currentFile) }" class="col-xs-12">
 
                     <div v-show="loading" transition="fade" class="text-center">
                         <div class="spinner icon-spinner2"></div>
@@ -111,7 +111,7 @@
                     </div>
                 </div>
 
-                <div v-if="currentFile && !isFolder(currentFile)" class="easel-file-picker-sidebar hidden-xs col-sm-3">
+                <div v-if="currentFile && !isFolder(currentFile)" class="easel-file-picker-sidebar hidden-xs col-sm-3 col-lg-2">
 
                     <img v-if="isImage(currentFile)" id="easel-preview-image" class="img-responsive center-block" :src="currentFile.webPath" style="max-height: 200px" transition="fade"/>
 
@@ -424,7 +424,7 @@
                             var error = (response.data.error) ? response.data.error : response.statusText;
                             // when uploading we might have some files uploaded and others fail
                             if (response.data.notices) this.notify(response.data.notices);
-                            this.notify(error, 'danger');
+                            this.notify(error, 'danger', 5000);
                             this.loadFolder(this.currentPath);
                         }
                 );

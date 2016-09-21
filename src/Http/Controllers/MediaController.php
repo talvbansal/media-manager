@@ -134,7 +134,7 @@ class MediaController extends Controller
 
             $response = $this->mediaManager->saveFiles($files, $folder);
             $errors = $this->mediaManager->errors();
-            if( $response > 0) {
+            if ($response > 0) {
                 $response = trans('media-manager::messages.upload_success', [ 'entity' => $response . ' New ' . str_plural('File', $response) ]);
             }else{
                 $response = 0;
