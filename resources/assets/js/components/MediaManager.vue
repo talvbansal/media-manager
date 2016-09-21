@@ -97,7 +97,7 @@
                                 <td>
                                     <i v-if="isImage(file)" class="icon-image"></i>
                                     <i v-else class="icon-file-text2"></i>
-                                    <a href="javascript:void(0);" @click="previewFile(file)" @dblclick="selectFile(file)" v-touch:doubletap="selectFile(file)" class="word-wrappable">{{
+                                    <a href="javascript:void(0);" @click="previewFile(file)" v-touch:doubletap="selectFile(file)" class="word-wrappable">{{
                                         file.name }}</a>
 
                                 </td>
@@ -312,13 +312,13 @@
         methods: {
 
             close: function () {
+                this.show = false;
                 this.breadCrumbs = {};
                 this.currentFile = null;
                 this.currentPath = null;
                 this.files = {};
                 this.folderName = null;
                 this.folders = {};
-                this.show = false;
             },
 
             loadFolder: function (path) {
