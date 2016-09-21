@@ -182,37 +182,81 @@
 
 <script>
     export default {
-
         props: {
-            show: {
-                type: Boolean,
-                required: false
-            },
 
+            /**
+             * Is this instance of the media manager a modal window.
+             * If so then this property is used to show the close
+             * buttons at the top and bottom of the screen.
+             */
             isModal: {
-                type: Boolean,
-                required: false
+                required: false,
+                type: Boolean
             },
 
-            selectedEventName:{
-                required : false
+            /**
+             * If this instance is a modal windows then this property
+             * is used to show or hide the modal window.
+             */
+            show: {
+                required: false,
+                type: Boolean
+            },
+
+            /**
+             * The event to be fired when selectItem() is called.
+             * The actual event dispatched is prefixed with
+             * "media-manager-selected-" so to avoid
+             * clashes with other events.
+             */
+            selectedEventName: {
+                required: false
             }
         },
 
         data: function () {
 
             return {
-                currentFile: null,
-                selectedFile: null,
-                currentPath: null,
-                folderName: null,
-                folders: {},
-                files: {},
+                /**
+                 * Breadcrumbs for the current path that are used to go
+                 * backwards through the directory tree.
+                 */
                 breadCrumbs: {},
-                loading: true,
-                allDirectories: {},
 
-                // modal windows
+                /**
+                 * The currently highlighted file
+                 */
+                currentFile: null,
+
+                /**
+                 * The current path that the media manager is displaying
+                 */
+                currentPath: null,
+
+                /**
+                 * All of the files within the current path
+                 */
+                files: {},
+
+                /**
+                 * The current path's folder name
+                 */
+                folderName: null,
+
+                /**
+                 * All of the subfolders within the current path
+                 */
+                folders: {},
+
+                /**
+                 * Property to show the loading indicator
+                 */
+                loading: true,
+
+
+                /**
+                 * properties to show and hide internal modal windows
+                 */
                 showCreateFolderModal: false,
                 showMoveItemModal: false,
                 showRenameItemModal: false
@@ -222,8 +266,10 @@
 
         watch: {
             show: function (open) {
+                /**
+                 * When opening the media manager
+                 */
                 if (open) {
-                    this.reset();
                     this.loadFolder();
                 }
             }
@@ -235,47 +281,44 @@
             }
         },
 
-        ready: function () {
-
-            // if not modal load root folder
-            if ( ! this.isModal ) {
-                // for some reason we need to delay this otherwise an error is produced
-                setTimeout(function () {
-                    this.loadFolder();
-                }.bind(this), 500);
-            }
-        },
-
         computed: {
             itemsCount: function () {
                 return this.files.length + Object.keys(this.folders).length;
             }
         },
 
+        ready: function()
+        {
+            /**
+             * If this instance is modal we only want to load the root file structure when
+             * the modal window is show, otherwise a request to get the root path would
+             * be made un-necessarily. However if this isn't a modal window instance
+             * then we need to automatically load the root file contents so that
+             * some file data is displayed to the user upon component render.
+             */
+            if( ! this.isModal )
+            {
+                /**
+                 * I have no idea why this time out is needed but calling loadFolder()
+                 * when the component is ready doesn't work unless there is a short
+                 * delay.
+                 */
+                setTimeout(function() {
+                    this.loadFolder();
+                }.bind(this), 500);
+            }
+        },
+
         methods: {
 
             close: function () {
-                this.show = false;
-            },
-
-            reset: function () {
+                this.breadCrumbs = {};
                 this.currentFile = null;
                 this.currentPath = null;
+                this.files = {};
                 this.folderName = null;
                 this.folders = {};
-                this.files = {};
-                this.breadCrumbs = {};
-            },
-
-            responseError: function (response) {
-
-                if (response.data.error) {
-                    this.notify(response.data.error, 'danger');
-                }
-
-                this.$set('loading', false);
-                this.$set('currentFile', null);
-                this.$set('selectedFile', null);
+                this.show = false;
             },
 
             loadFolder: function (path) {
@@ -288,17 +331,21 @@
 
                 this.$http.get('/admin/browser/index?path=' + path).then(
                         function (response) {
-                            this.$set('loading', false);
-                            this.$set('folderName', response.data.folderName);
-                            this.$set('folders', response.data.subfolders);
-                            this.$set('files', response.data.files);
                             this.$set('breadCrumbs', response.data.breadcrumbs);
                             this.$set('currentFile', null);
                             this.$set('currentPath', response.data.folder);
-                            this.$set('selectedFile', null);
+                            this.$set('loading', false);
+                            this.$set('files', response.data.files);
+                            this.$set('folderName', response.data.folderName);
+                            this.$set('folders', response.data.subfolders);
                         },
                         function (response) {
-                            this.responseError(response);
+                            if (response.data.error) {
+                                this.notify(response.data.error, 'danger');
+                            }
+
+                            this.$set('loading', false);
+                            this.$set('currentFile', null);
                         }
                 );
             },
@@ -317,21 +364,48 @@
 
             deleteFile: function () {
                 if (this.currentFile) {
-                    var data = {'path': this.currentFile.fullPath};
+                    var data = {
+                        'path': this.currentFile.fullPath
+                    };
                     this.delete('/admin/browser/delete', data);
                 }
             },
 
             deleteFolder: function () {
                 if (this.isFolder(this.currentFile)) {
-                    var data = {'folder': this.currentPath, 'del_folder': this.currentFile};
+                    var data = {
+                        'folder': this.currentPath,
+                        'del_folder': this.currentFile
+                    };
                     this.delete('/admin/browser/folder', data);
                 }
+            },
+
+            delete: function (route, payload) {
+                this.loading = true;
+                this.$http.delete(route, {body: payload}).then(
+                        function (response) {
+                            this.notify(response.data.success);
+                            this.loadFolder(this.currentPath);
+                        },
+                        function (response) {
+                            var error = (response.data.error) ? response.data.error : response.statusText;
+                            this.notify(error, 'danger');
+                            if (response.data.notices) this.notify(response.data.notices);
+                            this.loadFolder(this.currentPath);
+                        }
+                );
             },
 
             uploadFile: function (event) {
                 event.preventDefault();
 
+                /**
+                 * Create a new form request object.
+                 * Gather all of the files to be uploaded and append them to it.
+                 * Attach the current path so the server knows where to upload the files to.
+                 * Send a post request to the server with the payload...
+                 */
                 var form = new FormData();
                 var files = event.target.files || event.dataTransfer.files;
 
@@ -340,51 +414,29 @@
                 }
                 form.append('folder', this.currentPath);
 
-                this.post('/admin/browser/file', form);
-            },
-
-            delete: function (route, payload) {
                 this.loading = true;
-                this.$http.delete(route, {body: payload}).then(
+                this.$http.post('/admin/browser/file', form).then(
                         function (response) {
-                            if (response.data.success){
-                                this.notify(response.data.success);
-                            }
+                            this.notify(response.data.success);
                             this.loadFolder(this.currentPath);
                         },
                         function (response) {
-                            this.loadFolder(this.currentPath);
                             var error = (response.data.error) ? response.data.error : response.statusText;
-                            this.notify(error, 'danger');
+                            // when uploading we might have some files uploaded and others fail
                             if (response.data.notices) this.notify(response.data.notices);
-                            this.$set('loading', false);
-                        }
-                );
-            },
-
-            post: function (route, payload) {
-                this.loading = true;
-                this.$http.post(route, payload).then(
-                        function (response) {
-                            if (response.data.success) this.notify(response.data.success);
-                            this.loadFolder(this.currentPath);
-                        },
-                        function (response) {
-                            this.loadFolder(this.currentPath);
-                            var error = (response.data.error) ? response.data.error : response.statusText;
                             this.notify(error, 'danger');
-
-                            //sometimes we get errors but also notices
-                            if (response.data.notices) this.notify(response.data.notices);
-                            this.$set('loading', false);
+                            this.loadFolder(this.currentPath);
                         }
                 );
 
             },
 
-            selectFile: function ( ) {
-                if( this.selectedEventName ) {
-                    this.$dispatch( this.selectedEventName , this.currentFile);
+            selectFile: function () {
+                /**
+                 * Only dispatch an event if a custom event has been defined
+                 */
+                if (this.selectedEventName) {
+                    this.$dispatch('media-manager-selected-' + this.selectedEventName, this.currentFile);
                 }
             }
         }
