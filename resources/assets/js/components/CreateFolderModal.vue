@@ -68,13 +68,13 @@
 
                     this.$http.post('/admin/browser/folder', data).then(
                             function (response) {
-                                console.log(response);
-                                this.$dispatch('reload-folder', response.data.success);
+                                this.$dispatch('media-manager-reload-folder');
+                                this.$dispatch('media-manager-notification', response.data.success);
                                 this.close();
                             },
                             function (response) {
                                 var error = (response.data.error) ? response.data.error : response.statusText;
-                                console.log(error);
+                                this.$dispatch('media-manager-notification', error, 'danger');
                                 this.close();
                             }
                     );

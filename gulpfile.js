@@ -10,7 +10,7 @@ elixir(function (mix) {
         'media-manager.scss'
     ], 'public/css/media-manager.css');
 
-    mix.webpack('mediamanager.js', 'public/js/mediamanager.js');
+    mix.webpack('media-manager.js', 'public/js/media-manager.js');
 
     mix.copy('resources/assets/fonts', 'public/fonts/');
 

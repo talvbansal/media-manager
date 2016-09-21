@@ -147,7 +147,7 @@
             </div>
 
             <div class="buttons">
-                <button type="button" class="btn btn-primary" v-show="currentFile && !isFolder(currentFile) && isModal" @click="selectFile(currentFile)">
+                <button type="button" class="btn btn-primary" v-show="currentFile && !isFolder(currentFile) && isModal" @click="selectFile()">
                     Select File
                 </button>
                 <button type="button" class="btn btn-default" v-if="isModal" @click="close">
@@ -185,12 +185,17 @@
 
         props: {
             show: {
+                type: Boolean,
                 required: false
             },
 
             isModal: {
                 type: Boolean,
                 required: false
+            },
+
+            selectedEventName:{
+                required : false
             }
         },
 
@@ -205,9 +210,9 @@
                 files: {},
                 breadCrumbs: {},
                 loading: true,
-                insertIntoEditor: false,
                 allDirectories: {},
 
+                // modal windows
                 showCreateFolderModal: false,
                 showMoveItemModal: false,
                 showRenameItemModal: false
@@ -217,15 +222,15 @@
 
         watch: {
             show: function (open) {
-                if (open) this.loadFolder();
+                if (open) {
+                    this.reset();
+                    this.loadFolder();
+                }
             }
         },
 
         events: {
-            'reload-folder': function (message) {
-                if (message) {
-                    console.log(message);
-                }
+            'media-manager-reload-folder': function () {
                 this.loadFolder();
             }
         },
@@ -233,7 +238,8 @@
         ready: function () {
 
             // if not modal load root folder
-            if (!this.isModal) {
+            if ( ! this.isModal ) {
+                // for some reason we need to delay this otherwise an error is produced
                 setTimeout(function () {
                     this.loadFolder();
                 }.bind(this), 500);
@@ -247,9 +253,6 @@
         },
 
         methods: {
-            open: function () {
-                this.loadFolder();
-            },
 
             close: function () {
                 this.show = false;
@@ -267,7 +270,7 @@
             responseError: function (response) {
 
                 if (response.data.error) {
-                    //systemNotification(response.data.error);
+                    this.notify(response.data.error, 'danger');
                 }
 
                 this.$set('loading', false);
@@ -335,67 +338,54 @@
                 for (var key in files) {
                     form.append('files[' + key + ']', files[key]);
                 }
-
                 form.append('folder', this.currentPath);
 
                 this.post('/admin/browser/file', form);
             },
 
-            delete: function (route, payload, callback) {
+            delete: function (route, payload) {
                 this.loading = true;
                 this.$http.delete(route, {body: payload}).then(
                         function (response) {
-                            //if (response.data.success) systemNotification(response.data.success);
+                            if (response.data.success){
+                                this.notify(response.data.success);
+                            }
                             this.loadFolder(this.currentPath);
-                            if (typeof callback == 'function') callback();
-                        }.bind(this),
+                        },
                         function (response) {
                             this.loadFolder(this.currentPath);
                             var error = (response.data.error) ? response.data.error : response.statusText;
-                            console.log(error);
-                            //this.notify(error, 'danger');
-                            //if (response.data.notices) this.notify(response.data.notices);
-
+                            this.notify(error, 'danger');
+                            if (response.data.notices) this.notify(response.data.notices);
                             this.$set('loading', false);
                         }
                 );
             },
 
-            post: function (route, payload, callback) {
+            post: function (route, payload) {
                 this.loading = true;
                 this.$http.post(route, payload).then(
                         function (response) {
-                            //if (response.data.success) systemNotification(response.data.success);
+                            if (response.data.success) this.notify(response.data.success);
                             this.loadFolder(this.currentPath);
-                            if (typeof callback == 'function') callback();
-
-                        }.bind(this),
+                        },
                         function (response) {
                             this.loadFolder(this.currentPath);
                             var error = (response.data.error) ? response.data.error : response.statusText;
-                            //this.notify(error, 'danger');
-                            //if (response.data.notices) this.notify(response.data.notices);
-                            console.log(error);
+                            this.notify(error, 'danger');
+
+                            //sometimes we get errors but also notices
+                            if (response.data.notices) this.notify(response.data.notices);
                             this.$set('loading', false);
                         }
                 );
 
             },
 
-            notify: function (notices, type) {
-                if (typeof notices == 'object') {
-                    for (var i = 0, len = notices.length; i < len; i++) {
-                        systemNotification(notices[i], type);
-                    }
-                    return
-
+            selectFile: function ( ) {
+                if( this.selectedEventName ) {
+                    this.$dispatch( this.selectedEventName , this.currentFile);
                 }
-                systemNotification(notices, type);
-
-            },
-
-            selectFile: function () {
-
             }
         }
     }
