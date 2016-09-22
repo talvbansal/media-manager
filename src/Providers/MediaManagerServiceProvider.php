@@ -16,8 +16,6 @@ class MediaManagerServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        // Load the view files
-        $this->loadViewsFrom(MEDIA_MANAGER_BASE_PATH.'/resources/views', 'media-manager');
         // Load language files
         $this->loadTranslationsFrom(MEDIA_MANAGER_BASE_PATH.'/resources/lang', 'media-manager');
 
@@ -40,7 +38,7 @@ class MediaManagerServiceProvider extends ServiceProvider
     }
 
     /**
-     * Publish views to host application
+     * Publish assets to host application
      * This is only when the application is run in the console.
      */
     private function defineResources()
