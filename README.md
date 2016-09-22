@@ -39,7 +39,7 @@
 - An existing [Laravel 5.3](https://laravel.com/docs/master/installation) project
 
 
-<h3>Installation</h3>
+<h2>Installation</h2>
 
 1. You can download the Media Manager using composer 
 
@@ -126,7 +126,7 @@ It provides the `csrfToken` used for the `vue-resource` http requests that the M
 </script>
 ```
 
-<h3>Media Manager Components</h3>
+<h2>Media Manager Components</h2>
 
 The Media Manager package will register 2 new usable `vue.js` components:
 - `<media-manager>`
@@ -189,7 +189,7 @@ Here is an example of all of the above:
 
 As well as providing all of the functionality that the normal `<media-manager>` component gives, when in a modal window buttons to close the window and `select` files are rendered. 
 
-<h3>Notification Events</h3>
+<h2>Notification Events</h2>
 So that you can make use of your existing notification system the Media Manager dispatched events that you can listen to using Vue's `events` listeners. The event dispatched for notifications is called `media-manager-notification`. 
 When a `media-manager-notification` is dispatched it sends the following information `(message, type, time)`. 
 
@@ -211,7 +211,7 @@ When a `media-manager-notification` is dispatched it sends the following informa
 ```
 
 
-<h3>Selected Item Events</h3>
+<h2>Selected Item Events</h2>
 When the Media Manager is opened within a modal window the ability to `select` an item is made. Like notifications `select` will mean different things depending on the use of the application and there may event be a number of different uses cases for the Media Manager within an application.
 To handle instances where different things may need to happen when select is called the Media Manager lets you define a custom `event` name to be dispatched using the `selected-event-name` property:
 ```
