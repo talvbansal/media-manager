@@ -1,5 +1,12 @@
 @import 'icon-code.scss';
 
+// Layout
+
+.vertical-center {
+  display: flex;
+  align-items: center;
+}
+
 // Loading Animation
 
 @keyframes anim-rotate {
