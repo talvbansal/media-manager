@@ -45,7 +45,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
         //create temp folder
         $app['config']->set('filesystems.disks.public', [
             'driver' => 'local',
-            'root'   => $this->getPublicDir(),
+            'root'   => $this->getStoragePath(),
         ]);
     }
 

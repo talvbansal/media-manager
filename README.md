@@ -187,6 +187,8 @@ Here is an example of all of the above:
 </body>
 ```
 
+As well as providing all of the functionality that the normal `<media-manager>` component gives, when in a modal window buttons to close the window and `select` files are rendered. 
+
 <h3>Notification Events</h3>
 So that you can make use of your existing notification system the Media Manager dispatched events that you can listen to using Vue's `events` listeners. The event dispatched for notifications is called `media-manager-notification`. 
 When a `media-manager-notification` is dispatched it sends the following information `(message, type, time)`. 

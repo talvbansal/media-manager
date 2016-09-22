@@ -14,5 +14,5 @@ elixir(function (mix) {
 
     mix.copy('resources/assets/fonts', 'public/fonts/');
 
-    //mix.phpUnit();
+    mix.phpUnit();
 });
