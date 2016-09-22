@@ -145,12 +145,12 @@ Just create a `<media-manager>` tag within the scope of your Vue instance:
 </body>
 ```
 This will create a Media Manager that will allow you to do all of the following:
-    - Navigate directories
-    - Upload new files
-    - Create new folders
-    - Rename items
-    - Move items
-    - Delete items
+- Navigate directories
+- Upload new files
+- Create new folders
+- Rename items
+- Move items
+- Delete items
     
 <h4>Modal Window Media Manager</h4>
 Setting up a Media Manager within a modal window requires a bit more markup and configuration.
