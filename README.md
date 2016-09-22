@@ -10,8 +10,8 @@
         <img src="https://api.travis-ci.org/talvbansal/media-manager.svg" alt="Build Status" />
     </a>
     
-    <a href="https://styleci.io/repos/63001540" target="_blank">
-        <img src="https://styleci.io/repos/63001540/shield?style=flat" alt="Style CI" />
+    <a href="https://styleci.io/repos/66978705" target="_blank">
+        <img src="https://styleci.io/repos/66978705/shield?style=flat" alt="Style CI" />
     </a>
     
     <a href="https://github.com/talvbansal/media-manager/issues" target="_blank">

@@ -22,7 +22,7 @@ class MediaManagerTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->mediaManager = new  \TalvBansal\MediaManager\Services\MediaManager(new \Dflydev\ApacheMimeTypes\PhpRepository);
+        $this->mediaManager = new  \TalvBansal\MediaManager\Services\MediaManager(new \Dflydev\ApacheMimeTypes\PhpRepository());
     }
 
     /**
