@@ -17,6 +17,10 @@ export default {
         },
 
         notify: function (notices, type, time) {
+
+            if (!type) type = 'inverse';
+            if (!time) time = 4000;
+
             if (typeof notices == 'object') {
                 for (var i = 0, len = notices.length; i < len; i++) {
                     this.$dispatch('media-manager-notification', notices[i], type, time);

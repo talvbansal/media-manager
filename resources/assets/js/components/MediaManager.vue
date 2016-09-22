@@ -13,7 +13,7 @@
                         <input type="file" class="hidden" @change="uploadFile" name="files[]" multiple="multiple"/>
                     </label>
 
-                    <button class="btn btn-primary btn-icon-text" type="button" title="Add Folder" @click="showCreateFolder = true">
+                    <button class="btn btn-primary btn-icon-text" type="button" title="Add Folder" @click="showCreateFolderModal = true">
                         <i class="icon-folder-plus"></i>
                         <span class="hidden-xs">Add folder</span>
                     </button>
@@ -66,7 +66,7 @@
 
             <div class="row">
 
-                <div :class="{ 'col-sm-12' : !currentFile || isFolder(currentFile), 'col-sm-9  col-lg-10' : currentFile && ! isFolder(currentFile) }" class="col-xs-12">
+                <div :class="{ 'col-sm-12' : !currentFile || isFolder(currentFile), 'col-sm-9' : currentFile && ! isFolder(currentFile) }" class="col-xs-12">
 
                     <div v-show="loading" transition="fade" class="text-center">
                         <div class="spinner icon-spinner2"></div>
@@ -111,7 +111,7 @@
                     </div>
                 </div>
 
-                <div v-if="currentFile && !isFolder(currentFile)" class="easel-file-picker-sidebar hidden-xs col-sm-3 col-lg-2">
+                <div v-if="currentFile && !isFolder(currentFile)" class="easel-file-picker-sidebar hidden-xs col-sm-3">
 
                     <img v-if="isImage(currentFile)" id="easel-preview-image" class="img-responsive center-block" :src="currentFile.webPath" style="max-height: 200px" transition="fade"/>
 

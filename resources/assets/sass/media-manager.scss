@@ -10,24 +10,82 @@
     transform: rotate(360deg);
   }
 }
+
 .spinner {
   display: inline-block;
-  font-size:4em;
+  font-size: 4em;
   height: 1em;
   line-height: 1;
   margin: .5em;
   animation: anim-rotate 2s infinite linear;
   color: #333;
-  text-shadow: 0 0 .25em rgba(255,255,255, .3);
+  text-shadow: 0 0 .25em rgba(255, 255, 255, .3);
 }
+
 .spinner--steps {
   animation: anim-rotate 1s infinite steps(8);
 }
+
 .spinner--steps2 {
   animation: anim-rotate 1s infinite steps(12);
 }
 
-// File Uploader Styles
+// Modal Window Styles...
+.modal-mask {
+  position: fixed;
+  z-index: 9998;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .5);
+  transition: opacity .3s ease;
+}
+
+.modal-container {
+  width: auto;
+  margin: 3em;
+  padding: 1.5em;
+  background-color: #fff;
+  border-radius: 2px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
+  transition: all .3s ease;
+
+  &.small {
+    margin: 3em auto;
+    min-width: 600px;
+    width: 33%;
+  }
+
+  &.medium {
+    margin: 3em auto;
+    min-width: 600px;
+    width: 66%;
+  }
+
+}
+
+.modal-header h3 {
+  margin-top: 0;
+}
+
+.modal-body {
+  margin: 20px 0;
+  max-height: calc(100vh - 265px);
+  overflow-y: auto;
+}
+
+.modal-enter, .modal-leave {
+  opacity: 0;
+}
+
+.modal-enter .modal-container,
+.modal-leave .modal-container {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+// Media Manager Styles...
 #easel-file-picker {
 
   .modal-header {
@@ -59,11 +117,11 @@
     padding: 1rem;
     width: auto;
 
-    .breadcrumb{
+    .breadcrumb {
       background-color: transparent;
       border-bottom: 1px solid #f0f0f0;
-      li{
-        a{
+      li {
+        a {
           color: #a9a9a9;
           &.active {
             color: #7c7c7c;
@@ -79,17 +137,15 @@
 
     }
 
-    &.modal-dialog{
+    &.modal-dialog {
       margin-top: 2rem;
     }
-
-
 
     .word-wrappable {
       word-wrap: break-word;
     }
 
-    $editor-height : 60vh;
+    $editor-height: 60vh;
     .easel-file-picker-list {
       height: $editor-height;
       overflow-y: scroll;
@@ -97,8 +153,8 @@
       .table {
         tbody {
           tr {
-            &.active{
-              td{
+            &.active {
+              td {
                 background-color: #fffcbe;
               }
             }
@@ -113,7 +169,7 @@
               transition: background-color 0.15s ease-in-out 0.05s;
               padding-left: 7px;
               border-top: 1px solid #f0f0f0;
-              a{
+              a {
                 margin-left: 0.5em;
               }
             }
