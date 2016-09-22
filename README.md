@@ -1,7 +1,7 @@
 <h1 align="center">Media Manager</h1>
 
 <p align="center">
-    A basic file manager and uploader for **Laravel** written in **vue.js**
+    A basic file manager and uploader for <strong>Laravel</strong> written in <strong>vue.js</strong>
 </p>
 
 <div align="center">
