@@ -156,10 +156,10 @@ This will create a Media Manager that will allow you to do all of the following:
 Setting up a Media Manager within a modal window requires a bit more markup and configuration.
 
 You'll need to the following: 
-    1. Add the `<media-manager>` component with a `<media-modal>`  component.
-    2. On your root vue instance create a boolean property to hold the visible state of the modal window and add it to the Media Manager's and Modal Window's `show` property, make sure they're both set to `show.sync` so that the window can close itself 
-    3. Add the `:is-modal="true"` property to the Media Manager component : `<media-manager :is-modal="true">`
-    4. Create a button to open the modal window and get it change the `show` property (created in step 2) to `true`
+- Add the `<media-manager>` component with a `<media-modal>`  component.
+- On your root vue instance create a boolean property to hold the visible state of the modal window and add it to the Media Manager's and Modal Window's `show` property, make sure they're both set to `show.sync` so that the window can close itself 
+- Add the `:is-modal="true"` property to the Media Manager component : `<media-manager :is-modal="true">`
+- Create a button to open the modal window and get it change the `show` property (created in step 2) to `true`
 
 Here is an example of all of the above:
 ```
