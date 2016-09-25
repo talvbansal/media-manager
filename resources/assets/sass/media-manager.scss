@@ -7,6 +7,20 @@
   align-items: center;
 }
 
+.btn{
+  > [class*=" icon-"],
+  > [class^="icon-"]{
+    padding-right: 5px;
+  }
+}
+
+.label{
+  > [class*=" icon-"],
+  > [class^="icon-"]{
+    padding-right: 5px;
+  }
+}
+
 // Loading Animation
 
 @keyframes anim-rotate {
@@ -162,7 +176,12 @@
           tr {
             &.active {
               td {
-                background-color: #fffcbe;
+                background-color: #0078e7;
+                color: #fff;
+                a{
+                  color:#fff;
+                }
+
               }
             }
 
