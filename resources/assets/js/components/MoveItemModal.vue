@@ -45,7 +45,7 @@
                 allDirectories: {},
                 newFolderLocation: null,
                 loading: false,
-                size: 'medium'
+                size: 'modal-medium'
             }
         },
 

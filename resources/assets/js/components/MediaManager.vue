@@ -33,7 +33,7 @@
                         <span class="hidden-xs">Move</span>
                     </button>
 
-                    <button class="btn btn-default btn-icon-text" type="button" :disabled="!currentFile" @click="deleteItem()" title="Delete">
+                    <button class="btn btn-default btn-icon-text" type="button" :disabled="!currentFile" @click="showDeleteItemModal = true" title="Delete">
                         <i class="icon-bin"></i>
                         <span class="hidden-xs">Delete</span>
                     </button>
@@ -176,6 +176,13 @@
         >
         </media-rename-item-modal>
 
+        <media-delete-item-modal
+                :show.sync="showDeleteItemModal"
+                :current-path.sync="currentPath"
+                :current-file.sync="currentFile"
+        >
+        </media-delete-item-modal>
+
     </div>
 
 </template>
@@ -258,6 +265,7 @@
                  * properties to show and hide internal modal windows
                  */
                 showCreateFolderModal: false,
+                showDeleteItemModal: false,
                 showMoveItemModal: false,
                 showRenameItemModal: false
 
@@ -352,49 +360,6 @@
 
             previewFile: function (file) {
                 this.currentFile = file;
-            },
-
-            deleteItem: function () {
-
-                if (this.isFolder(this.currentFile)) {
-                    return this.deleteFolder();
-                }
-                return this.deleteFile();
-            },
-
-            deleteFile: function () {
-                if (this.currentFile) {
-                    var data = {
-                        'path': this.currentFile.fullPath
-                    };
-                    this.delete('/admin/browser/delete', data);
-                }
-            },
-
-            deleteFolder: function () {
-                if (this.isFolder(this.currentFile)) {
-                    var data = {
-                        'folder': this.currentPath,
-                        'del_folder': this.currentFile
-                    };
-                    this.delete('/admin/browser/folder', data);
-                }
-            },
-
-            delete: function (route, payload) {
-                this.loading = true;
-                this.$http.delete(route, {body: payload}).then(
-                        function (response) {
-                            this.notify(response.data.success);
-                            this.loadFolder(this.currentPath);
-                        },
-                        function (response) {
-                            var error = (response.data.error) ? response.data.error : response.statusText;
-                            this.notify(error, 'danger');
-                            if (response.data.notices) this.notify(response.data.notices);
-                            this.loadFolder(this.currentPath);
-                        }
-                );
             },
 
             uploadFile: function (event) {

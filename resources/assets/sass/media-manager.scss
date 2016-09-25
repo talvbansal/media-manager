@@ -58,13 +58,13 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
   transition: all .3s ease;
 
-  &.small {
+  &.modal-small {
     margin: 3em auto;
     min-width: 600px;
     width: 33%;
   }
 
-  &.medium {
+  &.modal-medium {
     margin: 3em auto;
     min-width: 600px;
     width: 66%;

@@ -36,7 +36,7 @@
         data: function () {
             return {
                 newFolderName: null,
-                size: 'medium',
+                size: 'modal-medium',
                 loading: false
             }
         },
