@@ -62,6 +62,10 @@
   transition: opacity .3s ease;
 }
 
+.modal.media-modal.modal-mask{
+  display: inherit;
+}
+
 .modal-container {
   width: auto;
   margin: 3em;
