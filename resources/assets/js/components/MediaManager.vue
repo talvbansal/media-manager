@@ -69,7 +69,7 @@
                 <div :class="{ 'col-sm-12' : !currentFile || isFolder(currentFile), 'col-sm-9' : currentFile && ! isFolder(currentFile) }" class="col-xs-12">
 
                     <div v-show="loading" transition="fade" class="text-center">
-                        <div class="spinner icon-spinner2"></div>
+                        <span class="spinner icon-spinner2"></span>Loading...
                     </div>
 
                     <div v-else class="table-responsive easel-file-picker-list" transition="fade">
@@ -126,11 +126,13 @@
                             <td class="file-value">{{ currentFile.size | humanFileSize }}</td>
                         </tr>
                         <tr>
-                            <td class="description">Public URL</td>
-                            <td class="file-value"><a :href="currentFile.webPath" target="_blank" rel="noopener">Click Here</a></td>
+                            <td class="description">URL</td>
+                            <td class="file-value">
+                                <a :href="currentFile.webPath" target="_blank" rel="noopener">{{ currentFile.relativePath }}</a>
+                            </td>
                         </tr>
                         <tr>
-                            <td class="description">Date</td>
+                            <td class="description">Uploaded On</td>
                             <td class="file-value">{{ currentFile.modified.date | moment 'L LT' }}</td>
                         </tr>
                         </tbody>

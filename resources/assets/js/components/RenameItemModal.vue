@@ -6,7 +6,7 @@
         </div>
 
         <div v-show="loading" transition="fade" class="text-center">
-            <div class="spinner icon-spinner2"></div>
+            <span class="spinner icon-spinner2"></span>Loading...
         </div>
 
         <div v-else>
@@ -16,7 +16,7 @@
                     <p class="form-control-static">{{ this.getItemName(this.currentFile) }}</p>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group fg-line">
                     <label>New name</label>
                     <input type="text" v-model="newItemName" class="form-control">
                 </div>

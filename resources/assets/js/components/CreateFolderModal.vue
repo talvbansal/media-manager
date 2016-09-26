@@ -6,14 +6,14 @@
         </div>
 
         <div v-show="loading" transition="fade" class="text-center">
-            <div class="spinner icon-spinner2"></div>
+            <span class="spinner icon-spinner2"></span>Loading...
         </div>
 
         <div v-else>
             <div class="modal-body">
-                <div class="form-group">
+                <div class="form-group fg-line">
                     <label>Folder name</label>
-                    <input type="text" value="" v-model="newFolderName" class="form-control">
+                    <input type="text" v-model="newFolderName" class="form-control">
                 </div>
             </div>
 

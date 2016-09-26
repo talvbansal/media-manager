@@ -6,7 +6,7 @@
         </div>
 
         <div v-show="loading" transition="fade" class="text-center">
-            <div class="spinner icon-spinner2"></div>
+            <span class="spinner icon-spinner2"></span>Loading...
         </div>
 
         <div v-else>
