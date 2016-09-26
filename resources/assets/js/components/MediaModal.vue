@@ -1,7 +1,9 @@
 <template>
     <div class="modal-mask" @click="close" v-show="show" transition="modal">
-        <div class="modal-container" @click.stop  :class="[size]">
-            <slot></slot>
+        <div class="modal-dialog" :class="[size]" @click.stop>
+            <div class="modal-content">
+                <slot></slot>
+            </div>
         </div>
     </div>
 </template>
@@ -19,7 +21,7 @@
                 required: false
             },
             size: {
-                default: null
+                default: 'modal-lg'
             }
         },
         methods: {

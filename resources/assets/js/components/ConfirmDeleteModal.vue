@@ -38,7 +38,7 @@
             return {
                 loading: false,
                 newItemName: null,
-                size: 'modal-small'
+                size: 'modal-md'
             }
         },
 

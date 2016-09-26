@@ -70,22 +70,13 @@
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
   transition: all .3s ease;
-
-  &.modal-small {
-    margin: 3em auto;
-    min-width: 600px;
-    width: 33%;
-  }
-
-  &.modal-medium {
-    margin: 3em auto;
-    min-width: 600px;
-    width: 66%;
-  }
-
+}
+.modal-lg {
+  margin: 2em !important;
+  width: auto !important;
 }
 
-.modal-header h3 {
+.modal-header h4 {
   margin-top: 0;
 }
 
@@ -108,12 +99,7 @@
 // Media Manager Styles...
 #easel-file-picker {
 
-  .modal-header {
-    border-bottom: 1px solid rgb(240, 240, 240);
-  }
-
   .modal-footer {
-    border-top: 1px solid rgb(240, 240, 240);
 
     &.vertical-center {
 

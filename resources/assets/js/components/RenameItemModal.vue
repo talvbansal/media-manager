@@ -42,7 +42,7 @@
             return {
                 loading: false,
                 newItemName: null,
-                size: 'modal-medium'
+                size: 'modal-md'
             }
         },
 
