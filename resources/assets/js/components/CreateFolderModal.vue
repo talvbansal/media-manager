@@ -15,6 +15,9 @@
                     <label>Folder name</label>
                     <input type="text" v-model="newFolderName" class="form-control">
                 </div>
+
+                <media-errors :errors="errors"></media-errors>
+
             </div>
 
             <div class="modal-footer">
@@ -36,6 +39,7 @@
         data: function () {
             return {
                 newFolderName: null,
+                errors: [],
                 size: 'modal-md',
                 loading: false
             }
@@ -52,13 +56,16 @@
         methods: {
             close: function () {
                 this.newFolderName = null;
+                this.errors = [];
                 this.loading = false;
                 this.show = false;
             },
 
             createFolder: function () {
 
-                if (this.newFolderName) {
+                if ( ! this.newFolderName) {
+                    this.errors = ['Please provide a name for the new folder'];
+                }else{
                     this.loading = true;
 
                     var data = {
@@ -74,8 +81,8 @@
                             },
                             function (response) {
                                 var error = (response.data.error) ? response.data.error : response.statusText;
-                                this.$dispatch('media-manager-notification', error, 'danger');
-                                this.close();
+                                this.errors = [error];
+                                this.loading = false;
                             }
                     );
                 }

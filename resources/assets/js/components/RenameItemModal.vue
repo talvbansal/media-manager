@@ -20,6 +20,9 @@
                     <label>New name</label>
                     <input type="text" v-model="newItemName" class="form-control">
                 </div>
+
+                <media-errors :errors="errors"></media-errors>
+
             </div>
 
             <div class="modal-footer">
@@ -40,6 +43,7 @@
 
         data: function () {
             return {
+                errors: [],
                 loading: false,
                 newItemName: null,
                 size: 'modal-md'
@@ -56,6 +60,7 @@
 
         methods: {
             close: function () {
+                this.errors = [];
                 this.newItemName = null;
                 this.loading = false;
                 this.show = false;
@@ -63,28 +68,32 @@
 
             renameItem: function () {
 
-                this.loading = true;
-                var original = this.getItemName(this.currentFile);
+                if ( ! this.newItemName ) {
+                    this.errors = ['Please provide a new name for this item'];
+                }else{
+                    this.loading = true;
+                    var original = this.getItemName(this.currentFile);
 
-                var data = {
-                    'path': this.currentPath,
-                    'original': original,
-                    'newName': this.newItemName,
-                    'type': (this.isFolder(this.currentFile)) ? 'Folder' : 'File'
-                };
+                    var data = {
+                        'path': this.currentPath,
+                        'original': original,
+                        'newName': this.newItemName,
+                        'type': (this.isFolder(this.currentFile)) ? 'Folder' : 'File'
+                    };
 
-                this.$http.post('/admin/browser/rename', data).then(
-                        function (response) {
-                            this.$dispatch('media-manager-reload-folder');
-                            this.$dispatch('media-manager-notification', response.data.success);
-                            this.close();
-                        },
-                        function (response) {
-                            var error = (response.data.error) ? response.data.error : response.statusText;
-                            this.$dispatch('media-manager-notification', error, 'danger');
-                            this.loading = false;
-                        }
-                );
+                    this.$http.post('/admin/browser/rename', data).then(
+                            function (response) {
+                                this.$dispatch('media-manager-reload-folder');
+                                this.$dispatch('media-manager-notification', response.data.success);
+                                this.close();
+                            },
+                            function (response) {
+                                var error = (response.data.error) ? response.data.error : response.statusText;
+                                this.errors = [error];
+                                this.loading = false;
+                            }
+                    );
+                }
             }
         }
 

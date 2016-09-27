@@ -25,6 +25,7 @@ VueTouch.registerCustomEvent('doubletap', {
 Vue.component('media-modal', require('./components/MediaModal.vue'));
 Vue.component('media-create-folder-modal', require('./components/CreateFolderModal.vue'));
 Vue.component('media-delete-item-modal', require('./components/ConfirmDeleteModal.vue'));
+Vue.component('media-errors', require('./components/Errors.vue'));
 Vue.component('media-move-item-modal', require('./components/MoveItemModal.vue'));
 Vue.component('media-rename-item-modal', require('./components/RenameItemModal.vue'));
 Vue.component('media-manager', require('./components/MediaManager.vue'));

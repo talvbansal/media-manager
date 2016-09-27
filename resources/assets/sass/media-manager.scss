@@ -7,16 +7,16 @@
   align-items: center;
 }
 
-.btn{
+.btn {
   > [class*=" icon-"],
-  > [class^="icon-"]{
+  > [class^="icon-"] {
     padding-right: 5px;
   }
 }
 
-.label{
+.label {
   > [class*=" icon-"],
-  > [class^="icon-"]{
+  > [class^="icon-"] {
     padding-right: 5px;
   }
 }
@@ -25,7 +25,7 @@
 
 @keyframes anim-rotate {
   0% {
-    transform: rotate(0);
+    transform: rotate(0deg);
   }
   100% {
     transform: rotate(360deg);
@@ -62,7 +62,7 @@
   transition: opacity .3s ease;
 }
 
-.modal.media-modal.modal-mask{
+.modal.media-modal.modal-mask {
   display: inherit;
 }
 
@@ -75,6 +75,7 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
   transition: all .3s ease;
 }
+
 .modal-lg {
   margin: 2em !important;
   width: auto !important;
@@ -98,6 +99,20 @@
 .modal-leave .modal-container {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
+}
+
+/* always present */
+.expand-transition {
+  transition: all 1s ease;
+  overflow: hidden;
+}
+
+/* .expand-enter defines the starting state for entering */
+/* .expand-leave defines the ending state for leaving */
+.expand-enter, .expand-leave {
+  height: 0;
+  padding: 0 10px;
+  opacity: 0;
 }
 
 // Media Manager Styles...
@@ -167,8 +182,8 @@
               td {
                 background-color: #0078e7;
                 color: #fff;
-                a{
-                  color:#fff;
+                a {
+                  color: #fff;
                 }
 
               }
@@ -226,6 +241,17 @@
 }
 
 // Notifications
+.modal-errors {
+  ul {
+    list-style: outside none none;
+    margin: 0;
+    padding: 0;
+    li {
+      color: #f6675d;
+    }
+  }
+}
+
 .alert {
   padding-left: 30px;
   font-size: 13px;
