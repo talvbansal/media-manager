@@ -75,35 +75,46 @@
                     <div v-else class="table-responsive easel-file-picker-list" transition="fade">
                         <table class="table table-condensed table-vmiddle">
                             <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Type</th>
-                                <th>Date</th>
-                            </tr>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>Date</th>
+                                </tr>
                             </thead>
 
                             <tbody>
-                            <tr v-for="(path, folder) in folders" :class="[ (folder == currentFile) ? 'active' : '' ]">
-                                <td>
-                                    <i class="icon-folder"></i>
-                                    <a href="javascript:void(0);" @click="previewFile(folder)" @dblclick="loadFolder(path)" v-touch:doubletap="loadFolder(path)" class="word-wrappable">{{
-                                        folder }}</a>
-                                </td>
-                                <td>-</td>
-                                <td>-</td>
-                            </tr>
+                                <tr v-for="(path, folder) in folders" :class="[ (folder == currentFile) ? 'active' : '' ]">
+                                    <td>
+                                        <i class="icon-folder"></i>
+                                        <a href="javascript:void(0);"
+                                           @click="previewFile(folder)"
+                                           @dblclick="loadFolder(path)"
+                                           @keyup.enter="loadFolder(path)"
+                                           v-touch:doubletap="loadFolder(path)"
+                                           class="word-wrappable">
+                                            {{ folder }}
+                                        </a>
+                                    </td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                </tr>
 
-                            <tr v-for="file in files" :class="[ (file == currentFile) ? 'active' : '' ]">
-                                <td>
-                                    <i v-if="isImage(file)" class="icon-image"></i>
-                                    <i v-else class="icon-file-text2"></i>
-                                    <a href="javascript:void(0);" @click="previewFile(file)" v-touch:doubletap="selectFile(file)" class="word-wrappable">{{
-                                        file.name }}</a>
+                                <tr v-for="file in files" :class="[ (file == currentFile) ? 'active' : '' ]">
+                                    <td>
+                                        <i v-if="isImage(file)" class="icon-image"></i>
+                                        <i v-else class="icon-file-text2"></i>
+                                        <a href="javascript:void(0);"
+                                           @click="previewFile(file)"
+                                           @keyup.enter="selectFile(file)"
+                                           v-touch:doubletap="selectFile(file)"
+                                           class="word-wrappable">
+                                            {{ file.name }}
+                                        </a>
 
-                                </td>
-                                <td> {{ file.mimeType }}</td>
-                                <td> {{ file.modified.date | moment 'L' }}</td>
-                            </tr>
+                                    </td>
+                                    <td> {{ file.mimeType }}</td>
+                                    <td> {{ file.modified.date | moment 'L' }}</td>
+                                </tr>
 
                             </tbody>
                         </table>
