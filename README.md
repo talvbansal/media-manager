@@ -47,27 +47,13 @@
     composer require talvbansal/media-manager
     ```
 
-2. To register the Media Manager, you will need to add the Media Manager service provider to your `config/app.php` file
+2. Add `\TalvBansal\MediaManager\Providers\MediaManagerServiceProvider,` to your `config/app.php` file to your register the Media Manager.
 
-    ```
-    \TalvBansal\MediaManager\Providers\MediaManagerServiceProvider,
-    ```
-3. The service provider **does not** automatically register the routes needed for the Media Manager to work since it is likely that you will want to add middleware to the routes. You can add the following line to your routes file and then wrap it with whichever middleware is necessary for your application
+3. Add `\TalvBansal\MediaManager\Http\Routes::mediaBrowser();` to your appliction's routes file. This will register all of the routes for the Media Manager.
 
-    ```
-    \TalvBansal\MediaManager\Http\Routes::mediaBrowser();
-    ```
-
-4. Publish the assets for the media browser
-    
-    ```
-    php artisan vendor:publish --tag=media-manager
-    ```
+4. Run `php artisan vendor:publish --tag=media-manager --force` to publish the assets for the media browser.
    
-    These assets don't get automatically put into your `public` folder, instead they'll appear in a subfolder called `talvbansal` within your Laravel projects's `resources/assets` folder. 
-    The reason for this is so that you can bundle the resources into your existing scripts using your project's `gulpfile.js` 
-
-    Below is an example of what that may looks like:
+    The Media Manager's assets get published to the following path `/resources/assets/talvbansal`. You can then bundle these with your existing scripts in your projects `gulpfile.js`, for example:
     ```
     //gulpfile.js
     var elixir = require('laravel-elixir');
@@ -94,12 +80,9 @@
     
     ```
 
-5. Link the storage directory to the public folder (read more about this [here](https://laravel.com/docs/5.3/filesystem#the-public-disk) )
-    ```
-    php artisan storage:link
-    ```
+5. Run `php artisan storage:link` to link the `storage/app/public` folder to `public/storage`, your uploaded files will be stored here. Read more about this [on the Laravel documentation](https://laravel.com/docs/5.3/filesystem#the-public-disk).
 
-6. Start using the media-manager components!
+6. Start using the Media Manager components!
 
 <h2>Getting Started</h2>
 
