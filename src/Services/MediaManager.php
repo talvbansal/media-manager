@@ -356,6 +356,7 @@ class MediaManager
      */
     private function fileRelativePath($path)
     {
+        $path = str_replace(' ', '%20', $path);
         return '/storage/'.ltrim($path, '/');
     }
 }
