@@ -1,4 +1,5 @@
 <?php
+use Illuminate\Support\Collection;
 
 /**
  * Created by PhpStorm.
@@ -54,12 +55,11 @@ class MediaManagerTest extends TestCase
     public function test_can_list_root_directory()
     {
         $response = $this->mediaManager->folderInfo('');
-
         $this->assertTrue($response['folder'] == '/');
         $this->assertTrue($response['folderName'] == 'Root');
-        $this->assertTrue(is_array($response['breadcrumbs']));
+        $this->assertTrue($response['breadcrumbs'] instanceof Collection);
         $this->assertTrue(is_array($response['subfolders']));
-        $this->assertTrue(is_array($response['files']));
+        $this->assertTrue($response['files']  instanceof Collection);
     }
 
     public function test_can_create_a_file_in_root_directory()
