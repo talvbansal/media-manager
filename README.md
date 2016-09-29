@@ -1,90 +1,79 @@
-<h1 align="center">Media Manager</h1>
+# Media Manager
 
-<p align="center">
-    A basic file manager and uploader for <strong>Laravel</strong> written in <strong>vue.js</strong>
-</p>
+## A basic file manager and uploader for **Laravel** written in **vue.js**
 
-<div align="center">
+[![Build Status](https://api.travis-ci.org/talvbansal/media-manager.svg)](https://travis-ci.org/talvbansal/media-manager)
+[![Style CI](https://styleci.io/repos/66978705/shield?style=flat)](https://styleci.io/repos/66978705)
+[![Issues](https://img.shields.io/github/issues/talvbansal/media-manager.svg)](https://github.com/talvbansal/media-manager/issues)
+[![Total Downloads](https://poser.pugx.org/talvbansal/media-manager/downloads)](https://packagist.org/packages/talvbansal/media-manager)
+[![SensioLabsInsight](https://img.shields.io/sensiolabs/i/5079adde-e1f8-437e-bc76-285981053298.svg?style=flat)](https://insight.sensiolabs.com/projects/5079adde-e1f8-437e-bc76-285981053298)
+[![License](https://poser.pugx.org/talvbansal/media-manager/license)](https://github.com/talvbansal/media-manager/blob/master/licence)
 
-    <a href="https://travis-ci.org/talvbansal/media-manager" target="_blank">
-        <img src="https://api.travis-ci.org/talvbansal/media-manager.svg" alt="Build Status" />
-    </a>
+## # Introduction
+Media Manager provides a simple way for users to upload and manage content to be used throughout your project.
 
-    <a href="https://styleci.io/repos/66978705" target="_blank">
-        <img src="https://styleci.io/repos/66978705/shield?style=flat" alt="Style CI" />
-    </a>
-
-    <a href="https://github.com/talvbansal/media-manager/issues" target="_blank">
-        <img src="https://img.shields.io/github/issues/talvbansal/media-manager.svg" alt="Issues" />
-    </a>
-
-    <a href="https://packagist.org/packages/talvbansal/media-manager" target="_blank">
-        <img src="https://poser.pugx.org/talvbansal/media-manager/downloads" alt="Downloads" />
-    </a>
-
-    <a href="https://insight.sensiolabs.com/projects/5079adde-e1f8-437e-bc76-285981053298" target="_blank">
-        <img src="https://img.shields.io/sensiolabs/i/5079adde-e1f8-437e-bc76-285981053298.svg?style=flat" alt="SensioLabsInsight"/>
-    </a>
-
-    <a href="https://github.com/talvbansal/media-manager/blob/master/licence" target="_blank">
-        <img src="https://poser.pugx.org/talvbansal/media-manager/license" alt="License" />
-    </a>
-</div>
-
-
-<h2>Requirements</h2>
+## # Requirements
 
 - [PHP](https://php.net) >= 5.6
 - [Composer](https://getcomposer.org)
 - An existing [Laravel 5.3](https://laravel.com/docs/master/installation) project
 
+## # Installation
 
-<h2>Installation</h2>
+To get started, install Media Manager via the Composer package manager: 
+```
+composer require talvbansal/media-manager
+```
 
-1. You can download the Media Manager using composer
+Next, register the Media Manager service provider in the `providers` array of your `config/app.php` configuration file:
+```
+\TalvBansal\MediaManager\Providers\MediaManagerServiceProvider::class,
+```
 
-    ```
-    composer require talvbansal/media-manager
-    ```
+The Media Manager service provider **does not** automatically register routes for the Media Manager to work. This is so that you can add custom middleware around those routes. You can register all of the routes required for the Media Manager by adding the following to your `routes/web.php` file: 
+```
+\TalvBansal\MediaManager\Http\Routes::mediaBrowser();
+```
 
-2. Add `TalvBansal\MediaManager\Providers\MediaManagerServiceProvider::class,` to your `config/app.php` file to your register the Media Manager.
+After registering the Media Manager service provider, you should publish the Media Manager assets using the `vendor:publish` Artisan command: 
+```
+php artisan vendor:publish --tag=media-manager --force
+```
+Media Manager assets are **not** published to the `public` folder as would be normally expected, instead they will be published to `/resources/assets/talvbansal`.
+You can then bundle these with your existing scripts in your projects `gulpfile.js`, for example:
+```
+//gulpfile.js
+var elixir = require('laravel-elixir');
 
-3. Add `\TalvBansal\MediaManager\Http\Routes::mediaBrowser();` to your appliction's routes file. This will register all of the routes for the Media Manager.
+require('laravel-elixir-vue');
 
-4. Run `php artisan vendor:publish --tag=media-manager --force` to publish the assets for the media browser.
+elixir(function(mix) {
 
-    The Media Manager's assets get published to the following path `/resources/assets/talvbansal`. You can then bundle these with your existing scripts in your projects `gulpfile.js`, for example:
-    ```
-    //gulpfile.js
-    var elixir = require('laravel-elixir');
+    // Add additional styles...
+    mix.sass([
+        '../talvbansal/media-manager/css/media-manager.css',
+        'app.scss'
+    ]);
 
-    require('laravel-elixir-vue');
+    // Add dependencies and components...
+    mix.webpack([
+        '../talvbansal/media-manager/js/media-manager.js',
+        'app.js'
+    ]);
 
-    elixir(function(mix) {
+    // Copy SVG images into the public directory...
+    mix.copy( 'resources/assets/talvbansal/media-manager/fonts', 'public/fonts' );
+});
 
-        // Add additional styles...
-        mix.sass([
-            '../talvbansal/media-manager/css/media-manager.css',
-            'app.scss'
-        ]);
+```
 
-        // Add dependencies and components...
-        mix.webpack([
-            '../talvbansal/media-manager/js/media-manager.js',
-            'app.js'
-        ]);
+The media manager uses the `public` disk to store its uploads. The storage path for the `public` disk by default is `storage/app/public`. To make these files accessible from the web, use the following `storage:link` artisan command to generate a symbolic link to `public/storage`:
+```
+php artisan storage:link
+```
+Read more about the public disk [on the Laravel documentation](https://laravel.com/docs/5.3/filesystem#the-public-disk).
 
-        // Copy SVG images into the public directory...
-        mix.copy( 'resources/assets/talvbansal/media-manager/fonts', 'public/fonts' );
-    });
-
-    ```
-
-5. Run `php artisan storage:link` to link the `storage/app/public` folder to `public/storage`, your uploaded files will be stored here. Read more about this [on the Laravel documentation](https://laravel.com/docs/5.3/filesystem#the-public-disk).
-
-6. Start using the Media Manager components!
-
-<h2>Getting Started</h2>
+## # Getting Started
 
 The Media Manager is written in `vue.js` and comes bundled with all the dependencies required to get going very quickly.
 After you've added the dependencies to your layout if your project doesn't already use `vue.js` you'll need to create a **Vue instance** on the page that you want to use the Media Manager on:
@@ -109,7 +98,7 @@ It provides the `csrfToken` used for the `vue-resource` http requests that the M
 </script>
 ```
 
-<h2>Media Manager Components</h2>
+## # Media Manager Components
 
 The Media Manager package will register 2 new usable `vue.js` components:
 - `<media-manager>`
@@ -118,7 +107,7 @@ The Media Manager package will register 2 new usable `vue.js` components:
 The `<media-manager>` component is the core component that provides all of the Media Manager functionality and `<media-modal>` is a component used to build the internal modal windows of the Media Manager.
 The `<media-modal>` component can also be used to open the Media Manager itself inside a modal window.
 
-<h4>Stand Alone Media Manager</h4>
+#### # Stand Alone Media Manager
 
 If you just need an instance of the Media Manager getting started is easy.
 Just create a `<media-manager>` tag within the scope of your Vue instance:
@@ -134,8 +123,8 @@ This will create a Media Manager that will allow you to do all of the following:
 - Rename items
 - Move items
 - Delete items
-
-<h4>Modal Window Media Manager</h4>
+    
+#### Modal Window Media Manager
 
 Setting up a Media Manager within a modal window requires a bit more markup and configuration.
 
@@ -177,7 +166,7 @@ Here is an example of all of the above:
 
 As well as providing all of the functionality that the normal `<media-manager>` component gives, when in a modal window buttons to close the window and `select` files are rendered.
 
-<h2>Notification Events</h2>
+## # Notification Events
 
 So that you can make use of your existing notification system the Media Manager dispatched events that you can listen to using Vue's `events` listeners. The event dispatched for notifications is called `media-manager-notification`.
 When a `media-manager-notification` is dispatched it sends the following information `(message, type, time)`.
@@ -199,7 +188,7 @@ When a `media-manager-notification` is dispatched it sends the following informa
 </script>
 ```
 
-<h2>Selected Item Events</h2>
+## # Selected Item Events
 
 When opening the Media Manager up via a modal window a new `select` event type can be triggered.
 Like notifications `select` will mean different things depending on the use of the application, there may even be a number of different uses cases for the Media Manager within an application.
