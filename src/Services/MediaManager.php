@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Dflydev\ApacheMimeTypes\PhpRepository;
 use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 
 class MediaManager
@@ -45,7 +46,7 @@ class MediaManager
      *               'folder' => 'path to current folder',
      *               'folderName' => 'name of just current folder',
      *               'breadCrumbs' => breadcrumb array of [ $path => $foldername ]
-     *               'folders' => array of [ $path => $foldername] of each subfolder
+     *               'subfolders' => array of [ $path => $foldername] of each subfolder
      *               'files' => array of file details on each file in folder
      *               ]
      */
@@ -53,20 +54,21 @@ class MediaManager
     {
         $folder = $this->cleanFolder($folder);
         $breadcrumbs = $this->breadcrumbs($folder);
-        $slice = array_slice($breadcrumbs, -1);
-        $folderName = current($slice);
-        $breadcrumbs = array_slice($breadcrumbs, 0, -1);
-        $subfolders = [];
-        foreach (array_unique($this->disk->directories($folder)) as $subfolder) {
-            $subfolders["/$subfolder"] = basename($subfolder);
-        }
-        $files = [];
-        foreach ($this->disk->files($folder) as $path) {
+        $folderName = $breadcrumbs->pop();
+
+        // Get sub folders within a folder
+        $subfolders = collect( $this->disk->directories($folder) )->reduce(function($subfolders, $subFolder ){
+            $subfolders["/$subFolder"] = basename($subFolder);
+            return $subfolders;
+        }, []);
+
+        // Get all files within a folder
+        $files = collect($this->disk->files($folder))->map(function($path) {
             // Don't show hidden files or folders
             if (!starts_with(last(explode(DIRECTORY_SEPARATOR, $path)), '.')) {
-                $files[] = $this->fileDetails($path);
+                return $this->fileDetails($path);
             }
-        }
+        });
 
         return compact('folder', 'folderName', 'breadcrumbs', 'subfolders', 'files');
     }
@@ -88,23 +90,19 @@ class MediaManager
      *
      * @param $folder
      *
-     * @return array
+     * @return Collection
      */
     protected function breadcrumbs($folder)
     {
         $folder = trim($folder, '/');
-        $crumbs = ['/' => 'Root'];
-        if (empty($folder)) {
-            return $crumbs;
-        }
-        $folders = explode('/', $folder);
-        $build = '';
-        foreach ($folders as $folder) {
-            $build .= '/'.$folder;
-            $crumbs[$build] = $folder;
-        }
+        $folders = collect( explode('/', $folder ));
+        $path = '';
 
-        return $crumbs;
+        return $folders->reduce(function( $crumbs, $folder ) use ($path){
+            $path .= '/'.$folder;
+            $crumbs[$path] = $folder;
+            return $crumbs;
+        }, collect())->prepend('Root', '/');
     }
 
     /**
