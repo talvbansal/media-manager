@@ -94,9 +94,8 @@
                         },
                         function (response) {
                             var error = (response.data.error) ? response.data.error : response.statusText;
-                            this.$dispatch('media-manager-reload-folder');
                             this.$dispatch('media-manager-notification', error, 'danger');
-                            this.loading = false;
+                            this.close();
                         }
                 );
             }

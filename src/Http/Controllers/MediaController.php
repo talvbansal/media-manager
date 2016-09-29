@@ -61,7 +61,7 @@ class MediaController extends Controller
             $result = $this->mediaManager->createDirectory($folder);
 
             if ($result !== true) {
-                $error = $result ?: trans('media-manager::messages.create_error', ['entity' => 'directory']);
+                $error = $this->mediaManager->errors() ?: trans('media-manager::messages.create_error', ['entity' => 'directory']);
 
                 return $this->errorResponse($error);
             }
@@ -87,7 +87,7 @@ class MediaController extends Controller
         try {
             $result = $this->mediaManager->deleteDirectory($folder);
             if ($result !== true) {
-                $error = $result ?: trans('media-manager::messages.delete_error', ['entity' => 'folder']);
+                $error = $this->mediaManager->errors() ?: trans('media-manager::messages.delete_error', ['entity' => 'folder']);
 
                 return $this->errorResponse($error);
             }
@@ -108,7 +108,7 @@ class MediaController extends Controller
             $result = $this->mediaManager->deleteFile($path);
 
             if ($result !== true) {
-                $error = $result ?: trans('media-manager::messages.delete_error', ['entity' => 'File']);
+                $error = $this->mediaManager->errors() ?: trans('media-manager::messages.delete_error', ['entity' => 'File']);
 
                 return $this->errorResponse($error);
             }
@@ -167,7 +167,7 @@ class MediaController extends Controller
             $result = $this->mediaManager->rename($path, $original, $newName);
 
             if ($result !== true) {
-                $error = $result ?: trans('media-manager::messages.rename_error', ['entity' => $type]);
+                $error = $this->mediaManager->errors() ?: trans('media-manager::messages.rename_error', ['entity' => $type]);
 
                 return $this->errorResponse($error);
             }
@@ -197,7 +197,7 @@ class MediaController extends Controller
             $result = $this->mediaManager->move($currentFile, $newFile, ($type == 'Folder'));
 
             if ($result !== true) {
-                $error = $result ?: trans('media-manager::messages.move_error', ['entity' => $type]);
+                $error = $this->mediaManager->errors() ?: trans('media-manager::messages.move_error', ['entity' => $type]);
 
                 return $this->errorResponse($error);
             }

@@ -225,8 +225,9 @@
             },
 
             /**
-             * If this instance is a modal windows then this property
-             * is used to show or hide the modal window.
+             * If this instance is a modal window then this
+             * property is used to show or hide the
+             * modal window.
              */
             show: {
                 required: false,
