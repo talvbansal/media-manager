@@ -45,9 +45,10 @@ class MediaManager
      * @return array of [
      *               'folder' => 'path to current folder',
      *               'folderName' => 'name of just current folder',
-     *               'breadCrumbs' => breadcrumb array of [ $path => $foldername ]
-     *               'subfolders' => array of [ $path => $foldername] of each subfolder
-     *               'files' => array of file details on each file in folder
+     *               'breadCrumbs' => breadcrumb array of [ $path => $foldername ],
+     *               'subfolders' => array of [ $path => $foldername] of each subfolder,
+     *               'files' => array of file details on each file in folder,
+     *               'itemsCount' => int of the total files and folders
      *               ]
      */
     public function folderInfo($folder)
@@ -61,7 +62,7 @@ class MediaManager
             $subfolders["/$subFolder"] = basename($subFolder);
 
             return $subfolders;
-        }, []);
+        }, collect([]) );
 
         // Get all files within a folder
         $files = collect($this->disk->files($folder))->map(function ($path) {
@@ -71,7 +72,9 @@ class MediaManager
             }
         });
 
-        return compact('folder', 'folderName', 'breadcrumbs', 'subfolders', 'files');
+        $itemsCount = $subfolders->count() + $files->count();
+
+        return compact('folder', 'folderName', 'breadcrumbs', 'subfolders', 'files', 'itemsCount');
     }
 
     /**

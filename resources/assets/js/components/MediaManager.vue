@@ -283,6 +283,10 @@
                  */
                 loading: true,
 
+                /**
+                 * Total files and folder count
+                 */
+                itemsCount: 0,
 
                 /**
                  * properties to show and hide internal modal windows
@@ -309,12 +313,6 @@
         events: {
             'media-manager-reload-folder': function () {
                 this.loadFolder();
-            }
-        },
-
-        computed: {
-            itemsCount: function () {
-                return this.files.length + Object.keys(this.folders).length;
             }
         },
 
@@ -350,6 +348,7 @@
                 this.files = {};
                 this.folderName = null;
                 this.folders = {};
+                this.itemsCount = 0;
             },
 
             loadFolder: function (path) {
@@ -369,6 +368,7 @@
                             this.$set('files', response.data.files);
                             this.$set('folderName', response.data.folderName);
                             this.$set('folders', response.data.subfolders);
+                            this.$set('itemsCount', response.data.itemsCount);
                         },
                         function (response) {
                             if (response.data.error) {
