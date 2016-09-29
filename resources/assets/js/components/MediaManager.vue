@@ -129,6 +129,7 @@
                          id="easel-preview-image"
                          :src="currentFile.webPath"
                          style="max-height: 200px"
+                         transition="fade"
                     />
 
                     <div v-else class="text-center" transition="fade">
