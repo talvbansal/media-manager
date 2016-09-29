@@ -57,8 +57,9 @@ class MediaManager
         $folderName = $breadcrumbs->pop();
 
         // Get sub folders within a folder
-        $subfolders = collect($this->disk->directories($folder))->reduce(function ($subfolders, $subFolder ){
+        $subfolders = collect($this->disk->directories($folder))->reduce(function ($subfolders, $subFolder) {
             $subfolders["/$subFolder"] = basename($subFolder);
+
             return $subfolders;
         }, []);
 
@@ -98,7 +99,7 @@ class MediaManager
         $folders = collect(explode('/', $folder));
         $path = '';
 
-        return $folders->reduce(function ($crumbs, $folder) use ($path){
+        return $folders->reduce(function ($crumbs, $folder) use ($path) {
             $path .= '/'.$folder;
             $crumbs[$path] = $folder;
 
