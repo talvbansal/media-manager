@@ -1,6 +1,6 @@
 # Media Manager
 
-## A basic file manager and uploader for **Laravel** written in **vue.js**
+>A basic file manager and uploader for **Laravel** written in **vue.js**
 
 [![Build Status](https://api.travis-ci.org/talvbansal/media-manager.svg)](https://travis-ci.org/talvbansal/media-manager)
 [![Style CI](https://styleci.io/repos/66978705/shield?style=flat)](https://styleci.io/repos/66978705)
