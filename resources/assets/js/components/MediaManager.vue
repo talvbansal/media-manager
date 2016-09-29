@@ -124,7 +124,16 @@
 
                 <div v-if="currentFile && !isFolder(currentFile)" class="easel-file-picker-sidebar hidden-xs col-sm-3">
 
-                    <img v-if="isImage(currentFile)" id="easel-preview-image" class="img-responsive center-block" :src="currentFile.webPath" style="max-height: 200px" transition="fade"/>
+                    <img v-show="isImage(currentFile)"
+                         class="img-responsive center-block"
+                         id="easel-preview-image"
+                         :src="currentFile.webPath"
+                         style="max-height: 200px"
+                    />
+
+                    <div v-else class="text-center" transition="fade">
+                        <i class="icon-file-text2" style="font-size: 15rem"></i>
+                    </div>
 
                     <table class="table-responsive table-condensed table-vmiddle easel-file-picker-preview-table">
                         <tbody>
