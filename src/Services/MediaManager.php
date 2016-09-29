@@ -57,13 +57,13 @@ class MediaManager
         $folderName = $breadcrumbs->pop();
 
         // Get sub folders within a folder
-        $subfolders = collect( $this->disk->directories($folder) )->reduce(function($subfolders, $subFolder ){
+        $subfolders = collect($this->disk->directories($folder))->reduce(function ($subfolders, $subFolder ){
             $subfolders["/$subFolder"] = basename($subFolder);
             return $subfolders;
         }, []);
 
         // Get all files within a folder
-        $files = collect($this->disk->files($folder))->map(function($path) {
+        $files = collect($this->disk->files($folder))->map(function ($path) {
             // Don't show hidden files or folders
             if (!starts_with(last(explode(DIRECTORY_SEPARATOR, $path)), '.')) {
                 return $this->fileDetails($path);
@@ -95,12 +95,13 @@ class MediaManager
     protected function breadcrumbs($folder)
     {
         $folder = trim($folder, '/');
-        $folders = collect( explode('/', $folder ));
+        $folders = collect(explode('/', $folder));
         $path = '';
 
-        return $folders->reduce(function( $crumbs, $folder ) use ($path){
+        return $folders->reduce(function ($crumbs, $folder) use ($path){
             $path .= '/'.$folder;
             $crumbs[$path] = $folder;
+
             return $crumbs;
         }, collect())->prepend('Root', '/');
     }
