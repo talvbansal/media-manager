@@ -21,7 +21,7 @@ Media Manager provides a simple way for users to upload and manage content to be
 ## # Installation
 
 To get started, install Media Manager via the Composer package manager: 
-```
+```bash
 composer require talvbansal/media-manager
 ```
 
@@ -36,7 +36,7 @@ The Media Manager service provider **does not** automatically register routes fo
 ```
 
 After registering the Media Manager service provider, you should publish the Media Manager assets using the `vendor:publish` Artisan command: 
-```
+```bash
 php artisan vendor:publish --tag=media-manager --force
 ```
 Media Manager assets are **not** published to the `public` folder as would be normally expected, instead they will be published to `/resources/assets/talvbansal`.
@@ -68,7 +68,7 @@ elixir(function(mix) {
 ```
 
 The media manager uses the `public` disk to store its uploads. The storage path for the `public` disk by default is `storage/app/public`. To make these files accessible from the web, use the following `storage:link` artisan command to generate a symbolic link to `public/storage`:
-```
+```bash
 php artisan storage:link
 ```
 Read more about the public disk [on the Laravel documentation](https://laravel.com/docs/5.3/filesystem#the-public-disk).
