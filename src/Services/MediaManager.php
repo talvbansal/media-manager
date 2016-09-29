@@ -62,7 +62,7 @@ class MediaManager
             $subfolders["/$subFolder"] = basename($subFolder);
 
             return $subfolders;
-        }, collect([]) );
+        }, collect([]));
 
         // Get all files within a folder
         $files = collect($this->disk->files($folder))->map(function ($path) {

@@ -59,7 +59,7 @@ class MediaManagerTest extends TestCase
         $this->assertTrue($response['folder'] == '/');
         $this->assertTrue($response['folderName'] == 'Root');
         $this->assertTrue($response['breadcrumbs'] instanceof Collection);
-        $this->assertTrue(is_array($response['subfolders']));
+        $this->assertTrue($response['subfolders'] instanceof Collection);
         $this->assertTrue($response['files']  instanceof Collection);
     }
 
