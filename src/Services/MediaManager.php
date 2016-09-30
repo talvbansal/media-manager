@@ -75,12 +75,14 @@ class MediaManager
         }, collect([]));
 
         // Get all files within this folder
-        $files = collect($this->disk->files($folder))->map(function ($path) {
+        $files = collect($this->disk->files($folder))->reduce(function ($files, $path) {
             // Don't show hidden files or folders
             if (!starts_with(last(explode(DIRECTORY_SEPARATOR, $path)), '.')) {
-                return $this->fileDetails($path);
+                 $files[] = $this->fileDetails($path);
             }
-        });
+
+            return $files;
+        }, collect([]));
 
         $itemsCount = $subfolders->count() + $files->count();
 

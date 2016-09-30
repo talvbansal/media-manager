@@ -61,6 +61,7 @@ class MediaManagerTest extends TestCase
         $this->assertTrue($response['breadcrumbs'] instanceof Collection);
         $this->assertTrue($response['subfolders'] instanceof Collection);
         $this->assertTrue($response['files']  instanceof Collection);
+        $this->assertEquals($response['itemsCount'], 0);
     }
 
     public function test_can_create_a_file_in_root_directory()
