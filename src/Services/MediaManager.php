@@ -78,7 +78,7 @@ class MediaManager
         $files = collect($this->disk->files($folder))->reduce(function ($files, $path) {
             // Don't show hidden files or folders
             if (!starts_with(last(explode(DIRECTORY_SEPARATOR, $path)), '.')) {
-                 $files[] = $this->fileDetails($path);
+                $files[] = $this->fileDetails($path);
             }
 
             return $files;

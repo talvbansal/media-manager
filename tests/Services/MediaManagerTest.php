@@ -56,12 +56,15 @@ class MediaManagerTest extends TestCase
     public function test_can_list_root_directory()
     {
         $response = $this->mediaManager->folderInfo('');
-        $this->assertTrue($response['folder'] == '/');
-        $this->assertTrue($response['folderName'] == 'Root');
-        $this->assertTrue($response['breadcrumbs'] instanceof Collection);
-        $this->assertTrue($response['subfolders'] instanceof Collection);
-        $this->assertTrue($response['files']  instanceof Collection);
-        $this->assertEquals($response['itemsCount'], 0);
+
+        $this->assertEquals($response, [
+            'folder' => '/',
+            'folderName' => 'Root',
+            'breadcrumbs' => new Collection(),
+            'subfolders' => new Collection(),
+            'files' => new Collection(),
+            'itemsCount' => 0
+        ]);
     }
 
     public function test_can_create_a_file_in_root_directory()
