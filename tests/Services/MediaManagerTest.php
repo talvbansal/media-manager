@@ -58,12 +58,12 @@ class MediaManagerTest extends TestCase
         $response = $this->mediaManager->folderInfo('');
 
         $this->assertEquals($response, [
-            'folder' => '/',
-            'folderName' => 'Root',
+            'folder'      => '/',
+            'folderName'  => 'Root',
             'breadcrumbs' => new Collection(),
-            'subfolders' => new Collection(),
-            'files' => new Collection(),
-            'itemsCount' => 0
+            'subfolders'  => new Collection(),
+            'files'       => new Collection(),
+            'itemsCount'  => 0,
         ]);
     }
 
