@@ -6,9 +6,8 @@ use Route;
 
 class MediaRoutes
 {
-
     /**
-     * Get all of the media manager routes
+     * Get all of the media manager routes.
      */
     public static function get()
     {
