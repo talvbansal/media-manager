@@ -132,7 +132,7 @@ class MediaController extends Controller
         try {
             $files = $request->file('files');
             $folder = $request->get('folder', '/');
-            $uploadedFiles = new UploadedFiles( $files );
+            $uploadedFiles = new UploadedFiles($files);
 
             $response = $this->mediaManager->saveUploadedFiles($uploadedFiles, $folder);
             if ($response != 0) {
@@ -193,9 +193,9 @@ class MediaController extends Controller
         $newFile = str_finish($newPath, DIRECTORY_SEPARATOR).$currentFileName;
 
         try {
-            if( $type == 'Folder' ) {
+            if ($type == 'Folder') {
                 $result = $this->mediaManager->moveFolder($currentFile, $newFile);
-            }else{
+            } else {
                 $result = $this->mediaManager->moveFile($currentFile, $newFile);
             }
 

@@ -12,7 +12,6 @@ use Illuminate\Support\Collection;
  */
 class MediaManagerTest extends TestCase
 {
-
     /**
      * @var \TalvBansal\MediaManager\Services\MediaManager
      */
@@ -35,7 +34,7 @@ class MediaManagerTest extends TestCase
     }
 
     /**
-     * Delete any temporary files and folders created during unit tests
+     * Delete any temporary files and folders created during unit tests.
      */
     protected function cleanUpStorageFolder()
     {
@@ -47,12 +46,11 @@ class MediaManagerTest extends TestCase
         }
 
         // Remove all created folders...
-        $allDirectories = Storage::allDirectories( realpath($this->getStoragePath(). '/app' ) );
+        $allDirectories = Storage::allDirectories(realpath($this->getStoragePath().'/app'));
         foreach ($allDirectories as $folder) {
-            try{
-                rmdir(($this->getStoragePath() . DIRECTORY_SEPARATOR . $folder));
-            }catch( Exception $e )
-            {
+            try {
+                rmdir(($this->getStoragePath().DIRECTORY_SEPARATOR.$folder));
+            } catch (Exception $e) {
                 File::deleteDirectory($folder);
             }
         }
@@ -65,7 +63,7 @@ class MediaManagerTest extends TestCase
      */
     protected function createNewFileToUpload($uploadedFileName): \Illuminate\Http\UploadedFile
     {
-        $filePath = realpath(__DIR__ . '/../20151106-_SKB7220.jpg');
+        $filePath = realpath(__DIR__.'/../20151106-_SKB7220.jpg');
 
         return new \Illuminate\Http\UploadedFile($filePath, $uploadedFileName, 'image/jpeg', filesize($filePath), null, true);
     }
@@ -81,12 +79,12 @@ class MediaManagerTest extends TestCase
     protected function createAndSaveFiles(array $filesToCreate, $path = '/')
     {
         $files = [];
-        foreach($filesToCreate as $fileName) {
+        foreach ($filesToCreate as $fileName) {
             $files[] = $this->createNewFileToUpload($fileName);
         }
         $uploadedFiles = new \TalvBansal\MediaManager\Http\UploadedFiles($files);
         $response = $this->mediaManager->saveUploadedFiles($uploadedFiles, $path);
-        $this->assertEquals( count($files), $response);
+        $this->assertEquals(count($files), $response);
 
         return $response;
     }
@@ -117,7 +115,7 @@ class MediaManagerTest extends TestCase
         $count = $this->createAndSaveFiles(['example1.jpg']);
 
         $this->assertEquals(1, $count);
-        $this->assertEquals(true, File::exists( storage_path('app') . '/example1.jpg' ));
+        $this->assertEquals(true, File::exists(storage_path('app').'/example1.jpg'));
     }
 
     /**
@@ -128,8 +126,8 @@ class MediaManagerTest extends TestCase
         $count = $this->createAndSaveFiles(['example1.jpg', 'example2.jpg']);
 
         $this->assertEquals(2, $count);
-        $this->assertEquals(true, File::exists( storage_path('app') . '/example1.jpg' ));
-        $this->assertEquals(true, File::exists( storage_path('app') . '/example2.jpg' ));
+        $this->assertEquals(true, File::exists(storage_path('app').'/example1.jpg'));
+        $this->assertEquals(true, File::exists(storage_path('app').'/example2.jpg'));
     }
 
     /**
@@ -140,9 +138,10 @@ class MediaManagerTest extends TestCase
         $count = $this->createAndSaveFiles(['example1.jpg', 'example2.jpg'], '/test');
 
         $this->assertEquals(2, $count);
-        $this->assertEquals(true, File::exists( storage_path('app') . '/test/example1.jpg' ));
-        $this->assertEquals(true, File::exists( storage_path('app') . '/test/example2.jpg' ));
+        $this->assertEquals(true, File::exists(storage_path('app').'/test/example1.jpg'));
+        $this->assertEquals(true, File::exists(storage_path('app').'/test/example2.jpg'));
     }
+
     /**
      * @covers ::folderInfo()
      */
@@ -168,7 +167,7 @@ class MediaManagerTest extends TestCase
      */
     public function test_can_create_folder()
     {
-        $folderName             = DIRECTORY_SEPARATOR . date('Y-m-d H:i:s');
+        $folderName = DIRECTORY_SEPARATOR.date('Y-m-d H:i:s');
 
         // create
         $response = $this->mediaManager->createDirectory($folderName);
@@ -177,10 +176,10 @@ class MediaManagerTest extends TestCase
         $this->assertTrue($response);
 
         // is found ?
-        $list       = $this->mediaManager->folderInfo('/');
+        $list = $this->mediaManager->folderInfo('/');
         $subFolders = $list['subfolders'];
 
-        $this->assertTrue(isset( $subFolders[$folderName] ));
+        $this->assertTrue(isset($subFolders[$folderName]));
     }
 
     /**
@@ -189,19 +188,18 @@ class MediaManagerTest extends TestCase
      */
     public function test_cannot_create_a_folder_that_already_exists()
     {
-        $folderName = DIRECTORY_SEPARATOR . 'FixedName';
+        $folderName = DIRECTORY_SEPARATOR.'FixedName';
         $response = $this->mediaManager->createDirectory($folderName);
 
         // is created ?
         $this->assertTrue($response);
-        $this->assertEquals(true, File::exists(storage_path('app') . $folderName ));
+        $this->assertEquals(true, File::exists(storage_path('app').$folderName));
 
         // try and create the same folder again
         $response = $this->mediaManager->createDirectory($folderName);
         $this->assertEquals(false, $response);
         $errors = $this->mediaManager->errors();
-        $this->assertContains('Folder "' . $folderName . '" already exists.', $errors);
-
+        $this->assertContains('Folder "'.$folderName.'" already exists.', $errors);
     }
 
     /**
@@ -210,17 +208,17 @@ class MediaManagerTest extends TestCase
     public function test_can_delete_a_folder()
     {
         // create a folder
-        $folderName = DIRECTORY_SEPARATOR . date('Y-m-d H:i:s');
-        $response   = $this->mediaManager->createDirectory($folderName);
+        $folderName = DIRECTORY_SEPARATOR.date('Y-m-d H:i:s');
+        $response = $this->mediaManager->createDirectory($folderName);
 
         // is created ?
         $this->assertTrue($response);
 
         // is found ?
-        $list       = $this->mediaManager->folderInfo('/');
+        $list = $this->mediaManager->folderInfo('/');
         $subFolders = $list['subfolders'];
 
-        $this->assertTrue(isset( $subFolders[$folderName] ));
+        $this->assertTrue(isset($subFolders[$folderName]));
 
         // delete
         $response = $this->mediaManager->deleteDirectory($folderName);
@@ -274,7 +272,7 @@ class MediaManagerTest extends TestCase
         $response = $this->mediaManager->rename('/', 'test.jpg', 'renamed.jpg');
         $this->assertTrue($response);
 
-        $this->assertEquals(true, File::exists(storage_path('app') . '/renamed.jpg'));
+        $this->assertEquals(true, File::exists(storage_path('app').'/renamed.jpg'));
     }
 
     /**
@@ -334,8 +332,9 @@ class MediaManagerTest extends TestCase
 
         $response = $this->mediaManager->moveFolder('/test/subfolder', '/subfolder');
         $this->assertTrue($response);
-        $this->assertEquals(true, File::exists( storage_path(). '/app/subfolder' ) );
+        $this->assertEquals(true, File::exists(storage_path().'/app/subfolder'));
     }
+
     /**
      * @covers ::moveFolder
      */
@@ -377,7 +376,6 @@ class MediaManagerTest extends TestCase
         );
     }
 
-
     /**
      * @covers ::__construct
      * @covers ::cleanFolder
@@ -396,16 +394,15 @@ class MediaManagerTest extends TestCase
         $response = $this->mediaManager->folderInfo();
 
         $this->assertEquals($response['files'][0], [
-            'name' => 'test.jpg',
-            'fullPath' => '/test.jpg',
-            'webPath' => 'http://localhost/storage/test.jpg',
-            'mimeType' => 'image/jpeg',
-            'size' => 664998,
-            'modified' => \Carbon\Carbon::now(),
-            'relativePath' => '/storage/test.jpg'
+            'name'         => 'test.jpg',
+            'fullPath'     => '/test.jpg',
+            'webPath'      => 'http://localhost/storage/test.jpg',
+            'mimeType'     => 'image/jpeg',
+            'size'         => 664998,
+            'modified'     => \Carbon\Carbon::now(),
+            'relativePath' => '/storage/test.jpg',
         ]);
     }
-
 
     /**
      * @covers ::allDirectories
@@ -419,10 +416,10 @@ class MediaManagerTest extends TestCase
         $response = $this->mediaManager->allDirectories();
 
         $this->assertEquals($response, collect([
-            '/' => 'Root',
-            '/test' => '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;test',
+            '/'            => 'Root',
+            '/test'        => '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;test',
             '/test/inside' => '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;inside',
-            '/test2' => '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;test2',
+            '/test2'       => '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;test2',
         ]));
     }
 }
