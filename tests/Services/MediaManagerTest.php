@@ -61,7 +61,7 @@ class MediaManagerTest extends TestCase
      *
      * @return \Illuminate\Http\UploadedFile
      */
-    protected function createNewFileToUpload($uploadedFileName): \Illuminate\Http\UploadedFile
+    protected function createNewFileToUpload($uploadedFileName)
     {
         $filePath = realpath(__DIR__.'/../20151106-_SKB7220.jpg');
 
