@@ -10,6 +10,7 @@ namespace TalvBansal\MediaManager\Http\Controllers;
 use Illuminate\Http\Request;
 use TalvBansal\MediaManager\Http\Requests\UploadFileRequest;
 use TalvBansal\MediaManager\Http\Requests\UploadNewFolderRequest;
+use TalvBansal\MediaManager\Http\UploadedFiles;
 use TalvBansal\MediaManager\Services\MediaManager;
 
 /**
@@ -130,17 +131,15 @@ class MediaController extends Controller
     {
         try {
             $files = $request->file('files');
-            $folder = $request->get('folder');
+            $folder = $request->get('folder', '/');
+            $uploadedFiles = new UploadedFiles( $files );
 
-            $response = $this->mediaManager->saveFiles($files, $folder);
-            $errors = $this->mediaManager->errors();
-            if ($response > 0) {
+            $response = $this->mediaManager->saveUploadedFiles($uploadedFiles, $folder);
+            if ($response != 0) {
                 $response = trans('media-manager::messages.upload_success', ['entity' => $response.' New '.str_plural('File', $response)]);
-            } else {
-                $response = 0;
             }
 
-
+            $errors = $this->mediaManager->errors();
             if (!empty($errors)) {
                 return $this->errorResponse($errors, $response);
             }
@@ -194,7 +193,11 @@ class MediaController extends Controller
         $newFile = str_finish($newPath, DIRECTORY_SEPARATOR).$currentFileName;
 
         try {
-            $result = $this->mediaManager->move($currentFile, $newFile, ($type == 'Folder'));
+            if( $type == 'Folder' ) {
+                $result = $this->mediaManager->moveFolder($currentFile, $newFile);
+            }else{
+                $result = $this->mediaManager->moveFile($currentFile, $newFile);
+            }
 
             if ($result !== true) {
                 $error = $this->mediaManager->errors() ?: trans('media-manager::messages.move_error', ['entity' => $type]);

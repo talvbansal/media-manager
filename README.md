@@ -32,7 +32,7 @@ Next, register the Media Manager service provider in the `providers` array of yo
 
 The Media Manager service provider **does not** automatically register routes for the Media Manager to work. This is so that you can add custom middleware around those routes. You can register all of the routes required for the Media Manager by adding the following to your `routes/web.php` file: 
 ```php
-\TalvBansal\MediaManager\Http\Routes::mediaBrowser();
+\TalvBansal\MediaManager\Routes\MediaRoutes::get();
 ```
 
 After registering the Media Manager service provider, you should publish the Media Manager assets using the `vendor:publish` Artisan command: 

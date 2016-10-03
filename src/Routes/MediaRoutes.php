@@ -1,12 +1,16 @@
 <?php
 
-namespace TalvBansal\MediaManager\Http;
+namespace TalvBansal\MediaManager\Routes;
 
 use Route;
 
-class Routes
+class MediaRoutes
 {
-    public static function mediaBrowser()
+
+    /**
+     * Get all of the media manager routes
+     */
+    public static function get()
     {
 
         // Media Manager Routes
