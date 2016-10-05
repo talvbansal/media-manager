@@ -180,7 +180,7 @@ When a `media-manager-notification` is dispatched it sends the following informa
         },
         events:{
             'media-manager-notification': function (message, type, time) {
-                // Your custom notifiction call here...
+                // Your custom notification call here...
                 console.log(message);
             }
         }
