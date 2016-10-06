@@ -1,30 +1,32 @@
 <template>
-    <media-modal :show.sync="show" :size="size">
-        <div class="modal-header">
-            <button class="close" type="button" @click="close">×</button>
-            <h4 class="modal-title">Delete item</h4>
-        </div>
-
-        <div v-show="loading" transition="fade" class="text-center">
-            <span class="spinner icon-spinner2"></span>Loading...
-        </div>
-
-        <div v-else>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label>Are you sure you want to delete the following item?</label>
-                    <p class="form-control-static">{{ this.getItemName(this.currentFile) }}</p>
-                </div>
-
+    <media-modal @close="close()" :size="size" :show="show" v-if="show">
+        <div>
+            <div class="modal-header">
+                <button class="close" type="button" @click="close()">×</button>
+                <h4 class="modal-title">Delete item</h4>
             </div>
 
-            <div class="modal-footer">
-                <button class="btn btn-primary" @click="deleteItem()">
-                    Delete
-                </button>
-                <button class="btn btn-default" type="button" @click="close">
-                    Cancel
-                </button>
+            <div v-if="loading" class="text-center">
+                <span class="spinner icon-spinner2"></span>Loading...
+            </div>
+
+            <div v-else>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Are you sure you want to delete the following item?</label>
+                        <p class="form-control-static">{{ this.getItemName(this.currentFile) }}</p>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-primary" @click="deleteItem()">
+                        Delete
+                    </button>
+                    <button class="btn btn-default" type="button" @click="close">
+                        Cancel
+                    </button>
+                </div>
             </div>
         </div>
     </media-modal>
@@ -32,7 +34,13 @@
 
 <script>
     export default{
-        props: ['show', 'currentPath', 'currentFile'],
+        props:{
+            currentPath:{},
+            currentFile:{},
+            show:{
+                default : false
+            }
+        },
 
         data: function () {
             return {
@@ -42,10 +50,10 @@
             }
         },
 
-        ready: function () {
-            document.addEventListener("keydown", (e) => {
+        mounted() {
+            document.addEventListener("keydown", function (e) {
                 if (this.show && e.keyCode == 13) {
-                    this.renameItem();
+                    this.deleteItem();
                 }
             });
         },
@@ -54,7 +62,7 @@
             close: function () {
                 this.newItemName = null;
                 this.loading = false;
-                this.show = false;
+                this.$emit('close');
             },
 
             deleteItem: function () {
@@ -88,13 +96,13 @@
                 this.loading = true;
                 this.$http.delete(route, {body: payload}).then(
                         function (response) {
-                            this.$dispatch('media-manager-reload-folder');
-                            this.$dispatch('media-manager-notification', response.data.success);
+                            window.eventHub.$emit('media-manager-reload-folder');
+                            window.eventHub.$emit('media-manager-notification', response.data.success);
                             this.close();
                         },
                         function (response) {
                             var error = (response.data.error) ? response.data.error : response.statusText;
-                            this.$dispatch('media-manager-notification', error, 'danger');
+                            window.eventHub.$emit('media-manager-notification', error, 'danger');
                             this.close();
                         }
                 );

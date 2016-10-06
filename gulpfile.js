@@ -2,7 +2,7 @@
  * Created by talv on 30/08/16.
  */
 var elixir = require('laravel-elixir');
-require('laravel-elixir-vue');
+require('laravel-elixir-vue-2');
 
 elixir(function (mix) {
     mix.sass([

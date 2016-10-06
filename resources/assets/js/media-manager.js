@@ -11,13 +11,13 @@ require('hammerjs');
 import FileManagerMixin from './mixins/file-manager-mixin';
 Vue.mixin(FileManagerMixin);
 
-import VueTouch from 'vue-touch';
+/*import VueTouch from 'vue-touch2';
 Vue.use(VueTouch);
 
 VueTouch.registerCustomEvent('doubletap', {
     type: 'tap',
     taps: 2
-});
+});*/
 
 /**
  * Register Vue components
@@ -47,3 +47,10 @@ Vue.filter('moment', function( date, format ){
 
     return moment().utc(date).local().format(format)
 });
+
+// This is the event hub we'll use in every
+// component to communicate between them.
+// only
+if( ! window.eventHub ) {
+    window.eventHub = new Vue();
+}

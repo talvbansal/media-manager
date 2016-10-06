@@ -23,11 +23,11 @@ export default {
 
             if (typeof notices == 'object') {
                 for (var i = 0, len = notices.length; i < len; i++) {
-                    this.$dispatch('media-manager-notification', notices[i], type, time);
+                    eventHub.$emit('media-manager-notification', notices[i], type, time);
                 }
                 return;
             }
-            this.$dispatch('media-manager-notification', notices, type, time);
+            eventHub.$emit('media-manager-notification', notices, type, time);
         },
     }
 };
