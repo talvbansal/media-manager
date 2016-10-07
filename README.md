@@ -185,11 +185,11 @@ A listener can be added to either the `created()` method of your root `vue` inst
         data:{
             //...
         },
-        created(){
+        created: function(){
             window.eventHub.$on('media-manager-notification', function (message, type, time) {
                 // Your custom notifiction call here...
                 console.log(message);
-            }
+            });
         }
     });
 </script>
@@ -224,7 +224,7 @@ For example if the `selected-event-name` property was set to `editor` the event 
             selectedEventName: 'editor'
         },
 
-        created(){
+        created: function(){
             window.eventHub.$on('media-manager-selected-editor', function (file) {
                 // Do something with the file info...
                 console.log(file.name);
@@ -234,7 +234,7 @@ For example if the `selected-event-name` property was set to `editor` the event 
 
                 // Hide the Media Manager...
                 this.showMediaManager = false;
-            }
+            });
         }
     })
 </script>
