@@ -1,6 +1,8 @@
 # Media Manager
 
->A basic file manager and uploader for **Laravel** written in **vue.js**
+>Media manager is a basic file uploader and manager component for **Laravel** written in **Vue.js 2.0**
+
+_For **Vue.js 1.x** please use [Version 1.0.x](https://github.com/talvbansal/media-manager/tree/v1.0.6)_
 
 [![Build Status](https://api.travis-ci.org/talvbansal/media-manager.svg)](https://travis-ci.org/talvbansal/media-manager)
 [![Style CI](https://styleci.io/repos/66978705/shield?style=flat)](https://styleci.io/repos/66978705)
@@ -81,12 +83,12 @@ After you've added the dependencies to your layout if your project doesn't alrea
 ```javascript
 <script>
     new Vue({
-        el : 'body'
+        el : '#app'
     });
 </script>
 ```
 
-This tells Vue to use the `body` element of your page as its container. Of course you can change this to target a specific element but using `body` means that we can put our custom components anywhere within the `body` tags on a page.
+This tells Vue to use an element with the id of `app` on your page as its container. This allows you to target a specific area in which `vue.js` will interact.
 
 You will also need to add the following to your layout if it doesn't already exist.
 It provides the `csrfToken` used for the `vue-resource` http requests that the Media Manager will make.
@@ -113,7 +115,9 @@ If you just need an instance of the Media Manager getting started is easy.
 Just create a `<media-manager>` tag within the scope of your Vue instance:
 ```html
 <body>
-    <media-manager></media-manager>
+    <div id="app">
+        <media-manager></media-manager>
+    </div>
 </body>
 ```
 This will create a Media Manager that will allow you to do all of the following:
@@ -133,29 +137,31 @@ You'll need to do the following:
 1. Create a `<media-manager>` component nested within a `<media-modal>`  component.
 2. Add the `:is-modal="true"` property to the Media Manager component : `<media-manager :is-modal="true">`
 3. We'll need a way to open and close the modal window.
-    - Create a boolean property on your root vue instance to hold the visible state of the modal window.
-    - Add the property to the Media Manager's and Modal Window's `show` property.
-    - Make sure they're both set to `show.sync` so that changes to its value can be made allowing the window can close itself
+    - Create a boolean property on your root vue instance to hold the visible state of the modal window for example, `showMediaManager`.
+    - Use use the newly created property with a `v-if` to set the visibility of the modal window : `<media-modal v-if="showMediaManager"></media-modal>`.
+    - Make that both the `<media-modal>` and the `<media-manager>` are listening for `@close` events so that they can close the modal window can close itself
     - Create a button to open the modal window and get it change the property bound to the modal window's `show` property to `true`
 
 Here is an example of all of the above:
 ```html
 <body>
-    <media-modal :show.sync="showMediaManager">
-        <media-manager
-                :show.sync="showMediaManager"
+    <div id="app">
+        <media-modal v-if="showMediaManager" @close="showMediaManager = false">
+            <media-manager
                 :is-modal="true"
-        >
-        </media-manager>
-    </media-modal>
-
-    <button @click="showMediaManager = true">
-        Show Media Manager
-    </button>
+                @close="showMediaManager = false"
+            >
+            </media-manager>
+        </media-modal>
+    
+        <button @click="showMediaManager = true">
+            Show Media Manager
+        </button>
+    </div>
 
     <script>
         new Vue({
-        el: body,
+        el: '#app',
             data: {
                 showMediaManager: false,
             }
@@ -168,18 +174,19 @@ As well as providing all of the functionality that the normal `<media-manager>` 
 
 ## # Notification Events
 
-So that you can make use of your existing notification system the Media Manager dispatched events that you can listen to using Vue's `events` listeners. The event dispatched for notifications is called `media-manager-notification`.
-When a `media-manager-notification` is dispatched it sends the following information `(message, type, time)`.
+So that you can make use of your existing notification system the Media Manager emits events than can be listened on using a separate `Vue` instance that is automatically created and added to the `window` with a name of `eventHub` (if it doesn't already exist). 
+The event emitted for notifications is called `media-manager-notification` and has the following signature : `(message, type, time)`. 
+A listener can be added to either the `created()` method of your root `vue` instance or a component:
 
 ```html
 <script>
     new Vue({
-        el: body,
+        el: '#app',
         data:{
             //...
         },
-        events:{
-            'media-manager-notification': function (message, type, time) {
+        created(){
+            window.eventHub.$on('media-manager-notification', function (message, type, time) {
                 // Your custom notifiction call here...
                 console.log(message);
             }
@@ -190,24 +197,24 @@ When a `media-manager-notification` is dispatched it sends the following informa
 
 ## # Selected Item Events
 
-When opening the Media Manager up via a modal window a new `select` event type can be triggered.
+When selecting an item through a Media Manager instance that has been opened within a modal window a new `select` event type is emitted.
 Like notifications `select` will mean different things depending on the use of the application, there may even be a number of different uses cases for the Media Manager within an application.
 
-To handle instances where different things may need to happen when a `select` event i triggered the Media Manager lets you define a custom `event` name to be dispatched using the `selected-event-name` property:
+To handle instances where different things may need to happen when a `select` event is triggered the Media Manager lets you define a custom `event` name to be emitted using the `selected-event-name` property:
 ```html
-<media-modal :show.sync="showMediaManager">
+<media-modal v-if="showMediaManager" @close="showMediaManager = false">
     <media-manager
-            :is-modal="true"
-            :selected-event-name.sync="selectedEventName"
-            :show.sync="showMediaManager"
+        :is-modal="true"
+        :selected-event-name="selectedEventName"
+        @close="showMediaManager = false"
     >
     </media-manager>
 </media-modal>
  ```
 
-When `select` is called a custom event is dispatched that you can listen to using Vue's `events` listeners.
-The name event dispatched is dynamically generated by the `selected-event-name` property's value prefixed with `media-manager-selected-`
-For example if the `selected-event-name` property was set to `editor` the event dispatched would be `media-manager-selected-editor` and we could handle the event as follows:
+When `select` is called a custom event is dispatched that can be listened for using Vue's `events` listeners.
+The event name dispatched is dynamically generated by the `selected-event-name` property's value prefixed with `media-manager-selected-`
+For example if the `selected-event-name` property was set to `editor` the event dispatched would be `media-manager-selected-editor` and we could handle the event using the `window.eventHub` as follows:
 ```javascript
 <script>
     new Vue({
@@ -217,8 +224,8 @@ For example if the `selected-event-name` property was set to `editor` the event 
             selectedEventName: 'editor'
         },
 
-        events: {
-            'media-manager-selected-editor': function (file) {
+        created(){
+            window.eventHub.$on('media-manager-selected-editor', function (file) {
                 // Do something with the file info...
                 console.log(file.name);
                 console.log(file.mimeType);
@@ -232,4 +239,4 @@ For example if the `selected-event-name` property was set to `editor` the event 
     })
 </script>
 ```
-The prefix on the event names is to avoid / reduce any potential event names clashes.
+The prefix on the event names is to avoid / reduce any potential event names clashes on the event hub.
