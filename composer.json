@@ -32,7 +32,7 @@
     "phpunit/phpunit": "^5.0",
     "illuminate/support": "^5.3",
     "illuminate/routing": "^5.3",
-    "orchestra/testbench": "~3.3"
+    "orchestra/testbench": "3.3"
   },
   "autoload": {
     "psr-4": {

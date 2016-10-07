@@ -47,7 +47,7 @@ You can then bundle these with your existing scripts in your projects `gulpfile.
 //gulpfile.js
 var elixir = require('laravel-elixir');
 
-require('laravel-elixir-vue');
+require('laravel-elixir-vue-2');
 
 elixir(function(mix) {
 
