@@ -97,12 +97,12 @@
                 this.$http.delete(route, {body: payload}).then(
                         function (response) {
                             window.eventHub.$emit('media-manager-reload-folder');
-                            window.eventHub.$emit('media-manager-notification', response.data.success);
+                            this.mediaManagerNotify(response.data.success);
                             this.close();
                         },
                         function (response) {
                             var error = (response.data.error) ? response.data.error : response.statusText;
-                            window.eventHub.$emit('media-manager-notification', error, 'danger');
+                            this.mediaManagerNotify(error, 'danger');
                             this.close();
                         }
                 );

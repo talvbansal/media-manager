@@ -366,7 +366,7 @@
                         },
                         function (response) {
                             if (response.data.error) {
-                                this.notify(response.data.error, 'danger');
+                                this.mediaManagerNotify(response.data.error, 'danger');
                             }
 
                             this.loading = false;
@@ -399,14 +399,14 @@
                 this.loading = true;
                 this.$http.post('/admin/browser/file', form).then(
                         function (response) {
-                            this.notify(response.data.success);
+                            this.mediaManagerNotify(response.data.success);
                             this.loadFolder(this.currentPath);
                         },
                         function (response) {
                             var error = (response.data.error) ? response.data.error : response.statusText;
                             // when uploading we might have some files uploaded and others fail
-                            if (response.data.notices) this.notify(response.data.notices);
-                            this.notify(error, 'danger', 5000);
+                            if (response.data.notices) this.mediaManagerNotify(response.data.notices);
+                            this.mediaManagerNotify(error, 'danger', 5000);
                             this.loadFolder(this.currentPath);
                         }
                 );

@@ -16,18 +16,18 @@ export default {
             return (typeof file == 'string');
         },
 
-        notify: function (notices, type, time) {
+        mediaManagerNotify: function (notices, type, time) {
 
             if (!type) type = 'inverse';
             if (!time) time = 4000;
 
             if (typeof notices == 'object') {
                 for (var i = 0, len = notices.length; i < len; i++) {
-                    eventHub.$emit('media-manager-notification', notices[i], type, time);
+                    window.eventHub.$emit('media-manager-notification', notices[i], type, time);
                 }
                 return;
             }
-            eventHub.$emit('media-manager-notification', notices, type, time);
+            window.eventHub.$emit('media-manager-notification', notices, type, time);
         },
     }
 };

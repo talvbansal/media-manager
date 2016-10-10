@@ -3,21 +3,12 @@
  * include Vue and Vue Resource. This gives a great starting point for
  * building robust, powerful web applications using Vue and Laravel.
  */
-
 require('./base');
 
 require('hammerjs');
 
 import FileManagerMixin from './mixins/file-manager-mixin';
 Vue.mixin(FileManagerMixin);
-
-/*import VueTouch from 'vue-touch2';
-Vue.use(VueTouch);
-
-VueTouch.registerCustomEvent('doubletap', {
-    type: 'tap',
-    taps: 2
-});*/
 
 /**
  * Register Vue components
@@ -33,6 +24,7 @@ Vue.component('media-manager', require('./components/MediaManager.vue'));
 /**
  * Register Vue Filters
  */
+// Take any integer of bytes and convert it into something more hum
 Vue.filter('humanFileSize',  function (size) {
     var i = Math.floor(Math.log(size) / Math.log(1024));
     return ( size / Math.pow(1024, i) ).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][i];
@@ -48,9 +40,11 @@ Vue.filter('moment', function( date, format ){
     return moment().utc(date).local().format(format)
 });
 
-// This is the event hub we'll use in every
-// component to communicate between them.
-// only
+/**
+ * If it doesn't already exist, register a separate empty vue instance that
+ * is attached to the window, we can use it to listen out for and handle
+ * any events that may emitted by components...
+ */
 if( ! window.eventHub ) {
     window.eventHub = new Vue();
 }

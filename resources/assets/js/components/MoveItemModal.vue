@@ -88,7 +88,8 @@
                         },
                         function (response) {
                             var error = (response.data.error) ? response.data.error : response.statusText;
-                            window.eventHub.$emit('media-manager-notification', error, 'danger');
+                            this.mediaManagerNotify(error, 'danger');
+
                         }
                 );
             },
