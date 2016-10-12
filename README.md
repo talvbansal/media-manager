@@ -137,7 +137,7 @@ You'll need to do the following:
 1. Create a `<media-manager>` component nested within a `<media-modal>`  component.
 2. Add the `:is-modal="true"` property to the Media Manager component : `<media-manager :is-modal="true">`
 3. Create a way to open and close the modal window.
-    - Within the data object of your root Vue instance Create a boolean property to hold the visible state of the modal window with a default value of `false`, `showMediaManager = false`.
+    - Within the data object of your root Vue instance create a boolean property to hold the visible state of the modal window with a default value of `false`, `showMediaManager = false`.
     - Add a `v-if` directive to the `<media-modal>` component and use the newly created `showMediaManager` property to toggle the modal window's visibility, `<media-modal v-if="showMediaManager"></media-modal>`.
     - Create a button to open the modal window and get it change the property bound to the modal window's `show` property to `true`
     - Add listeners for the `@close` event to the `<media-modal>` and `<media-manager>` components so that they can close the modal window
@@ -170,12 +170,17 @@ Here is an example of all of the above:
 </body>
 ```
 
-As well as providing all of the functionality that the normal `<media-manager>` component gives, when in a modal window buttons to close the window and `select` files are rendered. `Select` events are covered later in this guide.
+As well as providing all of the functionality that the normal `<media-manager>` component gives, when displayed within a modal window, buttons to close the window and `select` files are rendered.
 
 ## # Notification Events
 
-So that you can make use of your existing notification system the Media Manager emits events than can be listened on using a separate `Vue` instance that is automatically created and added to the `window` with a name of `eventHub` (if it doesn't already exist). 
+So that you can make use of your projects existing notification system the Media Manager emits events than can be listened on using a separate `Vue` instance that is automatically created and added to the `window` with a name of `eventHub` (if `window.eventHub` doesn't already exist). 
 The event emitted for notifications is called `media-manager-notification` and has the following signature : `(message, type, time)`. 
+
+    - message: string
+    - type : string ()
+    - time : int
+
 A listener can be added to either the `created()` method of your root `vue` instance or a component:
 
 ```html
@@ -194,11 +199,6 @@ A listener can be added to either the `created()` method of your root `vue` inst
     });
 </script>
 ```
-
-- message: string
-- type : string ()
-- time : int
-
 ## # Selected Item Events
 
 When selecting an item through a Media Manager instance that has been opened within a modal window a new `select` event type is emitted.
