@@ -165,7 +165,7 @@
                         {{ itemsCount }} Items
                     </div>
 
-                    <!-- Buttons to be rendered if the media-manager is within a modal window-->
+                    <!-- Buttons to be rendered if the media-manager is in a modal window-->
                     <div v-if="isModal" class="buttons">
                         <button type="button" class="btn btn-primary" v-show="currentFile && !isFolder(currentFile)" @click="selectFile()">
                             Select File
@@ -231,9 +231,9 @@
 
             /**
              * The event to be fired when selectItem() is called.
-             * The actual event name emitted is prefixed with
+             * The actual event name emitted is prefixed w/
              * "media-manager-selected-" so to avoid
-             * clashes with other events.
+             * clashes w/ other events.
              */
             selectedEventName: {
                 default: false
@@ -270,7 +270,7 @@
                 currentPath: null,
 
                 /**
-                 * All of the files within the current path
+                 * All of the files in the current path
                  */
                 files: {},
 
@@ -280,7 +280,7 @@
                 folderName: null,
 
                 /**
-                 * All of the subfolders within the current path
+                 * All of the sub folders in the current path
                  */
                 folders: {},
 
@@ -386,7 +386,7 @@
                  * Create a new form request object.
                  * Gather all of the files to be uploaded and append them to it.
                  * Attach the current path so the server knows where to upload the files to.
-                 * Send a post request to the server with the payload...
+                 * Send a post request to the server...
                  */
                 var form = new FormData();
                 var files = event.target.files || event.dataTransfer.files;

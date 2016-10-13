@@ -8,7 +8,7 @@ const webpack = require('webpack');
 
 elixir(function (mix) {
 
-    // Setup additional webpack configuration
+    // Setup additional webpack configuration...
     Elixir.webpack.mergeConfig({
         plugins:[
             new webpack.optimize.UglifyJsPlugin({
@@ -21,7 +21,9 @@ elixir(function (mix) {
 
     // Styles and resources...
     mix.copy('resources/assets/fonts', 'public/fonts/')
-        .sass('media-manager.scss', 'public/css/media-manager.css')
+        .sass(['animate.min.css',
+            'media-manager.scss'
+        ], 'public/css/media-manager.css')
         .webpack('media-manager.js', 'public/js/media-manager.js');
 
     // Run unit tests...
