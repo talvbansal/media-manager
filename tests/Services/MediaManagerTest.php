@@ -1,5 +1,6 @@
 <?php
 
+use File;
 use Illuminate\Support\Collection;
 
 /**
