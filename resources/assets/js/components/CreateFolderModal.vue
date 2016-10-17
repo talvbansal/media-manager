@@ -22,7 +22,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button class="btn btn-primary" @click="createFolder()">
+                    <button class="btn btn-primary" type="button" @click="createFolder()">
                         Apply
                     </button>
                     <button class="btn btn-default" type="button" @click="close()">

@@ -26,7 +26,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button class="btn btn-primary" @click="moveItem()">
+                    <button class="btn btn-primary" type="button" @click="moveItem()">
                         Apply
                     </button>
                     <button class="btn btn-default" type="button" @click="close()">
