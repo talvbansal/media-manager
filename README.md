@@ -42,7 +42,7 @@ After registering the Media Manager service provider, you should publish the Med
 php artisan vendor:publish --tag=media-manager --force
 ```
 Media Manager assets are **not** published to the `public` folder as would be normally expected, instead they will be published to `/resources/assets/talvbansal`.
-You can then bundle these with your existing scripts in your projects `gulpfile.js`, for example:
+Since the Media Manger is written in `vue.js 2.0` you'll need to use webpack or another bundler to get the code ready for the browser. You can then bundle these with your existing scripts in your projects `gulpfile.js`, for example:
 ```javascript
 //gulpfile.js
 var elixir = require('laravel-elixir');
@@ -77,8 +77,8 @@ Read more about the public disk [on the Laravel documentation](https://laravel.c
 
 ## # Getting Started
 
-The Media Manager is written in `vue.js` and comes bundled with all the dependencies required to get going very quickly.
-After you've added the dependencies to your layout if your project doesn't already use `vue.js` you'll need to create a **Vue instance** on the page that you want to use the Media Manager on:
+The Media Manager is written in `vue.js 2.0` and comes bundled with all the dependencies required to get going very quickly.
+After you've added the dependencies to your layout if your project doesn't already use `vue.js 2.0` you'll need to create a **Vue instance** on the page that you want to use the Media Manager on:
 
 ```javascript
 <script>

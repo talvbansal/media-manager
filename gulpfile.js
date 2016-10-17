@@ -3,28 +3,15 @@
  */
 const elixir = require('laravel-elixir');
 require('laravel-elixir-vue-2');
-require('laravel-elixir-webpack-official');
-const webpack = require('webpack');
 
 elixir(function (mix) {
 
-    // Setup additional webpack configuration...
-    Elixir.webpack.mergeConfig({
-        plugins:[
-            new webpack.optimize.UglifyJsPlugin({
-                comments: false,
-                compress: true,
-                minimize: true
-            })
-        ]
-    });
-
     // Styles and resources...
     mix.copy('resources/assets/fonts', 'public/fonts/')
+        .copy('resources/assets/js', 'public/js')
         .sass(['animate.min.css',
             'media-manager.scss'
-        ], 'public/css/media-manager.css')
-        .webpack('media-manager.js', 'public/js/media-manager.js');
+        ], 'public/css/media-manager.css');
 
     // Run unit tests...
     mix.phpUnit();
