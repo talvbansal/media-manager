@@ -178,7 +178,7 @@ So that you can make use of your projects existing notification system the Media
 The event emitted for notifications is called `media-manager-notification` and has the following signature : `(message, type, time)`. 
 
     - message: string
-    - type : string ()
+    - type : string
     - time : int
 
 A listener can be added to either the `created()` method of your root `vue` instance or a component:

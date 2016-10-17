@@ -8,10 +8,10 @@ elixir(function (mix) {
 
     // Styles and resources...
     mix.copy('resources/assets/fonts', 'public/fonts/')
-        .copy('resources/assets/js', 'public/js')
         .sass(['animate.min.css',
             'media-manager.scss'
-        ], 'public/css/media-manager.css');
+        ], 'public/css/media-manager.css')
+        .webpack('media-manager.js', 'public/js/media-manager.js');
 
     // Run unit tests...
     mix.phpUnit();
