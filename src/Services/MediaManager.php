@@ -173,8 +173,7 @@ class MediaManager implements FileUploaderInterface
     public function fileMimeType($path)
     {
         $type = $this->mimeDetect->findType(pathinfo($path, PATHINFO_EXTENSION));
-        if( !empty($type) )
-        {
+        if (!empty($type)) {
             return $type;
         }
 
