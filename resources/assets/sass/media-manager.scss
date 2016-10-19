@@ -91,12 +91,16 @@
   overflow-y: auto;
 }
 
-.modal-enter, .modal-leave {
+.modal-enter {
+  opacity: 0;
+}
+
+.modal-leave-active {
   opacity: 0;
 }
 
 .modal-enter .modal-container,
-.modal-leave .modal-container {
+.modal-leave-active .modal-container {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
 }
@@ -201,6 +205,7 @@
               border-top: 1px solid #f0f0f0;
               a {
                 margin-left: 0.5em;
+                cursor: pointer;
               }
             }
 

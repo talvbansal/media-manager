@@ -1,5 +1,5 @@
 <template>
-    <div v-if="errors.length > 0" class="modal-errors" style="" transition="expand">
+    <div v-if="errors.length > 0" class="modal-errors" transition="expand">
         <ul>
             <li v-for="error in errors">{{ error }}</li>
         </ul>

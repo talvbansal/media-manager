@@ -69,11 +69,11 @@ class MediaManager implements FileUploaderInterface
     public function folderInfo($folder = '/')
     {
         $folder = $this->cleanFolder($folder);
-        $breadcrumbs = $this->breadcrumbs($folder);
-        $folderName = $breadcrumbs->pop();
+        $breadCrumbs = $this->breadcrumbs($folder);
+        $folderName = $breadCrumbs->pop();
 
         // Get the names of the sub folders within this folder
-        $subfolders = collect($this->disk->directories($folder))->reduce(function ($subfolders, $subFolder) {
+        $subFolders = collect($this->disk->directories($folder))->reduce(function ($subfolders, $subFolder) {
             $subfolders["/$subFolder"] = basename($subFolder);
 
             return $subfolders;
@@ -89,9 +89,9 @@ class MediaManager implements FileUploaderInterface
             return $files;
         }, collect([]));
 
-        $itemsCount = $subfolders->count() + $files->count();
+        $itemsCount = $subFolders->count() + $files->count();
 
-        return compact('folder', 'folderName', 'breadcrumbs', 'subfolders', 'files', 'itemsCount');
+        return compact('folder', 'folderName', 'breadCrumbs', 'subFolders', 'files', 'itemsCount');
     }
 
     /**
@@ -172,7 +172,12 @@ class MediaManager implements FileUploaderInterface
      */
     public function fileMimeType($path)
     {
-        return $this->mimeDetect->findType(pathinfo($path, PATHINFO_EXTENSION));
+        $type = $this->mimeDetect->findType(pathinfo($path, PATHINFO_EXTENSION));
+        if (!empty($type)) {
+            return $type;
+        }
+
+        return 'unknown/type';
     }
 
     /**

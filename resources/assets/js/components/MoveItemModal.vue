@@ -1,36 +1,38 @@
 <template>
-    <media-modal :show.sync="show" :size="size">
-        <div class="modal-header">
-            <button class="close" type="button" @click="close">×</button>
-            <h4 class="modal-title">Move item</h4>
-        </div>
-
-        <div v-show="loading" transition="fade" class="text-center">
-            <span class="spinner icon-spinner2"></span>Loading...
-        </div>
-
-        <div v-else>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label>Item name</label>
-                    <p class="static">{{ this.getItemName(this.currentFile) }}</p>
-                </div>
-
-                <div class="form-group">
-                    <label>Move to</label>
-                    <select class="form-control" v-model="newFolderLocation" id="newFolderLocation" name="newFolderLocation">
-                        <option v-for="(path, name) in allDirectories" :value="path">{{{ name }}}</option>
-                    </select>
-                </div>
+    <media-modal @close="close()" :size="size" :show="show" v-if="show">
+        <div>
+            <div class="modal-header">
+                <button class="close" type="button" @click="close()">×</button>
+                <h4 class="modal-title">Move item</h4>
             </div>
 
-            <div class="modal-footer">
-                <button class="btn btn-primary" @click="moveItem()">
-                    Apply
-                </button>
-                <button class="btn btn-default" type="button" @click="close">
-                    Cancel
-                </button>
+            <div v-if="loading" class="text-center">
+                <span class="spinner icon-spinner2"></span>Loading...
+            </div>
+
+            <div v-else>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Item name</label>
+                        <p class="static">{{ this.getItemName(this.currentFile) }}</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Move to</label>
+                        <select class="form-control" v-model="newFolderLocation" id="newFolderLocation" name="newFolderLocation" @keyup.enter="moveItem()">
+                            <option v-for="(name, path) in allDirectories" :value="path" v-html="name"></option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="button" @click="moveItem()">
+                        Apply
+                    </button>
+                    <button class="btn btn-default" type="button" @click="close()">
+                        Cancel
+                    </button>
+                </div>
             </div>
         </div>
     </media-modal>
@@ -38,7 +40,13 @@
 
 <script>
     export default{
-        props: ['show', 'currentPath', 'currentFile'],
+        props:{
+            currentPath:{},
+            currentFile:{},
+            show:{
+                default : false
+            }
+        },
 
         data: function () {
             return {
@@ -57,7 +65,7 @@
             }
         },
 
-        ready: function () {
+        mounted: function () {
             document.addEventListener("keydown", (e) => {
                 if (this.show && e.keyCode == 13) {
                     this.moveItem();
@@ -69,51 +77,47 @@
             close: function () {
                 this.newFolderName = null;
                 this.loading = false;
-                this.show = false;
+                this.$emit('close');
             },
 
             open: function () {
-                this.loading = true;
                 this.$http.get('/admin/browser/directories').then(
                         function (response) {
                             this.newFolderLocation = this.currentPath;
                             this.allDirectories = response.data;
-                            this.loading = false;
                         },
                         function (response) {
                             var error = (response.data.error) ? response.data.error : response.statusText;
-                            this.$dispatch('media-manager-notification', error, 'danger');
-                            this.loading = false;
+                            this.mediaManagerNotify(error, 'danger');
+
                         }
                 );
             },
 
             moveItem: function () {
-                this.loading = true;
-                var currentItem = this.getItemName(this.currentFile);
 
                 var data = {
                     'path': this.currentPath,
-                    'currentItem': currentItem,
+                    'currentItem': this.getItemName(this.currentFile),
                     'newPath': this.newFolderLocation,
                     'type': (this.isFolder(this.currentFile)) ? 'Folder' : 'File'
                 };
 
+                this.loading = true;
                 this.$http.post('/admin/browser/move', data).then(
                         function (response) {
-                            this.$dispatch('media-manager-reload-folder');
-                            this.$dispatch('media-manager-notification', response.data.success);
+                            window.eventHub.$emit('media-manager-reload-folder');
+                            window.eventHub.$emit('media-manager-notification', response.data.success);
                             this.close();
                         },
                         function (response) {
                             var error = (response.data.error) ? response.data.error : response.statusText;
-                            this.$dispatch('reload-folder', response.data.success);
-                            this.$dispatch('media-manager-notification', error, 'danger');
+                            window.eventHub.$emit('reload-folder', response.data.success);
+                            window.eventHub.$emit('media-manager-notification', error, 'danger');
                             this.loading = false;
                         }
                 );
             }
         }
-
     };
 </script>

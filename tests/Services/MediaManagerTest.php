@@ -100,8 +100,8 @@ class MediaManagerTest extends TestCase
         $this->assertEquals($response, [
             'folder'      => '/',
             'folderName'  => 'Root',
-            'breadcrumbs' => new Collection(),
-            'subfolders'  => new Collection(),
+            'breadCrumbs' => new Collection(),
+            'subFolders'  => new Collection(),
             'files'       => new Collection(),
             'itemsCount'  => 0,
         ]);
@@ -155,8 +155,8 @@ class MediaManagerTest extends TestCase
         $this->assertEquals($response, [
             'folder'      => '/',
             'folderName'  => 'Root',
-            'breadcrumbs' => new Collection(),
-            'subfolders'  => new Collection(),
+            'breadCrumbs' => new Collection(),
+            'subFolders'  => new Collection(),
             'files'       => new Collection(),
             'itemsCount'  => 0,
         ]);
@@ -177,7 +177,7 @@ class MediaManagerTest extends TestCase
 
         // is found ?
         $list = $this->mediaManager->folderInfo('/');
-        $subFolders = $list['subfolders'];
+        $subFolders = $list['subFolders'];
 
         $this->assertTrue(isset($subFolders[$folderName]));
     }
@@ -216,7 +216,7 @@ class MediaManagerTest extends TestCase
 
         // is found ?
         $list = $this->mediaManager->folderInfo('/');
-        $subFolders = $list['subfolders'];
+        $subFolders = $list['subFolders'];
 
         $this->assertTrue(isset($subFolders[$folderName]));
 

@@ -3,24 +3,15 @@
  * include Vue and Vue Resource. This gives a great starting point for
  * building robust, powerful web applications using Vue and Laravel.
  */
-
 require('./base');
 
-require('hammerjs');
+//require('hammerjs');
 
 import FileManagerMixin from './mixins/file-manager-mixin';
 Vue.mixin(FileManagerMixin);
 
-import VueTouch from 'vue-touch';
-Vue.use(VueTouch);
-
-VueTouch.registerCustomEvent('doubletap', {
-    type: 'tap',
-    taps: 2
-});
-
 /**
- * Register Vue components
+ * Register Vue components...
  */
 Vue.component('media-modal', require('./components/MediaModal.vue'));
 Vue.component('media-create-folder-modal', require('./components/CreateFolderModal.vue'));
@@ -29,6 +20,7 @@ Vue.component('media-errors', require('./components/Errors.vue'));
 Vue.component('media-move-item-modal', require('./components/MoveItemModal.vue'));
 Vue.component('media-rename-item-modal', require('./components/RenameItemModal.vue'));
 Vue.component('media-manager', require('./components/MediaManager.vue'));
+
 
 /**
  * Register Vue Filters
