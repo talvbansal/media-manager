@@ -88,7 +88,7 @@ After you've added the dependencies to your layout if your project doesn't alrea
 </script>
 ```
 
-This tells Vue to use an element with the id of `app` on your page as its container. This allows you to target a specific area in which `vue.js` will interact.
+This tells Vue to use an element with the id of `app` on your page as its container - a specific area in which `vue.js` will interact. Vue will not interact with anything outside of this element.
 
 You will also need to add the following to your layout if it doesn't already exist.
 It provides the `csrfToken` used for the `vue-resource` http requests that the Media Manager will make.
