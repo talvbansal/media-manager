@@ -25,7 +25,7 @@ class MediaManagerTest extends TestCase
     }
 
     /**
-     * clean up any files and folder that have been created through the testing process.
+     * Clean up any files and folders that have been created through the testing process.
      */
     public function tearDown()
     {
