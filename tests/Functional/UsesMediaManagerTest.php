@@ -8,7 +8,6 @@
  */
 class UsesMediaManagerTest extends TestCase
 {
-
     public function setUp()
     {
         parent::setUp();
@@ -21,14 +20,13 @@ class UsesMediaManagerTest extends TestCase
     {
         $this->visit('/admin/browser/index')->seeJson(
                 [
-                    "breadCrumbs" => [],
-                    "files" => [],
-                    "folder" => "/",
-                    "folderName" => "Root",
-                    "itemsCount" => 1,
-                    "subFolders" => [ "/test" => "test" ]
+                    'breadCrumbs' => [],
+                    'files'       => [],
+                    'folder'      => '/',
+                    'folderName'  => 'Root',
+                    'itemsCount'  => 1,
+                    'subFolders'  => ['/test' => 'test'],
                 ]
             );
     }
-
 }
