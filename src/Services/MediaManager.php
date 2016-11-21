@@ -8,13 +8,14 @@ use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
+use TalvBansal\MediaManager\Contracts\FileMoverInterface;
 use TalvBansal\MediaManager\Contracts\FileUploaderInterface;
 use TalvBansal\MediaManager\Contracts\UploadedFilesInterface;
 
 /**
  * Class MediaManager.
  */
-class MediaManager implements FileUploaderInterface
+class MediaManager implements FileUploaderInterface, FileMoverInterface
 {
     /**
      * @var FilesystemAdapter
@@ -306,11 +307,10 @@ class MediaManager implements FileUploaderInterface
     /**
      * @param      $currentFile
      * @param      $newFile
-     * @param bool $isFolder
      *
      * @return bool
      */
-    public function moveFile($currentFile, $newFile, $isFolder = false)
+    public function moveFile($currentFile, $newFile)
     {
         if ($this->disk->exists($newFile)) {
             $this->errors[] = 'File already exists.';

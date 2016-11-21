@@ -13,7 +13,6 @@ class MediaRoutes
     {
 
         // Media Manager Routes
-        Route::get('/admin/media', '\TalvBansal\MediaManager\Http\Controllers\MediaController@index');
         Route::get('/admin/browser/index', '\TalvBansal\MediaManager\Http\Controllers\MediaController@ls');
 
         Route::post('admin/browser/file', '\TalvBansal\MediaManager\Http\Controllers\MediaController@uploadFiles');

@@ -33,11 +33,6 @@ class MediaController extends Controller
         $this->mediaManager = $mediaManager;
     }
 
-    public function index()
-    {
-        return view('media-manager::media.index');
-    }
-
     /**
      * @return \Illuminate\Http\JsonResponse
      */
