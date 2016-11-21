@@ -305,8 +305,8 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
     }
 
     /**
-     * @param      $currentFile
-     * @param      $newFile
+     * @param   $currentFile
+     * @param   $newFile
      *
      * @return bool
      */
