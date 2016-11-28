@@ -18,7 +18,7 @@ class UsesMediaManagerTest extends TestCase
 
     public function test_can_list_files_from_the_media_manager_root()
     {
-        $mediaManager = new \TalvBansal\MediaManager\Services\MediaManager( new \Dflydev\ApacheMimeTypes\PhpRepository() );
+        $mediaManager = new \TalvBansal\MediaManager\Services\MediaManager(new \Dflydev\ApacheMimeTypes\PhpRepository());
         $mediaManager->createDirectory('/test');
 
         $this->visit('/admin/browser/index')->seeJson(
