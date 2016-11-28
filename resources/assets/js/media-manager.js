@@ -38,7 +38,7 @@ Vue.filter('moment', function (date, format) {
 
     if (!format) format = 'DD/MM/YYYY LTS';
 
-    return moment().utc(date).local().format(format)
+    return moment(date).utc().format(format)
 });
 
 /**

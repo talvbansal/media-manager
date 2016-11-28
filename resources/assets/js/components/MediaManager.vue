@@ -114,7 +114,7 @@
 
                                             </td>
                                             <td> {{ file.mimeType }}</td>
-                                            <td> {{ file.modified.date | moment('L') }}</td>
+                                            <td> {{ file.modified.date | moment('DD/MM/YYYY') }}</td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -151,7 +151,7 @@
                                     </tr>
                                     <tr>
                                         <td class="description">Uploaded On</td>
-                                        <td class="file-value">{{ currentFile.modified.date | moment('L LT') }}</td>
+                                        <td class="file-value">{{ currentFile.modified.date | moment }}</td>
                                     </tr>
                                     </tbody>
                                 </table>

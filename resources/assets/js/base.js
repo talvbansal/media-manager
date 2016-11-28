@@ -24,4 +24,4 @@ Vue.http.interceptors.push((request, next) => {
  * It's similar to Carbon in PHP so we mostly use it to format
  * dates that are returned from our Laravel Eloquent models
  */
-window.moment = require('momentjs');
+window.moment = require('moment');
