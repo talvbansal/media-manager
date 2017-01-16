@@ -97,7 +97,7 @@
                             },
                             function (response) {
                                 var error = (response.data.error) ? response.data.error : response.statusText;
-                                this.errors = [error];
+                                this.errors = error;
                                 this.loading = false;
                             }
                     );
