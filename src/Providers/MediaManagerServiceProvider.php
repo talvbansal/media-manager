@@ -5,6 +5,7 @@
  * Date: 10/07/16
  * Time: 16:04.
  */
+
 namespace TalvBansal\MediaManager\Providers;
 
 use Illuminate\Support\ServiceProvider;
