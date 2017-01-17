@@ -5,6 +5,7 @@
  * Date: 02/10/16
  * Time: 18:59.
  */
+
 namespace TalvBansal\MediaManager\Http;
 
 use Illuminate\Support\Collection;
