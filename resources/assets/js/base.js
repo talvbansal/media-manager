@@ -25,3 +25,9 @@ Vue.http.interceptors.push((request, next) => {
  * dates that are returned from our Laravel Eloquent models
  */
 window.moment = require('moment');
+
+/**
+ * Dropzone
+ */
+var dropzone = require('dropzone');
+dropzone.autoDiscover = false;

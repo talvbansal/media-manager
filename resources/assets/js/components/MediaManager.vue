@@ -9,7 +9,7 @@
                     <div class="btn-group offset-right">
 
                         <!-- File input wont get triggered if this is a button so use a label instead -->
-                        <label class="btn btn-primary btn-icon-text btn-file" title="Upload">
+                        <label class="btn btn-primary btn-icon-text btn-file" title="Select files to be uploaded - or drag files into the main window pane">
                             <i class="icon-upload"></i>
                             <span class="hidden-xs">Upload</span>
                             <input type="file" class="hidden" @change="uploadFile" name="files[]" multiple="multiple"/>
@@ -50,12 +50,13 @@
 
             </div>
 
-            <div>
+            <div class="dropzone" id="mediaManagerDropZone">
                 <div v-if="loading" class="text-center">
                     <span class="spinner icon-spinner2"></span>Loading...
                 </div>
 
                 <div v-else>
+
                     <div class="easel-file-browser">
                         <div class="row">
                             <div class="col-xs-12">
@@ -330,6 +331,8 @@
                     this.loadFolder();
                 //}.bind(this), 500);
             //}
+
+			this.dragUpload();
         },
 
         methods: {
@@ -420,7 +423,53 @@
                 if (this.selectedEventName) {
                     window.eventHub.$emit('media-manager-selected-' + this.selectedEventName, this.currentFile);
                 }
-            }
+            },
+
+			dragUpload:function(){
+
+                $("div#mediaManagerDropZone").dropzone({
+                    clickable: false,
+                    createImageThumbnails: false,
+					dictDefaultMessage : '',
+                    enqueueForUpload: true,
+                    paramName: "files",
+                    previewsContainer: null,
+                    previewTemplate: '<div class="hidden"></div>',
+                    hiddenInputContainer: true,
+                    uploadMultiple: true,
+                    url: "/admin/browser/file",
+                    headers: {
+                        "X-CSRF-TOKEN": window.Laravel.csrfToken
+                    },
+
+                    sending: function(file, xhr, form) {
+                        this.loading = true;
+                        form.append('folder', this.currentPath);
+                    }.bind(this),
+
+                    completemultiple: function(file)
+                    {
+                        this.loading = false;
+                        this.loadFolder(this.currentPath);
+                    }.bind(this),
+
+                    error: function(file, response)
+					{
+                        alert(response);
+                        this.mediaManagerNotify(response.error);
+					}.bind(this),
+
+                    errormultiple: function(file, response)
+					{
+                        this.mediaManagerNotify(response.error);
+					}.bind(this),
+
+                    successmultiple: function(file, response)
+                    {
+                        this.mediaManagerNotify(response.success);
+                    }.bind(this)
+                });
+			}
         }
     }
 </script>
