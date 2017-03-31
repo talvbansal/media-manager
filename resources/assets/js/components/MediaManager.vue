@@ -54,11 +54,11 @@
 				<div v-if="loading" class="text-center">
 					<span class="spinner icon-spinner2"></span>Loading...
 
+					<br/>
+
 					<div v-if="uploadProgress > 0">
-						{{ uploadProgress }} %
+						<h4>{{ uploadProgress }} %</h4>
 					</div>
-					<br/>
-					<br/>
 					<br/>
 
 				</div>
@@ -400,7 +400,7 @@
                 this.$http.post('/admin/browser/file', form, {
 						progress:function(e){
 							if (e.lengthComputable) {
-                                this.uploadProgress = parseFloat(Math.round(e.loaded / e.total * 100) / 100).toFixed(2);
+                                this.uploadProgress = parseFloat( Math.round(e.loaded / e.total * 100) ).toFixed(2);
 							}
 						}.bind(this)
                     }
