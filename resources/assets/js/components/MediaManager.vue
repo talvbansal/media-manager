@@ -56,8 +56,10 @@
 
 					<div v-if="uploadProgress > 0">
 						{{ uploadProgress }} %
-						<br/>
 					</div>
+					<br/>
+					<br/>
+					<br/>
 
 				</div>
 
@@ -343,6 +345,7 @@
             },
 
             loadFolder: function (path) {
+                this.uploadProgress = 0;
                 if (!path) {
                     path = ( this.currentPath ) ? this.currentPath : '';
                 }
@@ -395,11 +398,11 @@
 
                 this.loading = true;
                 this.$http.post('/admin/browser/file', form, {
-						progress(e) {
+						progress:function(e){
 							if (e.lengthComputable) {
-								this.uploadProgress = (e.loaded / e.total * 100);
+                                this.uploadProgress = parseFloat(Math.round(e.loaded / e.total * 100) / 100).toFixed(2);
 							}
-						}
+						}.bind(this)
                     }
                 ).then(
                     function (response) {
