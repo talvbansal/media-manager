@@ -53,6 +53,12 @@
             <div class="dropzone" id="mediaManagerDropZone">
                 <div v-if="loading" class="text-center">
                     <span class="spinner icon-spinner2"></span>Loading...
+
+					<div v-if="uploadProgress > 0">
+						{{ uploadProgress }} %
+						<br/>
+					</div>
+
                 </div>
 
                 <div v-else>
@@ -291,6 +297,11 @@
                 loading: true,
 
                 /**
+				 * Property to show upload progress
+				 */
+                uploadProgress: 0,
+
+                /**
                  * Total files and folder count
                  */
                 itemsCount: 0,
@@ -314,24 +325,7 @@
         },
 
         mounted: function () {
-            /**
-             * If this instance is modal we only want to load the root file structure when
-             * the modal window is show, otherwise a request to get the root path would
-             * be made un-necessarily. However if this isn't a modal window instance
-             * then we need to automatically load the root file contents so that
-             * some file data is displayed to the user upon component render.
-             */
-            //if (!this.isModal) {
-                /**
-                 * I have no idea why this time out is needed but calling loadFolder()
-                 * when the component is ready doesn't work unless there is a short
-                 * delay.
-                 */
-                //setTimeout(function () {
-                    this.loadFolder();
-                //}.bind(this), 500);
-            //}
-
+            this.loadFolder();
 			this.dragUpload();
         },
 
@@ -434,7 +428,7 @@
                     enqueueForUpload: true,
                     paramName: "files",
                     previewsContainer: null,
-                    previewTemplate: '<div class="hidden"></div>',
+                    previewTemplate: '<span class="hidden"></span>',
                     hiddenInputContainer: true,
                     uploadMultiple: true,
                     url: "/admin/browser/file",
@@ -447,27 +441,37 @@
                         form.append('folder', this.currentPath);
                     }.bind(this),
 
-                    completemultiple: function(file)
+                    completemultiple: function(files)
                     {
                         this.loading = false;
                         this.loadFolder(this.currentPath);
                     }.bind(this),
 
-                    error: function(file, response)
-					{
-                        alert(response);
-                        this.mediaManagerNotify(response.error);
-					}.bind(this),
-
-                    errormultiple: function(file, response)
+                    error: function(files, response)
 					{
                         this.mediaManagerNotify(response.error);
 					}.bind(this),
 
-                    successmultiple: function(file, response)
+                    errormultiple: function(files, response)
+					{
+                        this.mediaManagerNotify(response.error);
+					}.bind(this),
+
+                    successmultiple: function(files, response)
                     {
                         this.mediaManagerNotify(response.success);
-                    }.bind(this)
+                    }.bind(this),
+
+                    totaluploadprogress: function(uploadProgress){
+                        this.uploadProgress = parseFloat(Math.round(uploadProgress * 100) / 100).toFixed(2);
+                        if( this.uploadProgress < 100 )
+						{
+						    this.loading = true;
+						}else{
+                            this.uploadProgress = 0;
+                            this.loading = false;
+						}
+					}.bind(this)
                 });
 			}
         }
