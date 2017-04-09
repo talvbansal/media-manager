@@ -138,7 +138,6 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
      */
     protected function folderDetails($path)
     {
-
         $path = '/'.ltrim($path, '/');
 
         return [
@@ -314,7 +313,7 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
         $directories = $this->disk->allDirectories('/');
 
         return collect($directories)->filter(function ($directory) {
-            return ! (starts_with($directory, '.'));
+            return !(starts_with($directory, '.'));
         })->map(function ($directory) {
             return DIRECTORY_SEPARATOR.$directory;
         })->reduce(function ($allDirectories, $directory) {
@@ -411,7 +410,8 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
     }
 
     /**
-     * Work out if an item (file or folder) is hidden (begins with a ".")
+     * Work out if an item (file or folder) is hidden (begins with a ".").
+     *
      * @param $item
      *
      * @return bool

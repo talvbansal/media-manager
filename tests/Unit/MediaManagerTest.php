@@ -220,11 +220,11 @@ class MediaManagerTest extends TestCase
 
         // is found ?
         $list = $this->mediaManager->folderInfo('/');
-        $folders = collect($list['subFolders'])->map(function($folder){
-           return $folder['fullPath'];
+        $folders = collect($list['subFolders'])->map(function ($folder) {
+            return $folder['fullPath'];
         })->toArray();
 
-        $this->assertTrue( ! in_array($folderName, $folders) );
+        $this->assertTrue(!in_array($folderName, $folders));
     }
 
     /**
