@@ -30,9 +30,9 @@ class UsesMediaManagerTest extends TestCase
                     'itemsCount'  => 1,
                     'subFolders'  => [
                         [
-                            'name' => 'test',
+                            'name'     => 'test',
                             'fullPath' => '/test',
-                        ]
+                        ],
                     ],
                 ]
             );
