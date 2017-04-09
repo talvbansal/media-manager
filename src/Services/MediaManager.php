@@ -75,7 +75,7 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
 
         // Get the names of the sub folders within this folder
         $subFolders = collect($this->disk->directories($folder))->reduce(function ($subFolders, $subFolder) {
-            if (!starts_with(last(explode(DIRECTORY_SEPARATOR, $subFolder)), '.')) {
+            if (!$this->isItemHidden($subFolder)) {
                 $subFolders[] = $this->folderDetails($subFolder);
             }
 
@@ -84,8 +84,7 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
 
         // Get all files within this folder
         $files = collect($this->disk->files($folder))->reduce(function ($files, $path) {
-            // Don't show hidden files or folders
-            if (!starts_with(last(explode(DIRECTORY_SEPARATOR, $path)), '.')) {
+            if (!$this->isItemHidden($path)) {
                 $files[] = $this->fileDetails($path);
             }
 
@@ -409,5 +408,16 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
 
             return $uploaded;
         }, 0);
+    }
+
+    /**
+     * Work out if an item (file or folder) is hidden (begins with a ".")
+     * @param $item
+     *
+     * @return bool
+     */
+    private function isItemHidden($item)
+    {
+        return starts_with(last(explode(DIRECTORY_SEPARATOR, $item)), '.');
     }
 }
