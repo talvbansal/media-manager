@@ -74,10 +74,10 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
         $folderName = $breadCrumbs->pop();
 
         // Get the names of the sub folders within this folder
-        $subFolders = collect($this->disk->directories($folder))->reduce(function ($subfolders, $subFolder) {
-            $subfolders["/$subFolder"] = basename($subFolder);
+        $subFolders = collect($this->disk->directories($folder))->reduce(function ($subFolders, $subFolder) {
+            $subFolders[] = $this->folderDetails($subFolder);
 
-            return $subfolders;
+            return $subFolders;
         }, collect([]));
 
         // Get all files within this folder
@@ -129,7 +129,27 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
     }
 
     /**
-     * Return an array of file details for a file.
+     * Return an array of folder details for a given folder.
+     *
+     * @param $path
+     *
+     * @return array
+     */
+    protected function folderDetails($path)
+    {
+
+        $path = '/'.ltrim($path, '/');
+
+        return [
+            'name'         => basename($path),
+            'mimeType'     => 'folder',
+            'fullPath'     => $path,
+            'modified'     => $this->fileModified($path),
+        ];
+    }
+
+    /**
+     * Return an array of file details for a given file.
      *
      * @param $path
      *

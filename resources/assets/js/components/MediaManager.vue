@@ -88,9 +88,9 @@
 									<table class="table table-condensed table-vmiddle">
 										<thead>
 										<tr>
-											<th>Name</th>
-											<th>Type</th>
-											<th>Date</th>
+											<th><a href='javascript:void(0);' @click="orderBy('name')">Name</a></th>
+											<th><a href='javascript:void(0);' @click="orderBy('mimeType')">Type</a></th>
+											<th><a href='javascript:void(0);' @click="orderBy('modified.date')">Date</a></th>
 										</tr>
 										</thead>
 										<tbody>
@@ -99,14 +99,14 @@
 												<i class="icon-folder"></i>
 												<a href="javascript:void(0);"
 												   @click="previewFile(folder)"
-												   @dblclick="loadFolder(path)"
-												   @keyup.enter="loadFolder(path)"
+												   @dblclick="loadFolder(folder.fullPath)"
+												   @keyup.enter="loadFolder(folder.fullPath)"
 												   class="word-wrappable">
-													{{ folder }}
+													{{ folder.name }}
 												</a>
 											</td>
-											<td>-</td>
-											<td>-</td>
+											<td>folder</td>
+											<td>{{ folder.modified.date | moment('DD/MM/YYYY') }}</td>
 										</tr>
 
 										<tr v-for="file in files" :class="[ (file == currentFile) ? 'active' : '' ]">
@@ -314,7 +314,12 @@
                 showCreateFolderModal: false,
                 showDeleteItemModal: false,
                 showMoveItemModal: false,
-                showRenameItemModal: false
+                showRenameItemModal: false,
+
+                /**
+				 * property to hold direction of column sorting
+                 */
+                sortDirection: false
             }
         },
 
@@ -332,6 +337,18 @@
         },
 
         methods: {
+
+            /**
+			 * sort files and folders...
+             * @param column
+             */
+            orderBy(column)
+			{
+			    this.sortDirection = !this.sortDirection;
+			    const order = (this.sortDirection)? 'desc' : 'asc';
+				this.files = _.orderBy(this.files, [column], [order]);
+				this.folders = _.orderBy(this.folders, [column], [order]);
+			},
 
             close: function () {
                 this.breadCrumbs = {};
