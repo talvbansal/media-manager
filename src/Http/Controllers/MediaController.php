@@ -78,8 +78,7 @@ class MediaController extends Controller
      */
     public function deleteFolder(Request $request)
     {
-        $del_folder = $request->get('del_folder');
-        $folder = str_finish($request->get('folder'), DIRECTORY_SEPARATOR).$del_folder;
+        $folder = $request->get('path');
 
         try {
             $result = $this->mediaManager->deleteDirectory($folder);

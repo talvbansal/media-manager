@@ -85,8 +85,7 @@
             deleteFolder: function () {
                 if (this.isFolder(this.currentFile)) {
                     var data = {
-                        'folder': this.currentPath,
-                        'del_folder': this.currentFile
+                        'path' : this.currentFile.fullPath
                     };
                     this.delete('/admin/browser/folder', data);
                 }

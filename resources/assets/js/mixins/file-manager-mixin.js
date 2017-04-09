@@ -5,7 +5,7 @@ export default {
                 return null;
             }
 
-            return ( this.isFolder(item) ) ? item : item.name;
+            return item.name;
         },
 
         isImage: function (file) {
@@ -13,7 +13,7 @@ export default {
         },
 
         isFolder: function (file) {
-            return (typeof file == 'string');
+            return (file.mimeType == 'folder');
         },
 
         mediaManagerNotify: function (notices, type, time) {

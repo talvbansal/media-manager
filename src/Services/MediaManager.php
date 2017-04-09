@@ -75,7 +75,9 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
 
         // Get the names of the sub folders within this folder
         $subFolders = collect($this->disk->directories($folder))->reduce(function ($subFolders, $subFolder) {
-            $subFolders[] = $this->folderDetails($subFolder);
+            if (!starts_with(last(explode(DIRECTORY_SEPARATOR, $subFolder)), '.')) {
+                $subFolders[] = $this->folderDetails($subFolder);
+            }
 
             return $subFolders;
         }, collect([]));
@@ -137,6 +139,7 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
      */
     protected function folderDetails($path)
     {
+
         $path = '/'.ltrim($path, '/');
 
         return [
@@ -311,7 +314,9 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
     {
         $directories = $this->disk->allDirectories('/');
 
-        return collect($directories)->map(function ($directory) {
+        return collect($directories)->filter(function ($directory) {
+            return ! (starts_with($directory, '.'));
+        })->map(function ($directory) {
             return DIRECTORY_SEPARATOR.$directory;
         })->reduce(function ($allDirectories, $directory) {
             $parts = explode('/', $directory);
