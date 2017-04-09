@@ -137,7 +137,6 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
      */
     protected function folderDetails($path)
     {
-
         $path = '/'.ltrim($path, '/');
 
         return [
