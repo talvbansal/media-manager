@@ -179,7 +179,7 @@ class MediaManagerTest extends TestCase
         $list = $this->mediaManager->folderInfo('/');
         $subFolders = $list['subFolders'];
 
-        $this->assertTrue(isset($subFolders[$folderName]));
+        $this->assertEquals($subFolders[0]['fullPath'], $folderName);
     }
 
     /**
@@ -214,15 +214,17 @@ class MediaManagerTest extends TestCase
         // is created ?
         $this->assertTrue($response);
 
-        // is found ?
-        $list = $this->mediaManager->folderInfo('/');
-        $subFolders = $list['subFolders'];
-
-        $this->assertTrue(isset($subFolders[$folderName]));
-
         // delete
         $response = $this->mediaManager->deleteDirectory($folderName);
         $this->assertTrue($response);
+
+        // is found ?
+        $list = $this->mediaManager->folderInfo('/');
+        $folders = collect($list['subFolders'])->map(function($folder){
+           return $folder['fullPath'];
+        })->toArray();
+
+        $this->assertTrue( ! in_array($folderName, $folders) );
     }
 
     /**

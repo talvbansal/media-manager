@@ -21,14 +21,19 @@ class UsesMediaManagerTest extends TestCase
         $mediaManager = new \TalvBansal\MediaManager\Services\MediaManager(new \Dflydev\ApacheMimeTypes\PhpRepository());
         $mediaManager->createDirectory('/test');
 
-        $this->visit('/admin/browser/index')->seeJson(
+        $this->visit('/admin/browser/index')->seeJsonSubset(
                 [
                     'breadCrumbs' => [],
                     'files'       => [],
                     'folder'      => '/',
                     'folderName'  => 'Root',
                     'itemsCount'  => 1,
-                    'subFolders'  => ['/test' => 'test'],
+                    'subFolders'  => [
+                        [
+                            'name' => 'test',
+                            'fullPath' => '/test',
+                        ]
+                    ],
                 ]
             );
     }
