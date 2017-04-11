@@ -18,7 +18,7 @@ Media Manager provides a simple way for users to upload and manage content to be
 
 - [PHP](https://php.net) >= 5.6
 - [Composer](https://getcomposer.org)
-- An existing [Laravel 5.3](https://laravel.com/docs/master/installation) project
+- An existing [Laravel 5.3+](https://laravel.com/docs/master/installation) project
 
 ## # Installation
 
@@ -60,6 +60,20 @@ const app = new Vue({
 
 Then make sure that the styles and icons are bundled too:
 
+##### # Laravel Mix
+```javascript
+
+//webpack.mix.js
+const { mix } = require('laravel-mix');
+
+// Media manager styles...
+mix.sass('resources/assets/talvbansal/media-manager/css/media-manager.css', 'public/css');
+
+// Copy SVG images into the public directory...
+mix.copy('resources/assets/talvbansal/media-manager/fonts/', 'public/fonts/');
+
+```
+##### # Laravel Elixir
 ```javascript
 //gulpfile.js
 var elixir = require('laravel-elixir');
@@ -67,7 +81,6 @@ var elixir = require('laravel-elixir');
 require('laravel-elixir-vue-2');
 
 elixir(function(mix) {
-
     // Add additional styles...
     mix.sass([
         '../talvbansal/media-manager/css/media-manager.css',
