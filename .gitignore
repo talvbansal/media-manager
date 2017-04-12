@@ -2,4 +2,4 @@ vendor/
 node_modules/
 public/css/*.map
 public/js/*.map
-reports/
+tests/reports/
