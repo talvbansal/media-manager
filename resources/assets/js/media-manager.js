@@ -5,8 +5,6 @@
  */
 require('./base');
 
-//require('hammerjs');
-
 import FileManagerMixin from './mixins/file-manager-mixin';
 Vue.mixin(FileManagerMixin);
 

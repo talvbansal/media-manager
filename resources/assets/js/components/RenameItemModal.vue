@@ -71,7 +71,7 @@
                 this.errors = [];
                 this.newItemName = null;
                 this.loading = false;
-                this.$emit('close');
+                this.$emit('media-modal-close');
             },
 
             renameItem: function () {

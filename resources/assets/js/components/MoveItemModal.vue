@@ -77,7 +77,7 @@
             close: function () {
                 this.newFolderName = null;
                 this.loading = false;
-                this.$emit('close');
+                this.$emit('media-modal-close');
             },
 
             open: function () {

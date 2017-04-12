@@ -65,7 +65,7 @@
                 this.newFolderName = null;
                 this.loading = false;
                 this.errors = [];
-                this.$emit('close');
+                this.$emit('media-modal-close');
             },
 
             createFolder: function () {

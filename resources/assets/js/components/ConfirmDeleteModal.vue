@@ -62,7 +62,7 @@
             close: function () {
                 this.newItemName = null;
                 this.loading = false;
-                this.$emit('close');
+                this.$emit('media-modal-close');
             },
 
             deleteItem: function () {

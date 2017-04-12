@@ -173,10 +173,10 @@ Here is an example of all of the above:
 ```html
 <body>
     <div id="app">
-        <media-modal v-if="showMediaManager" @close="showMediaManager = false">
+        <media-modal v-if="showMediaManager" @media-modal-close="showMediaManager = false">
             <media-manager
                 :is-modal="true"
-                @close="showMediaManager = false"
+                @media-modal-close="showMediaManager = false"
             >
             </media-manager>
         </media-modal>
@@ -233,11 +233,11 @@ Like notifications `select` will mean different things depending on the use of t
 
 To handle instances where different things may need to happen when a `select` event is triggered the Media Manager lets you define a custom `event` name to be emitted using the `selected-event-name` property:
 ```html
-<media-modal v-if="showMediaManager" @close="showMediaManager = false">
+<media-modal v-if="showMediaManager" @media-modal-close="showMediaManager = false">
     <media-manager
         :is-modal="true"
         :selected-event-name="selectedEventName"
-        @close="showMediaManager = false"
+        @media-modal-close="showMediaManager = false"
     >
     </media-manager>
 </media-modal>

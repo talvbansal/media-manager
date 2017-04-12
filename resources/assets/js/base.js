@@ -29,5 +29,5 @@ window.moment = require('moment');
 /**
  * Dropzone
  */
-var dropzone = require('dropzone');
+const dropzone = require('dropzone');
 dropzone.autoDiscover = false;

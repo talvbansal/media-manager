@@ -1,6 +1,6 @@
 <template>
     <transition name="modal">
-        <div class="modal media-modal modal-mask" @click="$emit('close')">
+        <div class="modal media-modal modal-mask" @click="$emit('media-modal-close')">
             <div class="modal-dialog" :class="[size]" @click.stop>
                 <div class="modal-content">
                     <slot></slot>

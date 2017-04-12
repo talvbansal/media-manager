@@ -187,7 +187,7 @@
 			</div>
 
 			<media-create-folder-modal
-					@close="showCreateFolderModal = false"
+					@media-modal-close="showCreateFolderModal = false"
 					@media-manager-reload-folder="loadFolder( currentPath )"
 					:current-path="currentPath"
 					:show="showCreateFolderModal"
@@ -195,7 +195,7 @@
 			</media-create-folder-modal>
 
 			<media-delete-item-modal
-					@close="showDeleteItemModal = false"
+					@media-modal-close="showDeleteItemModal = false"
 					@media-manager-reload-folder="loadFolder( currentPath )"
 					:current-path="currentPath"
 					:current-file="currentFile"
@@ -204,7 +204,7 @@
 			</media-delete-item-modal>
 
 			<media-move-item-modal
-					@close="showMoveItemModal = false"
+					@media-modal-close="showMoveItemModal = false"
 					@media-manager-reload-folder="loadFolder( currentPath )"
 					:current-path="currentPath"
 					:current-file="currentFile"
@@ -213,7 +213,7 @@
 			</media-move-item-modal>
 
 			<media-rename-item-modal
-					@close="showRenameItemModal = false"
+					@media-modal-close="showRenameItemModal = false"
 					@media-manager-reload-folder="loadFolder( currentPath )"
 					:current-path="currentPath"
 					:current-file="currentFile"
@@ -358,7 +358,7 @@
                 this.folderName = null;
                 this.folders = {};
                 this.itemsCount = 0;
-                this.$emit('close');
+                this.$emit('media-modal-close');
             },
 
             loadFolder: function (path) {
