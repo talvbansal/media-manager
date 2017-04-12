@@ -14,7 +14,7 @@
     "laravel-elixir-vue-2": "^0.2.0",
     "laravel-elixir-webpack-official": "^1.0.8",
     "lodash": "^4.16.2",
-    "momentjs": "^1.1.15",
+    "moment": "^2.17.1",
     "vue": "^2.0.3",
     "vue-resource": "^1.0.3",
     "vue-touch2": "^1.0.0"

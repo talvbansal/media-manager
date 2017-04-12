@@ -19,10 +19,10 @@
         </whitelist>
     </filter>
     <logging>
-        <log type="coverage-html" target="reports/code-coverage"/>
-        <log type="coverage-clover" target="reports/logs/phpunit.xml"/>
-        <log type="testdox-html" target="reports/testdox.html"/>
-        <log type="testdox-text" target="reports/testdox.txt"/>
+        <log type="coverage-html" target="tests/reports/code-coverage"/>
+        <log type="coverage-clover" target="tests/reports/logs/phpunit.xml"/>
+        <log type="testdox-html" target="tests/reports/testdox.html"/>
+        <log type="testdox-text" target="tests/reports/testdox.txt"/>
     </logging>
     <php>
         <env name="APP_ENV" value="testing"/>
