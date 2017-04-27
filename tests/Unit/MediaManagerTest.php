@@ -395,7 +395,7 @@ class MediaManagerTest extends TestCase
 
         $response = $this->mediaManager->folderInfo();
 
-        $this->assertEquals($response['files'][0], [
+        $this->assertDataContains([
             'name'         => 'test.jpg',
             'fullPath'     => '/test.jpg',
             'webPath'      => '/storage/test.jpg',
@@ -403,7 +403,7 @@ class MediaManagerTest extends TestCase
             'size'         => 664998,
             'modified'     => \Carbon\Carbon::now(),
             'relativePath' => '/storage/test.jpg',
-        ]);
+        ], $response['files'][0]);
     }
 
     /**

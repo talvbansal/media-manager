@@ -1,4 +1,6 @@
 <?php
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 
 
 /**
@@ -64,4 +66,34 @@ class TestCase extends \Orchestra\Testbench\TestCase
     {
         return realpath(storage_path($path));
     }
+
+    /**
+     * Check if data or a subset of data is contained within an array
+     *
+     * @param array $expectedData
+     * @param $actualData
+     *
+     * @return $this
+     */
+    public function assertDataContains( array $expectedData, $actualData )
+    {
+        $actual = json_encode(Arr::sortRecursive(
+            (array) $actualData
+        ));
+
+        foreach (Arr::sortRecursive($expectedData) as $key => $value) {
+            $expected = substr(json_encode([$key => $value]), 1, -1);
+
+            $this->assertTrue(
+                Str::contains($actual, $expected),
+                'Unable to find JSON fragment: '.PHP_EOL.PHP_EOL.
+                "[{$expected}]".PHP_EOL.PHP_EOL.
+                'within'.PHP_EOL.PHP_EOL.
+                "[{$actual}]."
+            );
+        }
+
+        return $this;
+    }
+
 }
