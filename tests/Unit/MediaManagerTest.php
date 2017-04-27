@@ -401,7 +401,6 @@ class MediaManagerTest extends TestCase
             'webPath'      => '/storage/test.jpg',
             'mimeType'     => 'image/jpeg',
             'size'         => 664998,
-            'modified'     => \Carbon\Carbon::now(),
             'relativePath' => '/storage/test.jpg',
         ], $response['files'][0]);
     }
