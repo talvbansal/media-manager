@@ -32,7 +32,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
      */
     protected function getEnvironmentSetUp($app)
     {
-        putenv('APP_URL='. $this->baseUrl);
+        putenv('APP_URL='.$this->baseUrl);
         $app['path.base'] = realpath(__DIR__.'../src');
 
         $app['config']->set('database.default', 'test');
