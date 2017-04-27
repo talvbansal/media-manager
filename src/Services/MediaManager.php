@@ -212,7 +212,8 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
     }
 
     /**
-     * Return the last modified time.
+     * Return the last modified time. If a timestamp can not be found fall back
+     * to today's date and time...
      *
      * @param $path
      *
@@ -220,7 +221,12 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
      */
     public function fileModified($path)
     {
-        return Carbon::createFromTimestamp($this->disk->lastModified($path));
+        try {
+            return Carbon::createFromTimestamp($this->disk->lastModified($path));
+        }catch (\Exception $e)
+        {
+            return Carbon::now();
+        }
     }
 
     /**
