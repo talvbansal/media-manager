@@ -33,7 +33,8 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
     private $errors = [];
 
     /**
-     * Name of the disk to upload to
+     * Name of the disk to upload to.
+     *
      * @var string
      */
     private $diskName;
@@ -45,8 +46,8 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
      */
     public function __construct(PhpRepository $mimeDetect)
     {
-        $this->diskName = env('MEDIA_MANAGER_STORAGE_DISK','public');
-        $this->disk = Storage::disk( $this->diskName );
+        $this->diskName = env('MEDIA_MANAGER_STORAGE_DISK', 'public');
+        $this->disk = Storage::disk($this->diskName);
         $this->mimeDetect = $mimeDetect;
     }
 
@@ -230,8 +231,7 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
     {
         try {
             return Carbon::createFromTimestamp($this->disk->lastModified($path));
-        }catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             return Carbon::now();
         }
     }
@@ -387,6 +387,7 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
         $path = $this->fileWebpath($path);
         // @todo This wont work for files not located on the current server...
         $path = str_replace_first(env('APP_URL'), '', $path);
+
         return str_replace(' ', '%20', ltrim($path, '/'));
     }
 
