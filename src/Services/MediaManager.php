@@ -33,7 +33,8 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
     private $errors = [];
 
     /**
-     * Name of the disk to upload to
+     * Name of the disk to upload to.
+     *
      * @var string
      */
     private $diskName;
@@ -45,8 +46,8 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
      */
     public function __construct(PhpRepository $mimeDetect)
     {
-        $this->diskName = env('MEDIA_MANAGER_STORAGE_DISK','public');
-        $this->disk = Storage::disk( $this->diskName );
+        $this->diskName = env('MEDIA_MANAGER_STORAGE_DISK', 'public');
+        $this->disk = Storage::disk($this->diskName);
         $this->mimeDetect = $mimeDetect;
     }
 
@@ -232,8 +233,7 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
     {
         try {
             return Carbon::createFromTimestamp($this->disk->lastModified($path));
-        }catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             return Carbon::now();
         }
     }
