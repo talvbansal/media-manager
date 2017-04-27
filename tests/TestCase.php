@@ -1,7 +1,7 @@
 <?php
+
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-
 
 /**
  * Class TestCase.
@@ -68,14 +68,14 @@ class TestCase extends \Orchestra\Testbench\TestCase
     }
 
     /**
-     * Check if data or a subset of data is contained within an array
+     * Check if data or a subset of data is contained within an array.
      *
      * @param array $expectedData
      * @param $actualData
      *
      * @return $this
      */
-    public function assertDataContains( array $expectedData, $actualData )
+    public function assertDataContains(array $expectedData, $actualData)
     {
         $actual = json_encode(Arr::sortRecursive(
             (array) $actualData
@@ -95,5 +95,4 @@ class TestCase extends \Orchestra\Testbench\TestCase
 
         return $this;
     }
-
 }
