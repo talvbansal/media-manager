@@ -39,7 +39,7 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
      */
     public function __construct(PhpRepository $mimeDetect)
     {
-        $this->disk = Storage::disk('public');
+        $this->disk = Storage::disk( env('MEDIA_MANAGER_STORAGE_DISK','public'));
         $this->mimeDetect = $mimeDetect;
     }
 
@@ -179,9 +179,7 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
      */
     public function fileWebpath($path)
     {
-        $path = $this->fileRelativePath($path);
-
-        return url($path);
+        return $this->disk->url($path);
     }
 
     /**
@@ -373,9 +371,10 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
      */
     private function fileRelativePath($path)
     {
-        $path = str_replace(' ', '%20', $path);
-
-        return '/storage/'.ltrim($path, '/');
+        $path = $this->fileWebpath($path);
+        // @todo This wont work for files not located on the current server...
+        $path = str_replace_first(env('APP_URL'), '', $path);
+        return str_replace(' ', '%20', ltrim($path, '/'));
     }
 
     /**

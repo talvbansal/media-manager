@@ -96,11 +96,14 @@ elixir(function(mix) {
 
 ```
 
-The media manager uses the `public` disk to store its uploads. The storage path for the `public` disk by default is `storage/app/public`. To make these files accessible from the web, use the following `storage:link` artisan command to generate a symbolic link to `public/storage`:
+By default the media manager uses the `public` disk to store its uploads. The storage path for the `public` disk by default is `storage/app/public`. To make these files accessible from the web, use the following `storage:link` artisan command to generate a symbolic link to `public/storage`:
 ```bash
 php artisan storage:link
 ```
-Read more about the public disk [on the Laravel documentation](https://laravel.com/docs/5.3/filesystem#the-public-disk).
+Read more about the public disk [on the Laravel documentation](https://laravel.com/docs/master/filesystem#the-public-disk).
+
+If you wish to change the disk that media manager stores its files to you can create a new entry in your projects `.env` file with the name of `MEDIA_MANAGER_STORAGE_DISK` and the name of the disk configured within `config/filesystems.php`.
+Any [flysystem](https://flysystem.thephpleague.com/) adapter which supports the `url` method should work.
 
 ## # Getting Started
 
