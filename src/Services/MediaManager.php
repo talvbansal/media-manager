@@ -33,13 +33,20 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
     private $errors = [];
 
     /**
+     * Name of the disk to upload to
+     * @var string
+     */
+    private $diskName;
+
+    /**
      * UploadsManager constructor.
      *
      * @param PhpRepository $mimeDetect
      */
     public function __construct(PhpRepository $mimeDetect)
     {
-        $this->disk = Storage::disk( env('MEDIA_MANAGER_STORAGE_DISK','public'));
+        $this->diskName = env('MEDIA_MANAGER_STORAGE_DISK','public');
+        $this->disk = Storage::disk( $this->diskName );
         $this->mimeDetect = $mimeDetect;
     }
 
@@ -403,7 +410,7 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
                 return $uploaded;
             }
 
-            if (!$file->storeAs($path, $fileName, 'public')) {
+            if (!$file->storeAs($path, $fileName, $this->diskName)) {
                 $this->errors[] = trans('media-manager::messages.upload_error', ['entity' => $fileName]);
 
                 return $uploaded;
