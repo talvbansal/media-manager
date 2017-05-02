@@ -179,21 +179,6 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
     }
 
     /**
-     * Return the full web path to a file.
-     *
-     * @param $path
-     *
-     * @return string
-     */
-    public function fileWebpath($path)
-    {
-        $path = $this->disk->url($path);
-        $path = preg_replace('#/+#', '/', $path);
-
-        return $path;
-    }
-
-    /**
      * Return the mime type.
      *
      * @param $path
@@ -378,6 +363,22 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
         }
 
         return $this->disk->getDriver()->rename($currentFolder, $newFolder);
+    }
+
+    /**
+     * Return the full web path to a file.
+     *
+     * @param $path
+     *
+     * @return string
+     */
+    public function fileWebpath($path)
+    {
+        $path = $this->disk->url($path);
+        // Remove extra slashes from URL without removing first two slashes after http/https:...
+        $path = preg_replace('/([^:])(\/{2,})/', '$1/', $path);
+
+        return $path;
     }
 
     /**
