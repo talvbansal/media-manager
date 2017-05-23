@@ -42,15 +42,17 @@ After registering the Media Manager service provider, you should publish the Med
 php artisan vendor:publish --tag=media-manager --force
 ```
 Media Manager assets are **not** published to the `public` folder as would be normally expected, instead they will be published to `/resources/assets/talvbansal`.
-Since the Media Manger is written in `vue.js 2.0` you'll need to use webpack or another bundler to get the code ready for the browser. You can then bundle these with your existing scripts in your projects `gulpfile.js`.
+Since the Media Manger is written in `vue.js 2.0` you'll need to use webpack or another bundler to get the code ready for the browser. You can then bundle these with your existing project assets.
+
+##### Example
 
 First you'll need to add the media-manager reference within your `resources/assets/js/app.js` file:
 
 ```javascript
 require('./bootstrap');
-require('./../talvbansal/media-manager/js/media-manager');
 
-Vue.component('example', require('./components/Example.vue'));
+// Add this line...
+require('./../talvbansal/media-manager/js/media-manager');
 
 const app = new Vue({
     el: '#app'
@@ -58,66 +60,50 @@ const app = new Vue({
 
 ```
 
-Then make sure that the styles and icons are bundled too:
+Then make sure that the styles are bundled and icons copied to the public directory:
 
-##### # Laravel Mix
+```sass
+// app.scss
+@import "../talvbansal/media-manager/css/media-manager.css";
+```
+
+##### # Laravel Mix (Laravel 5.4+)
 ```javascript
 
 //webpack.mix.js
 const { mix } = require('laravel-mix');
 
-// Media manager styles...
-mix.sass('resources/assets/talvbansal/media-manager/css/media-manager.css', 'public/css');
-
 // Copy SVG images into the public directory...
 mix.copy('resources/assets/talvbansal/media-manager/fonts/', 'public/fonts/');
 
 ```
-##### # Laravel Elixir
+##### # Laravel Elixir (Laravel 5.3)
 ```javascript
 //gulpfile.js
 var elixir = require('laravel-elixir');
-
 require('laravel-elixir-vue-2');
 
 elixir(function(mix) {
-    // Add additional styles...
-    mix.sass([
-        '../talvbansal/media-manager/css/media-manager.css',
-        'app.scss'
-    ]);
-
-    // Add dependencies and components...
-    mix.webpack(['app.js']);
-
     // Copy SVG images into the public directory...
     mix.copy( 'resources/assets/talvbansal/media-manager/fonts', 'public/fonts' );
 });
 
 ```
 
-The media manager uses the `public` disk to store its uploads. The storage path for the `public` disk by default is `storage/app/public`. To make these files accessible from the web, use the following `storage:link` artisan command to generate a symbolic link to `public/storage`:
+By default the media manager uses the `public` disk to store its uploads. The storage path for the `public` disk by default is `storage/app/public`. To make these files accessible from the web, use the following `storage:link` artisan command to generate a symbolic link to `public/storage`:
 ```bash
 php artisan storage:link
 ```
-Read more about the public disk [on the Laravel documentation](https://laravel.com/docs/5.3/filesystem#the-public-disk).
+Read more about the public disk [on the Laravel documentation](https://laravel.com/docs/master/filesystem#the-public-disk).
+
+If you wish to change the disk that media manager stores its files to you can create a new entry in your projects `.env` file with the name of `MEDIA_MANAGER_STORAGE_DISK` and the name of the disk configured within `config/filesystems.php`.
+Any [flysystem](https://flysystem.thephpleague.com/) adapter which supports the `url` method should work.
 
 ## # Getting Started
 
 The Media Manager is written in `vue.js 2.0` and comes bundled with all the dependencies required to get going very quickly.
-After you've added the dependencies to your layout if your project doesn't already use `vue.js 2.0` you'll need to create a **Vue instance** on the page that you want to use the Media Manager on:
 
-```javascript
-<script>
-    new Vue({
-        el : '#app'
-    });
-</script>
-```
-
-This tells Vue to use an element with the id of `app` on your page as its container - a specific area in which `vue.js` will interact. Vue will not interact with anything outside of this element.
-
-You will also need to add the following to your layout if it doesn't already exist.
+You will need to add the following to your layout if it does not already exist.
 It provides the `csrfToken` used for the `vue-resource` http requests that the Media Manager will make.
 ```javascript
 <script>

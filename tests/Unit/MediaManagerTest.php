@@ -368,13 +368,13 @@ class MediaManagerTest extends TestCase
 
         $response = $this->mediaManager->folderInfo();
         $this->assertEquals(
-            $response['files'][0]['relativePath'],
-            '/storage/example%20with%20spaces%201.jpg'
+            '/storage/example%20with%20spaces%201.jpg',
+            $response['files'][0]['relativePath']
         );
 
         $this->assertEquals(
-            $response['files'][0]['webPath'],
-            'http://localhost/storage/example%20with%20spaces%201.jpg'
+            '/storage/example with spaces 1.jpg',
+            $response['files'][0]['webPath']
         );
     }
 
@@ -395,15 +395,14 @@ class MediaManagerTest extends TestCase
 
         $response = $this->mediaManager->folderInfo();
 
-        $this->assertEquals($response['files'][0], [
+        $this->assertDataContains([
             'name'         => 'test.jpg',
             'fullPath'     => '/test.jpg',
-            'webPath'      => 'http://localhost/storage/test.jpg',
+            'webPath'      => '/storage/test.jpg',
             'mimeType'     => 'image/jpeg',
             'size'         => 664998,
-            'modified'     => \Carbon\Carbon::now(),
             'relativePath' => '/storage/test.jpg',
-        ]);
+        ], $response['files'][0]);
     }
 
     /**

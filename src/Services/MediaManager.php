@@ -33,13 +33,21 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
     private $errors = [];
 
     /**
+     * Name of the disk to upload to.
+     *
+     * @var string
+     */
+    private $diskName;
+
+    /**
      * UploadsManager constructor.
      *
      * @param PhpRepository $mimeDetect
      */
     public function __construct(PhpRepository $mimeDetect)
     {
-        $this->disk = Storage::disk('public');
+        $this->diskName = env('MEDIA_MANAGER_STORAGE_DISK', 'public');
+        $this->disk = Storage::disk($this->diskName);
         $this->mimeDetect = $mimeDetect;
     }
 
@@ -171,20 +179,6 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
     }
 
     /**
-     * Return the full web path to a file.
-     *
-     * @param $path
-     *
-     * @return string
-     */
-    public function fileWebpath($path)
-    {
-        $path = $this->fileRelativePath($path);
-
-        return url($path);
-    }
-
-    /**
      * Return the mime type.
      *
      * @param $path
@@ -214,7 +208,8 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
     }
 
     /**
-     * Return the last modified time.
+     * Return the last modified time. If a timestamp can not be found fall back
+     * to today's date and time...
      *
      * @param $path
      *
@@ -222,7 +217,11 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
      */
     public function fileModified($path)
     {
-        return Carbon::createFromTimestamp($this->disk->lastModified($path));
+        try {
+            return Carbon::createFromTimestamp($this->disk->lastModified($path));
+        } catch (\Exception $e) {
+            return Carbon::now();
+        }
     }
 
     /**
@@ -367,15 +366,34 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
     }
 
     /**
+     * Return the full web path to a file.
+     *
+     * @param $path
+     *
+     * @return string
+     */
+    public function fileWebpath($path)
+    {
+        $path = $this->disk->url($path);
+        // Remove extra slashes from URL without removing first two slashes after http/https:...
+        $path = preg_replace('/([^:])(\/{2,})/', '$1/', $path);
+
+        return $path;
+    }
+
+    /**
      * @param $path
      *
      * @return string
      */
     private function fileRelativePath($path)
     {
+        $path = $this->fileWebpath($path);
+        // @todo This wont work for files not located on the current server...
+        $path = str_replace_first(env('APP_URL'), '', $path);
         $path = str_replace(' ', '%20', $path);
 
-        return '/storage/'.ltrim($path, '/');
+        return $path;
     }
 
     /**
@@ -398,7 +416,7 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
                 return $uploaded;
             }
 
-            if (!$file->storeAs($path, $fileName, 'public')) {
+            if (!$file->storeAs($path, $fileName, $this->diskName)) {
                 $this->errors[] = trans('media-manager::messages.upload_error', ['entity' => $fileName]);
 
                 return $uploaded;
