@@ -49,7 +49,7 @@
             }
         },
 
-        data: function () {
+        data: () => {
             return {
                 errors: [],
                 loading: false,
@@ -58,7 +58,7 @@
             }
         },
 
-        mounted: function () {
+        mounted: () => {
             document.addEventListener("keydown", (e) => {
                 if (this.show && e.keyCode == 13) {
                     this.renameItem();
@@ -67,22 +67,22 @@
         },
 
         methods: {
-            close: function () {
+            close: () => {
                 this.errors = [];
                 this.newItemName = null;
                 this.loading = false;
                 this.$emit('media-modal-close');
             },
 
-            renameItem: function () {
+            renameItem: () => {
 
                 if (!this.newItemName) {
                     this.errors = ['Please provide a new name for this item'];
                 } else {
                     this.loading = true;
-                    var original = this.getItemName(this.currentFile);
+                    const original = this.getItemName(this.currentFile);
 
-                    var data = {
+                    const data = {
                         'path': this.currentPath,
                         'original': original,
                         'newName': this.newItemName,
@@ -90,13 +90,13 @@
                     };
 
                     this.$http.post('/admin/browser/rename', data).then(
-                            function (response) {
+                             (response) => {
                                 window.eventHub.$emit('media-manager-reload-folder');
                                 this.mediaManagerNotify(response.data.success);
                                 this.close();
                             },
-                            function (response) {
-                                var error = (response.data.error) ? response.data.error : response.statusText;
+                             (response) => {
+                                const error = (response.data.error) ? response.data.error : response.statusText;
                                 this.errors = error;
                                 this.loading = false;
                             }

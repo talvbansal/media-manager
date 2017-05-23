@@ -42,7 +42,7 @@
             }
         },
 
-        data: function () {
+        data: () => {
             return {
                 loading: false,
                 newItemName: null,
@@ -51,7 +51,7 @@
         },
 
         mounted() {
-            document.addEventListener("keydown", function (e) {
+            document.addEventListener("keydown", (e) => {
                 if (this.show && e.keyCode == 13) {
                     this.deleteItem();
                 }
@@ -59,13 +59,13 @@
         },
 
         methods: {
-            close: function () {
+            close: () => {
                 this.newItemName = null;
                 this.loading = false;
                 this.$emit('media-modal-close');
             },
 
-            deleteItem: function () {
+            deleteItem: () => {
 
                 if (this.isFolder(this.currentFile)) {
                     return this.deleteFolder();
@@ -73,7 +73,7 @@
                 return this.deleteFile();
             },
 
-            deleteFile: function () {
+            deleteFile: () => {
                 if (this.currentFile) {
                     var data = {
                         'path': this.currentFile.fullPath
@@ -82,7 +82,7 @@
                 }
             },
 
-            deleteFolder: function () {
+            deleteFolder: () => {
                 if (this.isFolder(this.currentFile)) {
                     var data = {
                         'path' : this.currentFile.fullPath
@@ -91,15 +91,15 @@
                 }
             },
 
-            delete: function (route, payload) {
+            delete: (route, payload) => {
                 this.loading = true;
                 this.$http.delete(route, {body: payload}).then(
-                        function (response) {
+                        (response) => {
                             window.eventHub.$emit('media-manager-reload-folder');
                             this.mediaManagerNotify(response.data.success);
                             this.close();
                         },
-                        function (response) {
+                        (response) => {
                             var error = (response.data.error) ? response.data.error : response.statusText;
                             this.mediaManagerNotify(error, 'danger');
                             this.close();

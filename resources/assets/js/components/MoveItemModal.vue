@@ -48,7 +48,7 @@
             }
         },
 
-        data: function () {
+        data: () => {
             return {
                 allDirectories: {},
                 newFolderLocation: null,
@@ -58,14 +58,14 @@
         },
 
         watch: {
-            show: function (open) {
+            show: (open) => {
                 if (open) {
                     this.open();
                 }
             }
         },
 
-        mounted: function () {
+        mounted: () => {
             document.addEventListener("keydown", (e) => {
                 if (this.show && e.keyCode == 13) {
                     this.moveItem();
@@ -74,20 +74,20 @@
         },
 
         methods: {
-            close: function () {
+            close: () => {
                 this.newFolderName = null;
                 this.loading = false;
                 this.$emit('media-modal-close');
             },
 
-            open: function () {
+            open: () => {
                 this.$http.get('/admin/browser/directories').then(
                         function (response) {
                             this.newFolderLocation = this.currentPath;
                             this.allDirectories = response.data;
                         },
                         function (response) {
-                            var error = (response.data.error) ? response.data.error : response.statusText;
+                            const error = (response.data.error) ? response.data.error : response.statusText;
                             this.mediaManagerNotify(error, 'danger');
 
                         }
@@ -96,7 +96,7 @@
 
             moveItem: function () {
 
-                var data = {
+                const data = {
                     'path': this.currentPath,
                     'currentItem': this.getItemName(this.currentFile),
                     'newPath': this.newFolderLocation,
@@ -105,12 +105,12 @@
 
                 this.loading = true;
                 this.$http.post('/admin/browser/move', data).then(
-                        function (response) {
+                        (response) => {
                             window.eventHub.$emit('media-manager-reload-folder');
                             window.eventHub.$emit('media-manager-notification', response.data.success);
                             this.close();
                         },
-                        function (response) {
+                        (response) => {
                             var error = (response.data.error) ? response.data.error : response.statusText;
                             window.eventHub.$emit('reload-folder', response.data.success);
                             window.eventHub.$emit('media-manager-notification', error, 'danger');

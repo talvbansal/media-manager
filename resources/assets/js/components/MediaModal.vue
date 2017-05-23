@@ -19,7 +19,7 @@
             }
         },
 
-        mounted: function () {
+        mounted: () => {
             document.addEventListener("keydown", (e) => {
                 if (this.show && e.keyCode == 27) {
                     this.close();

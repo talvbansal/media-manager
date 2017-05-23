@@ -43,7 +43,7 @@
             }
         },
 
-        data: function () {
+        data: () => {
             return {
                 errors: [],
                 loading: false,
@@ -52,7 +52,7 @@
             }
         },
 
-        mounted: function () {
+        mounted: () => {
             document.addEventListener("keydown", (e) => {
                 if (this.show && e.keyCode == 13) {
                     this.createFolder();
@@ -61,34 +61,34 @@
         },
 
         methods: {
-            close: function () {
+            close: () => {
                 this.newFolderName = null;
                 this.loading = false;
                 this.errors = [];
                 this.$emit('media-modal-close');
             },
 
-            createFolder: function () {
+            createFolder: () => {
 
                 if (!this.newFolderName) {
                     this.errors = ['Please provide a name for the new folder'];
                     return;
                 }
 
-                var data = {
+                const data = {
                     'folder': this.currentPath,
                     'new_folder': this.newFolderName
                 };
 
                 this.loading = true;
                 this.$http.post('/admin/browser/folder', data).then(
-                        function (response) {
+                        (response) => {
                             this.mediaManagerNotify(response.data.success);
                             window.eventHub.$emit('media-manager-reload-folder');
                             this.close();
                         },
-                        function (response) {
-                            var error = (response.data.error) ? response.data.error : response.statusText;
+                         (response) => {
+                            const error = (response.data.error) ? response.data.error : response.statusText;
                             this.errors = error;
                             this.loading =false;
                         }

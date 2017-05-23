@@ -350,7 +350,7 @@
 				this.folders = _.orderBy(this.folders, [column], [order]);
 			},
 
-            close: function () {
+            close: () => {
                 this.breadCrumbs = {};
                 this.currentFile = null;
                 this.currentPath = null;
@@ -361,7 +361,7 @@
                 this.$emit('media-modal-close');
             },
 
-            loadFolder: function (path) {
+            loadFolder: (path) => {
                 this.uploadProgress = 0;
                 if (!path) {
                     path = ( this.currentPath ) ? this.currentPath : '';
@@ -371,7 +371,7 @@
                 this.currentFile = false;
 
                 this.$http.get('/admin/browser/index?path=' + path).then(
-                    function (response) {
+                    (response) => {
                         this.breadCrumbs = response.data.breadCrumbs;
                         this.currentFile = null;
                         this.currentPath = response.data.folder;
@@ -381,7 +381,7 @@
                         this.folders = response.data.subFolders;
                         this.itemsCount = response.data.itemsCount;
                     },
-                    function (response) {
+                    (response) => {
                         if (response.data.error) {
                             this.mediaManagerNotify(response.data.error, 'danger');
                         }
@@ -392,11 +392,11 @@
                 );
             },
 
-            previewFile: function (file) {
+            previewFile: (file) => {
                 this.currentFile = file;
             },
 
-            uploadFile: function (event) {
+            uploadFile: (event) => {
                 event.preventDefault();
 
                 /**
@@ -405,29 +405,30 @@
                  * Attach the current path so the server knows where to upload the files to.
                  * Send a post request to the server...
                  */
-                var form = new FormData();
-                var files = event.target.files || event.dataTransfer.files;
+                const form = new FormData();
+                const files = event.target.files || event.dataTransfer.files;
 
-                for (var key in files) {
+                files.forEach(function(key) {
                     form.append('files[' + key + ']', files[key]);
-                }
+                });
+                
                 form.append('folder', this.currentPath);
 
                 this.loading = true;
                 this.$http.post('/admin/browser/file', form, {
-						progress:function(e){
+						progress: function(e) {
 							if (e.lengthComputable) {
                                 this.uploadProgress = parseFloat( Math.round(e.loaded / e.total * 100) ).toFixed(2);
 							}
 						}.bind(this)
                     }
                 ).then(
-                    function (response) {
+                    (response) => {
                         this.mediaManagerNotify(response.data.success);
                         this.loadFolder(this.currentPath);
                     },
-                    function (response) {
-                        var error = (response.data.error) ? response.data.error : response.statusText;
+                    (response) => {
+                        const error = (response.data.error) ? response.data.error : response.statusText;
                         // when uploading we might have some files uploaded and others fail
                         if (response.data.notices) this.mediaManagerNotify(response.data.notices);
                         this.mediaManagerNotify(error, 'danger', 5000);
@@ -437,7 +438,7 @@
 
             },
 
-            selectFile: function () {
+            selectFile: () => {
                 /**
                  * Only dispatch an event if a custom event has been defined
                  */
@@ -446,7 +447,7 @@
                 }
             },
 
-            dragUpload: function () {
+            dragUpload: () => {
 
                 $("div#mediaManagerDropZone").dropzone({
                     clickable: false,
@@ -472,10 +473,6 @@
                         this.loading = false;
                         this.loadFolder(this.currentPath);
                     }.bind(this),
-
-                    /*error: function (files, response) {
-                        this.mediaManagerNotify(response.error);
-                    }.bind(this),*/
 
                     errormultiple: function (files, response) {
                         this.mediaManagerNotify(response.error);
