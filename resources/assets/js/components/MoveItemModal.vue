@@ -82,11 +82,11 @@
 
             open: () => {
                 this.$http.get('/admin/browser/directories').then(
-                        function (response) {
+                        (response) => {
                             this.newFolderLocation = this.currentPath;
                             this.allDirectories = response.data;
                         },
-                        function (response) {
+                        (response) => {
                             const error = (response.data.error) ? response.data.error : response.statusText;
                             this.mediaManagerNotify(error, 'danger');
 

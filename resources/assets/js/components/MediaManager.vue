@@ -416,11 +416,11 @@
 
                 this.loading = true;
                 this.$http.post('/admin/browser/file', form, {
-						progress: function(e) {
+						progress: (e) => {
 							if (e.lengthComputable) {
                                 this.uploadProgress = parseFloat( Math.round(e.loaded / e.total * 100) ).toFixed(2);
 							}
-						}.bind(this)
+						}
                     }
                 ).then(
                     (response) => {
@@ -464,25 +464,25 @@
                         "X-CSRF-TOKEN": window.Laravel.csrfToken
                     },
 
-                    sending: function (file, xhr, form) {
+                    sending: (file, xhr, form) => {
                         this.loading = true;
                         form.append('folder', this.currentPath);
-                    }.bind(this),
+                    },
 
-                    completemultiple: function (files) {
+                    completemultiple: (files) => {
                         this.loading = false;
                         this.loadFolder(this.currentPath);
-                    }.bind(this),
+                    },
 
-                    errormultiple: function (files, response) {
+                    errormultiple: (files, response) => {
                         this.mediaManagerNotify(response.error);
-                    }.bind(this),
+                    },
 
-                    successmultiple: function (files, response) {
+                    successmultiple: (files, response) => {
                         this.mediaManagerNotify(response.success);
-                    }.bind(this),
+                    },
 
-                    totaluploadprogress: function (uploadProgress) {
+                    totaluploadprogress: (uploadProgress) => {
                         this.uploadProgress = parseFloat(Math.round(uploadProgress * 100) / 100).toFixed(2);
                         if (this.uploadProgress < 100) {
                             this.loading = true;
@@ -490,7 +490,7 @@
                             this.uploadProgress = 0;
                             this.loading = false;
                         }
-                    }.bind(this)
+                    }
                 });
             }
         }

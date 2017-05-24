@@ -75,7 +75,7 @@
 
             deleteFile: () => {
                 if (this.currentFile) {
-                    var data = {
+                    const data = {
                         'path': this.currentFile.fullPath
                     };
                     this.delete('/admin/browser/delete', data);
@@ -84,7 +84,7 @@
 
             deleteFolder: () => {
                 if (this.isFolder(this.currentFile)) {
-                    var data = {
+                    const data = {
                         'path' : this.currentFile.fullPath
                     };
                     this.delete('/admin/browser/folder', data);
@@ -100,7 +100,7 @@
                             this.close();
                         },
                         (response) => {
-                            var error = (response.data.error) ? response.data.error : response.statusText;
+                            const error = (response.data.error) ? response.data.error : response.statusText;
                             this.mediaManagerNotify(error, 'danger');
                             this.close();
                         }
