@@ -48,7 +48,7 @@
             }
         },
 
-        data: () => {
+        data(){
             return {
                 allDirectories: {},
                 newFolderLocation: null,
@@ -58,14 +58,14 @@
         },
 
         watch: {
-            show: (open) => {
+            show(open){
                 if (open) {
                     this.open();
                 }
             }
         },
 
-        mounted: () => {
+        mounted(){
             document.addEventListener("keydown", (e) => {
                 if (this.show && e.keyCode == 13) {
                     this.moveItem();
@@ -74,13 +74,13 @@
         },
 
         methods: {
-            close: () => {
+            close(){
                 this.newFolderName = null;
                 this.loading = false;
                 this.$emit('media-modal-close');
             },
 
-            open: () => {
+            open(){
                 this.$http.get('/admin/browser/directories').then(
                         (response) => {
                             this.newFolderLocation = this.currentPath;
@@ -94,7 +94,7 @@
                 );
             },
 
-            moveItem: function () {
+            moveItem(){
 
                 const data = {
                     'path': this.currentPath,

@@ -43,7 +43,7 @@
             }
         },
 
-        data: () => {
+        data(){
             return {
                 errors: [],
                 loading: false,
@@ -52,7 +52,7 @@
             }
         },
 
-        mounted: () => {
+        mounted(){
             document.addEventListener("keydown", (e) => {
                 if (this.show && e.keyCode == 13) {
                     this.createFolder();
@@ -61,14 +61,14 @@
         },
 
         methods: {
-            close: () => {
+            close(){
                 this.newFolderName = null;
                 this.loading = false;
                 this.errors = [];
                 this.$emit('media-modal-close');
             },
 
-            createFolder: () => {
+            createFolder(){
 
                 if (!this.newFolderName) {
                     this.errors = ['Please provide a name for the new folder'];

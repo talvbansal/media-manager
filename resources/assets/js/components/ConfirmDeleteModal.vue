@@ -59,13 +59,13 @@
         },
 
         methods: {
-            close: () => {
+            close(){
                 this.newItemName = null;
                 this.loading = false;
                 this.$emit('media-modal-close');
             },
 
-            deleteItem: () => {
+            deleteItem(){
 
                 if (this.isFolder(this.currentFile)) {
                     return this.deleteFolder();
@@ -73,7 +73,7 @@
                 return this.deleteFile();
             },
 
-            deleteFile: () => {
+            deleteFile(){
                 if (this.currentFile) {
                     const data = {
                         'path': this.currentFile.fullPath
@@ -82,7 +82,7 @@
                 }
             },
 
-            deleteFolder: () => {
+            deleteFolder(){
                 if (this.isFolder(this.currentFile)) {
                     const data = {
                         'path' : this.currentFile.fullPath
@@ -91,7 +91,7 @@
                 }
             },
 
-            delete: (route, payload) => {
+            delete(route, payload){
                 this.loading = true;
                 this.$http.delete(route, {body: payload}).then(
                         (response) => {
@@ -107,6 +107,5 @@
                 );
             }
         }
-
     }
 </script>

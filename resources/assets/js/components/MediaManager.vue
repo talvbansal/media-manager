@@ -12,7 +12,7 @@
 						<label class="btn btn-primary btn-icon-text btn-file" title="Select files to be uploaded - or drag files into the main window pane">
 							<i class="icon-upload"></i>
 							<span class="hidden-xs">Upload</span>
-							<input type="file" class="hidden" @change="uploadFile" name="files[]" multiple="multiple"/>
+							<input type="file" class="hidden" @change="uploadFile($event.target.name, $event.target.files)" name="files[]" multiple="multiple"/>
 						</label>
 
 						<button class="btn btn-primary btn-icon-text" type="button" title="Add Folder" @click="showCreateFolderModal = true">
@@ -350,7 +350,7 @@
 				this.folders = _.orderBy(this.folders, [column], [order]);
 			},
 
-            close: () => {
+            close() {
                 this.breadCrumbs = {};
                 this.currentFile = null;
                 this.currentPath = null;
@@ -361,7 +361,7 @@
                 this.$emit('media-modal-close');
             },
 
-            loadFolder: (path) => {
+            loadFolder(path){
                 this.uploadProgress = 0;
                 if (!path) {
                     path = ( this.currentPath ) ? this.currentPath : '';
@@ -392,12 +392,11 @@
                 );
             },
 
-            previewFile: (file) => {
+            previewFile(file){
                 this.currentFile = file;
             },
 
-            uploadFile: (event) => {
-                event.preventDefault();
+            uploadFile(fieldName, fileList){
 
                 /**
                  * Create a new form request object.
@@ -406,17 +405,17 @@
                  * Send a post request to the server...
                  */
                 const form = new FormData();
-                const files = event.target.files || event.dataTransfer.files;
-
-                files.forEach(function(key) {
-                    form.append('files[' + key + ']', files[key]);
-                });
+                Array
+                    .from(Array(fileList.length).keys())
+                    .map(x => {
+                        form.append(fieldName, fileList[x], fileList[x].name);
+                    });
                 
                 form.append('folder', this.currentPath);
 
                 this.loading = true;
                 this.$http.post('/admin/browser/file', form, {
-						progress: (e) => {
+						progress(e){
 							if (e.lengthComputable) {
                                 this.uploadProgress = parseFloat( Math.round(e.loaded / e.total * 100) ).toFixed(2);
 							}
@@ -438,7 +437,7 @@
 
             },
 
-            selectFile: () => {
+            selectFile(){
                 /**
                  * Only dispatch an event if a custom event has been defined
                  */
@@ -447,7 +446,7 @@
                 }
             },
 
-            dragUpload: () => {
+            dragUpload(){
 
                 $("div#mediaManagerDropZone").dropzone({
                     clickable: false,

@@ -49,7 +49,7 @@
             }
         },
 
-        data: () => {
+        data(){
             return {
                 errors: [],
                 loading: false,
@@ -58,7 +58,7 @@
             }
         },
 
-        mounted: () => {
+        mounted(){
             document.addEventListener("keydown", (e) => {
                 if (this.show && e.keyCode == 13) {
                     this.renameItem();
@@ -67,14 +67,14 @@
         },
 
         methods: {
-            close: () => {
+            close(){
                 this.errors = [];
                 this.newItemName = null;
                 this.loading = false;
                 this.$emit('media-modal-close');
             },
 
-            renameItem: () => {
+            renameItem(){
 
                 if (!this.newItemName) {
                     this.errors = ['Please provide a new name for this item'];
