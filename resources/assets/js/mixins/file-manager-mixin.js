@@ -16,10 +16,7 @@ export default {
             return (file.mimeType == 'folder');
         },
 
-        mediaManagerNotify: (notices, type, time) => {
-
-            if (!type) type = 'inverse';
-            if (!time) time = 4000;
+        mediaManagerNotify: (notices, type = 'inverse', time = 4000) => {
 
             if (typeof notices == 'object') {
                 notices.forEach(function(notice) {
