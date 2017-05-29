@@ -20,6 +20,11 @@ class MediaManagerServiceProvider extends ServiceProvider
         // Load language files
         $this->loadTranslationsFrom(MEDIA_MANAGER_BASE_PATH.'/resources/lang', 'media-manager');
 
+        // Publishes config file
+	    $this->publishes([
+	    	__DIR__ . '/../Config/config.php' => config_path('media-manager.php')
+	    ], 'media-manager-config');
+
         if ($this->app->runningInConsole()) {
             $this->defineResources();
         }

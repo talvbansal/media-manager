@@ -37,6 +37,12 @@ The Media Manager service provider **does not** automatically register routes fo
 \TalvBansal\MediaManager\Routes\MediaRoutes::get();
 ```
 
+The routes have no middleware assigned. So if you want to wrap the Media Manager routes in a special middleware (e.g. 'web' or 'auth'), you can publish the config file via:
+```
+php artisan vendor:publish --tag=media-manager-config
+```
+Now you can find the `media-manager.php` in your config-directory and customize your middlewares. Simple add them to the middleware-array.
+
 After registering the Media Manager service provider, you should publish the Media Manager assets using the `vendor:publish` Artisan command: 
 ```bash
 php artisan vendor:publish --tag=media-manager --force
