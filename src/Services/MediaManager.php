@@ -129,7 +129,7 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
         $folders = collect(explode('/', $folder));
         $path = '';
 
-        return $folders->reduce(function ($crumbs, $folder) use ($path) {
+        return $folders->reduce(function ($crumbs, $folder) use (&$path) {
             $path .= '/'.$folder;
             $crumbs[$path] = $folder;
 
