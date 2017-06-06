@@ -44,7 +44,7 @@ php artisan vendor:publish --tag=media-manager
 ```
 After running the command above a new files will appear at `config/media-manager.php`. Simply add the desired middleware to to the middleware array.
 
-# ## Assets
+## # Assets
 After registering the Media Manager service provider, you should publish the Media Manager assets using the `vendor:publish` Artisan command: 
 ```bash
 php artisan vendor:publish --tag=media-manager --force
