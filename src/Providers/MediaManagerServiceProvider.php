@@ -41,6 +41,11 @@ class MediaManagerServiceProvider extends ServiceProvider
         if (!defined('MEDIA_MANAGER_BASE_PATH')) {
             define('MEDIA_MANAGER_BASE_PATH', realpath(__DIR__.'/../../'));
         }
+
+        // Merge any new config items into the existing config file
+        $this->mergeConfigFrom(
+            MEDIA_MANAGER_BASE_PATH.'/src/Config/config.php', 'media-manager'
+        );
     }
 
     /**
