@@ -22,8 +22,12 @@ class MediaManagerServiceProvider extends ServiceProvider
 
         // Publishes config file
         $this->publishes([
-            __DIR__.'/../Config/config.php' => config_path('media-manager.php'),
-        ], 'media-manager-config');
+            MEDIA_MANAGER_BASE_PATH.'/src/Config/media-manager.php' => config_path('media-manager.php'),
+        ], 'media-manager');
+
+        $this->mergeConfigFrom(
+            MEDIA_MANAGER_BASE_PATH.'/src/Config/media-manager.php', 'media-manager'
+        );
 
         if ($this->app->runningInConsole()) {
             $this->defineResources();

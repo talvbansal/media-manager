@@ -12,7 +12,7 @@ class MediaRoutes
      */
     public static function get()
     {
-        if (config('media-manager.routes.middleware') === null) {
+        if (empty(config('media-manager.routes.middleware'))) {
 
             // If no config is set, routes will be loaded normally without middleware..
             self::loadRoutes();

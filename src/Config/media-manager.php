@@ -9,7 +9,7 @@
 return [
 
     'routes' => [
-        'middleware' => ['web'],
+        'middleware' => [],
     ],
 
     'disk' => env('MEDIA_MANAGER_STORAGE_DISK', 'public'),
