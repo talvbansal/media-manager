@@ -46,7 +46,7 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
      */
     public function __construct(PhpRepository $mimeDetect)
     {
-        $this->diskName = env('MEDIA_MANAGER_STORAGE_DISK', 'public');
+        $this->diskName = config('media-manager.disk');
         $this->disk = Storage::disk($this->diskName);
         $this->mimeDetect = $mimeDetect;
     }

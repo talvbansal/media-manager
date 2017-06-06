@@ -11,4 +11,6 @@ return [
     'routes' => [
         'middleware' => ['web'],
     ],
+
+    'disk' => env('MEDIA_MANAGER_STORAGE_DISK', 'public'),
 ];
