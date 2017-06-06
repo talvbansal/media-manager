@@ -45,7 +45,6 @@ class MediaManagerServiceProvider extends ServiceProvider
         if (!defined('MEDIA_MANAGER_BASE_PATH')) {
             define('MEDIA_MANAGER_BASE_PATH', realpath(__DIR__.'/../../'));
         }
-
     }
 
     /**
