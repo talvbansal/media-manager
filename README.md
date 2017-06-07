@@ -249,7 +249,7 @@ For example if the `selected-event-name` property was set to `editor` the event 
             selectedEventName: 'editor'
         },
 
-        created: function(){
+        mounted(){
             window.eventHub.$on('media-manager-selected-editor', function (file) {
                 // Do something with the file info...
                 console.log(file.name);
