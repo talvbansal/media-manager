@@ -161,7 +161,7 @@ You'll need to do the following:
     - Within the data object of your root Vue instance create a boolean property to hold the visible state of the modal window with a default value of `false`, `showMediaManager = false`.
     - Add a `v-if` directive to the `<media-modal>` component and use the newly created `showMediaManager` property to toggle the modal window's visibility, `<media-modal v-if="showMediaManager"></media-modal>`.
     - Create a button to open the modal window and get it change the property bound to the modal window's `show` property to `true`
-    - Add listeners for the `@close` event to the `<media-modal>` and `<media-manager>` components so that they can close the modal window
+    - Add listeners for the `@media-modal-close` event to the `<media-modal>` and `<media-manager>` components so that they can close the modal window
 
 Here is an example of all of the above:
 ```html
