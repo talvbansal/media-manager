@@ -113,7 +113,7 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
      */
     protected function cleanFolder($folder)
     {
-        return '/'.trim(str_replace('..', '', $folder), '/');
+        return DIRECTORY_SEPARATOR.trim(str_replace('..', '', $folder), DIRECTORY_SEPARATOR);
     }
 
     /**

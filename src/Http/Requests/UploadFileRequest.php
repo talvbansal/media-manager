@@ -24,8 +24,9 @@ class UploadFileRequest extends FormRequest
     public function rules()
     {
         return [
-            'files'  => 'required|array',
+            'files.*'  => 'required|file',
             'folder' => 'required',
         ];
     }
+
 }

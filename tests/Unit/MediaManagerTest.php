@@ -167,7 +167,7 @@ class MediaManagerTest extends TestCase
      */
     public function test_can_create_folder()
     {
-        $folderName = DIRECTORY_SEPARATOR.date('Y-m-d H:i:s');
+        $folderName = DIRECTORY_SEPARATOR.date('Y-m-d');
 
         // create
         $response = $this->mediaManager->createDirectory($folderName);
@@ -208,7 +208,7 @@ class MediaManagerTest extends TestCase
     public function test_can_delete_a_folder()
     {
         // create a folder
-        $folderName = DIRECTORY_SEPARATOR.date('Y-m-d H:i:s');
+        $folderName = DIRECTORY_SEPARATOR.date('Y-m-d');
         $response = $this->mediaManager->createDirectory($folderName);
 
         // is created ?
