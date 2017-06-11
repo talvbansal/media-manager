@@ -12,7 +12,7 @@
 						<label class="btn btn-primary btn-icon-text btn-file" title="Select files to be uploaded - or drag files into the main window pane">
 							<i class="icon-upload"></i>
 							<span class="hidden-xs">Upload</span>
-							<input type="file" class="hidden" @change="uploadFile($event.target.name, $event.target.files)" name="files[]" multiple="multiple"/>
+							<input type="file" class="hidden" @change="uploadFile($event.target.name, $event.target.files)" name="files[]"/>
 						</label>
 
 						<button class="btn btn-primary btn-icon-text" type="button" title="Add Folder" @click="showCreateFolderModal = true">
