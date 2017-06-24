@@ -49,7 +49,7 @@
              * Default route prefix
              */
             prefix: {
-                default : '/admin'
+                default : '/admin/'
             },
 
             show:{
