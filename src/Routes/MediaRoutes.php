@@ -9,13 +9,13 @@ class MediaRoutes
     /**
      * Returns the routes for the media manager,
      * wraps the routes with a route prefix or configured middleware where defined...
+     *
      * @return void
      */
     public static function get()
     {
         $middleware = config('media-manager.routes.middleware');
-        if (! empty($middleware)) {
-
+        if (!empty($middleware)) {
             Route::group(['middleware' => $middleware], function () {
                 self::loadRoutes();
             });
@@ -24,8 +24,6 @@ class MediaRoutes
         }
 
         self::loadRoutes();
-
-        return;
     }
 
     /**
