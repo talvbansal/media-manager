@@ -10,7 +10,7 @@ return [
 
     'routes' => [
         'middleware' => [],
-        'prefix' => env('MEDIA_MANAGER_ROUTE_PREFIX', '/admin/'),
+        'prefix'     => env('MEDIA_MANAGER_ROUTE_PREFIX', '/admin/'),
     ],
 
     'disk' => env('MEDIA_MANAGER_STORAGE_DISK', 'public'),
