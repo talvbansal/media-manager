@@ -38,6 +38,14 @@
     export default{
         props:{
             currentPath:{},
+
+            /**
+             * Default route prefix
+             */
+            prefix: {
+                default : '/admin'
+            },
+
             show:{
                 default : false
             }
@@ -81,7 +89,7 @@
                 };
 
                 this.loading = true;
-                this.$http.post('/admin/browser/folder', data).then(
+                this.$http.post(`${this.prefix}browser/folder`, data).then(
                         (response) => {
                             this.mediaManagerNotify(response.data.success);
                             window.eventHub.$emit('media-manager-reload-folder');

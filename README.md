@@ -44,6 +44,9 @@ php artisan vendor:publish --tag=media-manager
 ```
 After running the command above a new files will appear at `config/media-manager.php`. Simply add the desired middleware to to the middleware array.
 
+If you want to change the root prefix of the routes from `/admin/` you can do so by changing the `media-manager.routes.prefix` value in the config file published above. 
+However amending the prefix value will require you to pass a new `prefix` prop to your mark up that corresponds directly to this value.
+
 ## # Assets
 After registering the Media Manager service provider, you should publish the Media Manager assets using the `vendor:publish` Artisan command: 
 ```bash

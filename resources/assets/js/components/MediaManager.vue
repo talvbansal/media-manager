@@ -190,6 +190,7 @@
 					@media-modal-close="showCreateFolderModal = false"
 					@media-manager-reload-folder="loadFolder( currentPath )"
 					:current-path="currentPath"
+					:prefix="prefix"
 					:show="showCreateFolderModal"
 			>
 			</media-create-folder-modal>
@@ -199,6 +200,7 @@
 					@media-manager-reload-folder="loadFolder( currentPath )"
 					:current-path="currentPath"
 					:current-file="currentFile"
+					:prefix="prefix"
 					:show="showDeleteItemModal"
 			>
 			</media-delete-item-modal>
@@ -208,6 +210,7 @@
 					@media-manager-reload-folder="loadFolder( currentPath )"
 					:current-path="currentPath"
 					:current-file="currentFile"
+					:prefix="prefix"
 					:show="showMoveItemModal"
 			>
 			</media-move-item-modal>
@@ -217,6 +220,7 @@
 					@media-manager-reload-folder="loadFolder( currentPath )"
 					:current-path="currentPath"
 					:current-file="currentFile"
+					:prefix="prefix"
 					:show="showRenameItemModal"
 			>
 			</media-rename-item-modal>
@@ -236,6 +240,13 @@
              */
             isModal: {
                 default: false
+            },
+
+            /**
+             * Default route prefix
+             */
+            prefix: {
+                default : '/admin'
             },
 
             /**
@@ -334,6 +345,11 @@
         mounted: function () {
             this.loadFolder();
             this.dragUpload();
+
+            if( ! this.prefix.endsWith('/') )
+			{
+			    this.prefix = `${this.prefix}/`;
+			}
         },
 
         methods: {
@@ -370,7 +386,7 @@
                 this.loading = true;
                 this.currentFile = false;
 
-                this.$http.get('/admin/browser/index?path=' + path).then(
+                this.$http.get(`${this.prefix}browser/index?path=${path}`).then(
                     (response) => {
                         this.breadCrumbs = response.data.breadCrumbs;
                         this.currentFile = null;
@@ -414,7 +430,7 @@
                 form.append('folder', this.currentPath);
 
                 this.loading = true;
-                this.$http.post('/admin/browser/file', form, {
+                this.$http.post(`${this.prefix}browser/file`, form, {
 						progress(e){
 							if (e.lengthComputable) {
                                 this.uploadProgress = parseFloat( Math.round(e.loaded / e.total * 100) ).toFixed(2);
@@ -458,7 +474,7 @@
                     previewTemplate: '<span class="hidden"></span>',
                     hiddenInputContainer: true,
                     uploadMultiple: true,
-                    url: "/admin/browser/file",
+                    url: `${this.prefix}browser/file`,
                     headers: {
                         "X-CSRF-TOKEN": window.Laravel.csrfToken
                     },

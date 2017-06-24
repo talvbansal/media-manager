@@ -43,7 +43,16 @@
     export default{
         props:{
             currentPath:{},
+
             currentFile:{},
+
+            /**
+             * Default route prefix
+             */
+            prefix: {
+                default : '/admin'
+            },
+
             show:{
                 default : false
             }
@@ -89,7 +98,7 @@
                         'type': (this.isFolder(this.currentFile)) ? 'Folder' : 'File'
                     };
 
-                    this.$http.post('/admin/browser/rename', data).then(
+                    this.$http.post(`${this.prefix}browser/rename`, data).then(
                              (response) => {
                                 window.eventHub.$emit('media-manager-reload-folder');
                                 this.mediaManagerNotify(response.data.success);

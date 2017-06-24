@@ -37,6 +37,14 @@
         props:{
             currentPath:{},
             currentFile:{},
+
+            /**
+             * Default route prefix
+             */
+            prefix: {
+                default : '/admin'
+            },
+
             show:{
                 default : false
             }
@@ -78,7 +86,7 @@
                     const data = {
                         'path': this.currentFile.fullPath
                     };
-                    this.delete('/admin/browser/delete', data);
+                    this.delete(`${this.prefix}browser/delete`, data);
                 }
             },
 
@@ -87,7 +95,7 @@
                     const data = {
                         'path' : this.currentFile.fullPath
                     };
-                    this.delete('/admin/browser/folder', data);
+                    this.delete(`${this.prefix}browser/folder`, data);
                 }
             },
 

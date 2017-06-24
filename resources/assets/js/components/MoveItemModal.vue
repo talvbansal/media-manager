@@ -42,7 +42,16 @@
     export default{
         props:{
             currentPath:{},
+
             currentFile:{},
+
+            /**
+             * Default route prefix
+             */
+            prefix: {
+                default : '/admin'
+            },
+
             show:{
                 default : false
             }
@@ -81,7 +90,7 @@
             },
 
             open(){
-                this.$http.get('/admin/browser/directories').then(
+                this.$http.get(`${this.prefix}browser/directories`).then(
                         (response) => {
                             this.newFolderLocation = this.currentPath;
                             this.allDirectories = response.data;
@@ -104,7 +113,7 @@
                 };
 
                 this.loading = true;
-                this.$http.post('/admin/browser/move', data).then(
+                this.$http.post(`${this.prefix}browser/move`, data).then(
                         (response) => {
                             window.eventHub.$emit('media-manager-reload-folder');
                             window.eventHub.$emit('media-manager-notification', response.data.success);

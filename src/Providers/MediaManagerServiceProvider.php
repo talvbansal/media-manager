@@ -20,15 +20,6 @@ class MediaManagerServiceProvider extends ServiceProvider
         // Load language files
         $this->loadTranslationsFrom(MEDIA_MANAGER_BASE_PATH.'/resources/lang', 'media-manager');
 
-        // Publishes config file
-        $this->publishes([
-            MEDIA_MANAGER_BASE_PATH.'/src/Config/media-manager.php' => config_path('media-manager.php'),
-        ], 'media-manager');
-
-        $this->mergeConfigFrom(
-            MEDIA_MANAGER_BASE_PATH.'/src/Config/media-manager.php', 'media-manager'
-        );
-
         if ($this->app->runningInConsole()) {
             $this->defineResources();
         }
@@ -45,6 +36,15 @@ class MediaManagerServiceProvider extends ServiceProvider
         if (!defined('MEDIA_MANAGER_BASE_PATH')) {
             define('MEDIA_MANAGER_BASE_PATH', realpath(__DIR__.'/../../'));
         }
+
+        // Publishes config file
+        $this->publishes([
+            MEDIA_MANAGER_BASE_PATH.'/src/Config/media-manager.php' => config_path('media-manager.php'),
+        ], 'media-manager');
+
+        $this->mergeConfigFrom(
+            MEDIA_MANAGER_BASE_PATH.'/src/Config/media-manager.php', 'media-manager'
+        );
     }
 
     /**
