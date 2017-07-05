@@ -14,4 +14,5 @@ return [
     ],
 
     'disk' => env('MEDIA_MANAGER_STORAGE_DISK', 'public'),
+    'access' => env('MEDIA_MANAGER_ACCESS', 'public'),
 ];
