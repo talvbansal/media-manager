@@ -21,7 +21,7 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
      * @var FilesystemAdapter
      */
     protected $disk;
-    
+
     /**
      * @var Access Mode of the file as S3 uploads are private by default
      */
