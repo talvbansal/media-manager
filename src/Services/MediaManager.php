@@ -23,6 +23,11 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
     protected $disk;
 
     /**
+     * @var Access Mode of the file as S3 uploads are private by default
+     */
+    protected $access;
+
+    /**
      * @var PhpRepository
      */
     protected $mimeDetect;
@@ -47,6 +52,7 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
     public function __construct(PhpRepository $mimeDetect)
     {
         $this->diskName = config('media-manager.disk');
+        $this->access = config('media-manager.access');
         $this->disk = Storage::disk($this->diskName);
         $this->mimeDetect = $mimeDetect;
     }
@@ -416,7 +422,7 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
                 return $uploaded;
             }
 
-            if (!$file->storeAs($path, $fileName, $this->diskName)) {
+            if (!$file->storeAs($path, $fileName, $this->diskName, $this->access)) {
                 $this->errors[] = trans('media-manager::messages.upload_error', ['entity' => $fileName]);
 
                 return $uploaded;
