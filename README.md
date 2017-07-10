@@ -111,7 +111,7 @@ If you wish to change the disk that media manager stores its files to you can cr
 Any [flysystem](https://flysystem.thephpleague.com/) adapter which supports the `url` method should work.
 
 ## Note:
-Some cloud flysystems like `AWS S3` supports access modes. All File Uploads via media manger are `public` by default.It can be changed by specifying it in env `MEDIA_MANAGER_ACCESS` or directly via config `media-manager.php` if you have published the config in your project.
+Some cloud flysystems like `AWS S3` supports access modes. All File Uploads via media-manger are `public` by default. It can be changed by specifying it in env `MEDIA_MANAGER_ACCESS` or directly via config `media-manager.php` if you have published the package's config in your project.
 
 ## # Getting Started
 
