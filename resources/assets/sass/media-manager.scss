@@ -1,6 +1,7 @@
 @import 'icon-code.scss';
 @import "dropzone";
 
+$editor-height: 60vh;
 // Layout
 
 .vertical-center {
@@ -138,13 +139,29 @@
 
   }
 
+  .easel-alternative-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: $editor-height;
+    flex-direction: column;
+
+    h4{
+      margin-top: 0;
+    }
+
+    &.loading{
+      height: $editor-height + 6.5vh;
+    }
+  }
+
   .easel-file-browser {
     color: #5e5e5e;
-    height: 100%;
+    height: $editor-height + 6.5vh;
     margin-bottom: 0;
     margin-top: 0;
     min-height: 200px;
-    padding: 1rem;
+    padding: 0.5rem;
     width: auto;
 
     .breadcrumb {
@@ -175,7 +192,7 @@
       word-wrap: break-word;
     }
 
-    $editor-height: 60vh;
+
     .easel-file-picker-list {
       height: $editor-height;
       overflow-y: scroll;
@@ -183,9 +200,8 @@
       .table {
         tbody {
           tr {
-            &.active {
+            &.bg-primary {
               td {
-                background-color: #0078e7;
                 color: #fff;
                 a {
                   color: #fff;
@@ -205,8 +221,9 @@
               padding-left: 7px;
               border-top: 1px solid #f0f0f0;
               a {
-                margin-left: 0.5em;
+                color: #5e5e5e;
                 cursor: pointer;
+                margin-left: 0.5em;
               }
             }
 

@@ -51,16 +51,12 @@
 			</div>
 
 			<div class="dropzone" id="mediaManagerDropZone">
-				<div v-if="loading" class="text-center">
-					<span class="spinner icon-spinner2"></span>Loading...
+				<div v-if="loading" class="easel-alternative-content loading">
+						<p>
+							<span class="spinner icon-spinner2"></span>Loading...
+						</p>
 
-					<br/>
-
-					<div v-if="uploadProgress > 0">
-						<h4>{{ uploadProgress }} %</h4>
-					</div>
-					<br/>
-
+						<h4 v-if="uploadProgress > 0">{{ uploadProgress }} %</h4>
 				</div>
 
 				<div v-else>
@@ -81,10 +77,19 @@
 							</div>
 						</div>
 
-						<div class="row">
+
+						<div v-if="isFolderEmpty" class="easel-alternative-content">
+							<h4>This folder is empty.</h4>
+							<p>
+								Drag and drop files onto this window to upload files.
+							</p>
+						</div>
+
+						<div v-else class="row">
 							<div :class="{ 'col-sm-12' : !currentFile || isFolder(currentFile), 'col-sm-9' : currentFile && ! isFolder(currentFile) }" class="col-xs-12">
 
 								<div class="table-responsive easel-file-picker-list">
+
 									<table class="table table-condensed table-vmiddle">
 										<thead>
 										<tr>
@@ -94,7 +99,7 @@
 										</tr>
 										</thead>
 										<tbody>
-										<tr v-for="(folder, path) in folders" :class="[ (folder == currentFile) ? 'active' : '' ]">
+										<tr v-for="(folder, path) in folders" :class="[ (folder == currentFile) ? 'bg-primary' : '' ]">
 											<td>
 												<i class="icon-folder"></i>
 												<a href="javascript:void(0);"
@@ -109,7 +114,7 @@
 											<td>{{ folder.modified.date | moment('DD/MM/YYYY') }}</td>
 										</tr>
 
-										<tr v-for="file in files" :class="[ (file == currentFile) ? 'active' : '' ]">
+										<tr v-for="file in files" :class="[ (file == currentFile) ? 'bg-primary' : '' ]">
 											<td>
 												<i v-if="isImage(file)" class="icon-image"></i>
 												<i v-else class="icon-file-text2"></i>
@@ -292,7 +297,7 @@
                 /**
                  * All of the files in the current path
                  */
-                files: {},
+                files: [],
 
                 /**
                  * The current path's folder name
@@ -302,7 +307,7 @@
                 /**
                  * All of the sub folders in the current path
                  */
-                folders: {},
+                folders: [],
 
                 /**
                  * Property to show the loading indicator
@@ -333,6 +338,12 @@
                 sortDirection: false
             }
         },
+
+		computed:{
+          	isFolderEmpty(){
+          	    return ((this.files.length + this.folders.length ) === 0);
+			}
+		},
 
         created: function () {
             window.eventHub.$on('media-manager-reload-folder', this.loadFolder);
