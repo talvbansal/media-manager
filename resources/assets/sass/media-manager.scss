@@ -167,6 +167,8 @@ $editor-height: 60vh;
     .breadcrumb {
       background-color: transparent;
       border-bottom: 1px solid #f0f0f0;
+      margin-bottom: 0.25rem;
+      padding: 8px 15px 8px 6px;
       li {
         a {
           color: #a9a9a9;
@@ -178,7 +180,7 @@ $editor-height: 60vh;
 
       li + li::before {
         color: #ccc;
-        content: "/ ";
+        content: "> ";
         padding: 0 5px;
       }
 
