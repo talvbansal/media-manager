@@ -1,5 +1,5 @@
 <template>
-    <media-modal @close="close()" :size="size" :show="show" v-if="show">
+    <media-modal @media-modal-close="close()" :size="size" :show="show" v-if="show">
         <div>
             <div class="modal-header">
                 <button class="close" type="button" @click="close()">×</button>
