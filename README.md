@@ -27,7 +27,7 @@ To get started, install Media Manager via the Composer package manager:
 composer require talvbansal/media-manager
 ```
 
-Next, register the Media Manager service provider in the `providers` array of your `config/app.php` configuration file:
+Next, register the Media Manager service provider in the `providers` array of your `config/app.php` configuration file (For Laravel 5.5 users, you do not need to register as it is now auto discovered):
 ```php
 \TalvBansal\MediaManager\Providers\MediaManagerServiceProvider::class,
 ```
