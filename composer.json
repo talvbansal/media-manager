@@ -48,5 +48,12 @@
   "config": {
     "preferred-install": "source",
     "sort-packages": true
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "TalvBansal\\MediaManager\\Providers\\MediaManagerServiceProvider"
+      ]
+    }
   }
 }
