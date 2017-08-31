@@ -25,11 +25,11 @@ class UsesMediaManagerTest extends TestCase
 
         $response->assertJsonFragment(
             [
-                'folder' => '/',
-                'folderName' => 'Root',
+                'folder'      => '/',
+                'folderName'  => 'Root',
                 'breadCrumbs' => [],
-                'files' => [],
-                'itemsCount' => 1,
+                'files'       => [],
+                'itemsCount'  => 1,
             ]
         );
 
@@ -40,14 +40,13 @@ class UsesMediaManagerTest extends TestCase
             'breadCrumbs',
             'files',
             'itemsCount',
-            'subFolders'
+            'subFolders',
         ]);
 
         $response->assertJsonFragment([
             'fullPath' => '/test',
             'mimeType' => 'folder',
-            'name' => 'test',
+            'name'     => 'test',
         ]);
-
     }
 }
