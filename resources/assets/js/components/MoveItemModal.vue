@@ -76,7 +76,7 @@
 
         mounted(){
             document.addEventListener("keydown", (e) => {
-                if (this.show && e.keyCode == 13) {
+                if (this.show && e.keyCode === 13) {
                     this.moveItem();
                 }
             });
@@ -90,7 +90,7 @@
             },
 
             open(){
-                this.$http.get(`${this.prefix}browser/directories`).then(
+                axios.get(`${this.prefix}browser/directories`).then(
                         (response) => {
                             this.newFolderLocation = this.currentPath;
                             this.allDirectories = response.data;
@@ -113,16 +113,15 @@
                 };
 
                 this.loading = true;
-                this.$http.post(`${this.prefix}browser/move`, data).then(
+                axios.post(`${this.prefix}browser/move`, data).then(
                         (response) => {
                             window.eventHub.$emit('media-manager-reload-folder');
                             window.eventHub.$emit('media-manager-notification', response.data.success);
                             this.close();
                         },
                         (response) => {
-                            var error = (response.data.error) ? response.data.error : response.statusText;
                             window.eventHub.$emit('reload-folder', response.data.success);
-                            window.eventHub.$emit('media-manager-notification', error, 'danger');
+                            window.eventHub.$emit('media-manager-notification', (response.data.error) ? response.data.error : response.statusText, 'danger');
                             this.loading = false;
                         }
                 );

@@ -62,7 +62,7 @@
 
         mounted(){
             document.addEventListener("keydown", (e) => {
-                if (this.show && e.keyCode == 13) {
+                if (this.show && e.keyCode === 13) {
                     this.createFolder();
                 }
             });
@@ -89,15 +89,14 @@
                 };
 
                 this.loading = true;
-                this.$http.post(`${this.prefix}browser/folder`, data).then(
+                axios.post(`${this.prefix}browser/folder`, data).then(
                         (response) => {
                             this.mediaManagerNotify(response.data.success);
                             window.eventHub.$emit('media-manager-reload-folder');
                             this.close();
                         },
                          (response) => {
-                            const error = (response.data.error) ? response.data.error : response.statusText;
-                            this.errors = error;
+                             this.errors = (response.data.error) ? response.data.error : response.statusText;
                             this.loading =false;
                         }
                 );

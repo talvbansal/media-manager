@@ -60,7 +60,7 @@
 
         mounted() {
             document.addEventListener("keydown", (e) => {
-                if (this.show && e.keyCode == 13) {
+                if (this.show && e.keyCode === 13) {
                     this.deleteItem();
                 }
             });
@@ -86,7 +86,7 @@
                     const data = {
                         'path': this.currentFile.fullPath
                     };
-                    this.delete(`${this.prefix}browser/delete`, data);
+                    this.deleteItem(`${this.prefix}browser/delete`, data);
                 }
             },
 
@@ -95,13 +95,13 @@
                     const data = {
                         'path' : this.currentFile.fullPath
                     };
-                    this.delete(`${this.prefix}browser/folder`, data);
+                    this.deleteItem(`${this.prefix}browser/folder`, data);
                 }
             },
 
-            delete(route, payload){
+            deleteItem(route, payload){
                 this.loading = true;
-                this.$http.delete(route, {body: payload}).then(
+                axios.delete(route, {body: payload}).then(
                         (response) => {
                             window.eventHub.$emit('media-manager-reload-folder');
                             this.mediaManagerNotify(response.data.success);

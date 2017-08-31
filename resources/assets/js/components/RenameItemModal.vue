@@ -69,7 +69,7 @@
 
         mounted(){
             document.addEventListener("keydown", (e) => {
-                if (this.show && e.keyCode == 13) {
+                if (this.show && e.keyCode === 13) {
                     this.renameItem();
                 }
             });
@@ -98,15 +98,14 @@
                         'type': (this.isFolder(this.currentFile)) ? 'Folder' : 'File'
                     };
 
-                    this.$http.post(`${this.prefix}browser/rename`, data).then(
+                    axios.post(`${this.prefix}browser/rename`, data).then(
                              (response) => {
                                 window.eventHub.$emit('media-manager-reload-folder');
                                 this.mediaManagerNotify(response.data.success);
                                 this.close();
                             },
                              (response) => {
-                                const error = (response.data.error) ? response.data.error : response.statusText;
-                                this.errors = error;
+                                this.errors = (response.data.error) ? response.data.error : response.statusText;
                                 this.loading = false;
                             }
                     );

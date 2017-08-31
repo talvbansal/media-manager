@@ -397,7 +397,7 @@
                 this.loading = true;
                 this.currentFile = false;
 
-                this.$http.get(`${this.prefix}browser/index?path=${path}`).then(
+                axios.get(`${this.prefix}browser/index?path=${path}`).then(
                     (response) => {
                         this.breadCrumbs = response.data.breadCrumbs;
                         this.currentFile = null;
@@ -441,7 +441,7 @@
                 form.append('folder', this.currentPath);
 
                 this.loading = true;
-                this.$http.post(`${this.prefix}browser/file`, form, {
+                axios.post(`${this.prefix}browser/file`, form, {
 						progress(e){
 							if (e.lengthComputable) {
                                 this.uploadProgress = parseFloat( Math.round(e.loaded / e.total * 100) ).toFixed(2);
