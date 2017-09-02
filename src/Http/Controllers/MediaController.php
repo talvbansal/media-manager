@@ -100,6 +100,7 @@ class MediaController extends Controller
     public function deleteFile()
     {
         $path = request('path');
+
         try {
             $result = $this->mediaManager->deleteFile($path);
 
