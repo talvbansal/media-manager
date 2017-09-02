@@ -32,7 +32,7 @@ Next, register the Media Manager service provider in the `providers` array of yo
 \TalvBansal\MediaManager\Providers\MediaManagerServiceProvider::class,
 ```
 
-## # Routing
+## # Routing and Middleware
 The Media Manager service provider **does not** automatically register routes for the Media Manager to work. This is so that you can add custom middleware around those routes. You can register all of the routes required for the Media Manager by adding the following to your `routes/web.php` file: 
 ```php
 \TalvBansal\MediaManager\Routes\MediaRoutes::get();
@@ -42,10 +42,11 @@ Should you wish to add middleware around the Media Manager routes you can using 
 ```
 php artisan vendor:publish --tag=media-manager
 ```
-After running the command above a new files will appear at `config/media-manager.php`. Simply add the desired middleware to to the middleware array.
+After publishing the packages assets a new config file will appear at `/config/media-manager.php`. 
+Simply add the desired middleware to to the middleware array.
 
 If you want to change the root prefix of the routes from `/admin/` you can do so by changing the `media-manager.routes.prefix` value in the config file published above. 
-However amending the prefix value will require you to pass a new `prefix` prop to your mark up that corresponds directly to this value.
+However amending the prefix value will require you to pass a new `prefix` prop to your media-manager markup that corresponds directly to this value.
 
 ## # Assets
 After registering the Media Manager service provider, you should publish the Media Manager assets using the `vendor:publish` Artisan command: 
@@ -55,7 +56,7 @@ php artisan vendor:publish --tag=media-manager --force
 Media Manager assets are **not** published to the `public` folder as would be normally expected, instead they will be published to `/resources/assets/talvbansal`.
 Since the Media Manger is written in `vue.js 2.0` you'll need to use webpack or another bundler to get the code ready for the browser. You can then bundle these with your existing project assets.
 
-##### Example
+##### Examples 
 
 First you'll need to add the media-manager reference within your `resources/assets/js/app.js` file:
 
@@ -68,35 +69,44 @@ require('./../talvbansal/media-manager/js/media-manager');
 const app = new Vue({
     el: '#app'
 });
-
-```
-
-Then make sure that the styles are bundled and icons copied to the public directory:
-
-```sass
-// app.scss
-@import "../talvbansal/media-manager/css/media-manager.css";
 ```
 
 ##### # Laravel Mix (Laravel 5.4+)
 ```javascript
 
-//webpack.mix.js
+// -- webpack.mix.js --
 const { mix } = require('laravel-mix');
 
 // Copy SVG images into the public directory...
 mix.copy('resources/assets/talvbansal/media-manager/fonts/', 'public/fonts/');
-
 ```
+
+
+Then make sure that the styles are bundled and icons copied to the public directory:
+
+```sass
+// -- app.scss --
+@import "../talvbansal/media-manager/css/media-manager.css";
+```
+
 ##### # Laravel Elixir (Laravel 5.3)
 ```javascript
-//gulpfile.js
+// -- gulpfile.js --
 var elixir = require('laravel-elixir');
 require('laravel-elixir-vue-2');
 
 elixir(function(mix) {
     // Copy SVG images into the public directory...
     mix.copy( 'resources/assets/talvbansal/media-manager/fonts', 'public/fonts' );
+    
+    // Add the media-manager styles to the app.css file
+    mix.styles(
+        [
+            "../talvbansal/media-manager/css/media-manager.css",
+            "app.scss"
+        ],'public/css/app.css'
+    );
+    
 });
 
 ```
