@@ -487,7 +487,7 @@
                     uploadMultiple: true,
                     url: `${this.prefix}browser/file`,
                     headers: {
-                        "X-CSRF-TOKEN": window.Laravel.csrfToken
+                        "X-CSRF-TOKEN": window.axios.defaults.headers.common['X-CSRF-TOKEN']
                     },
 
                     sending: (file, xhr, form) => {
