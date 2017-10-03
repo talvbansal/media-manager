@@ -127,14 +127,9 @@ Some cloud flysystems like `AWS S3` supports access modes. All File Uploads via 
 
 The Media Manager is written in `vue.js 2.0` and comes bundled with all the dependencies required to get going very quickly.
 
-You will need to add the following to your layout if it does not already exist.
-It provides the `csrfToken` used for the `vue-resource` http requests that the Media Manager will make.
-```javascript
-<script>
-    window.Laravel = <?php echo json_encode([
-            'csrfToken' => csrf_token(),
-    ]); ?>
-</script>
+To avoid CSRF issues you will need to add the following to your layout if it does not already exist:
+```html
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 ```
 
 ## # Media Manager Components
