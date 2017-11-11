@@ -155,10 +155,10 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
         $path = '/'.ltrim($path, '/');
 
         return [
-            'name'         => basename($path),
-            'mimeType'     => 'folder',
-            'fullPath'     => $path,
-            'modified'     => $this->fileModified($path),
+            'name'     => basename($path),
+            'mimeType' => 'folder',
+            'fullPath' => $path,
+            'modified' => $this->fileModified($path),
         ];
     }
 
