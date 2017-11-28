@@ -36,7 +36,7 @@ class MediaRoutes
             Route::get('browser/index', '\TalvBansal\MediaManager\Http\Controllers\MediaController@ls');
 
             Route::post('browser/file', '\TalvBansal\MediaManager\Http\Controllers\MediaController@uploadFiles');
-            Route::delete('browser/delete', '\TalvBansal\MediaManager\Http\Controllers\MediaController@deleteFile');
+            Route::delete('browser/file', '\TalvBansal\MediaManager\Http\Controllers\MediaController@deleteFile');
             Route::post('browser/folder', '\TalvBansal\MediaManager\Http\Controllers\MediaController@createFolder');
             Route::delete('browser/folder', '\TalvBansal\MediaManager\Http\Controllers\MediaController@deleteFolder');
 

@@ -73,12 +73,11 @@
                 this.$emit('media-modal-close');
             },
 
-            deleteItem(){
-
+            deleteItem(route, data){
                 if (this.isFolder(this.currentFile)) {
-                    return this.deleteFolder();
+                    return this.deleteFolder(route, data);
                 }
-                return this.deleteFile();
+                return this.deleteFile(route, data);
             },
 
             deleteFile(){
@@ -86,7 +85,7 @@
                     const data = {
                         'path': this.currentFile.fullPath
                     };
-                    this.deleteItem(`${this.prefix}browser/delete`, data);
+                    this.byeBye(`${this.prefix}browser/file`, data);
                 }
             },
 
@@ -95,13 +94,13 @@
                     const data = {
                         'path' : this.currentFile.fullPath
                     };
-                    this.deleteItem(`${this.prefix}browser/folder`, data);
+                    this.byeBye(`${this.prefix}browser/folder`, data);
                 }
             },
 
-            deleteItem(route, payload){
+            byeBye(route, payload){
                 this.loading = true;
-                axios.delete(route, {body: payload}).then(
+                axios.delete(route, {params: payload}).then(
                         (response) => {
                             window.eventHub.$emit('media-manager-reload-folder');
                             this.mediaManagerNotify(response.data.success);
