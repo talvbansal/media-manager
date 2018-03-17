@@ -475,7 +475,7 @@
 
             dragUpload(){
 
-                $("div#mediaManagerDropZone").dropzone({
+                document.querySelector("div#mediaManagerDropZone").dropzone({
                     clickable: false,
                     createImageThumbnails: false,
                     dictDefaultMessage: '',
