@@ -1,3 +1,4 @@
+fonts/
 vendor/
 node_modules/
 public/css/*.map
