@@ -99,7 +99,7 @@ class MediaManagerTest extends TestCase
 
         $this->assertEquals($response, [
             'folder'      => '/',
-            'folderName'  => 'Root',
+            'folderName'  => 'Files',
             'breadCrumbs' => new Collection(),
             'subFolders'  => new Collection(),
             'files'       => new Collection(),
@@ -154,7 +154,7 @@ class MediaManagerTest extends TestCase
 
         $this->assertEquals($response, [
             'folder'      => '/',
-            'folderName'  => 'Root',
+            'folderName'  => 'Files',
             'breadCrumbs' => new Collection(),
             'subFolders'  => new Collection(),
             'files'       => new Collection(),
@@ -417,7 +417,7 @@ class MediaManagerTest extends TestCase
         $response = $this->mediaManager->allDirectories();
 
         $this->assertEquals($response, collect([
-            '/'            => 'Root',
+            '/'            => 'Files',
             '/test'        => '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;test',
             '/test/inside' => '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;inside',
             '/test2'       => '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;test2',
