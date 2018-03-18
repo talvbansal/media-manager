@@ -5,48 +5,16 @@
 				<!-- Close button for modal windows -->
 				<button v-if="isModal" type="button" class="close" @click="close()">×</button>
 
-				<div class="btn-toolbar" role="toolbar">
-					<div class="btn-group offset-right">
-
-						<!-- File input wont get triggered if this is a button so use a label instead -->
-						<label class="btn btn-primary btn-icon-text btn-file" title="Select files to be uploaded - or drag files into the main window pane">
-							<i class="icon-upload"></i>
-							<span class="hidden-xs">Upload</span>
-							<input type="file" class="hidden" @change="uploadFile($event.target.name, $event.target.files)" name="files[]"/>
-						</label>
-
-						<button class="btn btn-primary btn-icon-text" type="button" title="Add Folder" @click="showCreateFolderModal = true">
-							<i class="icon-folder-plus"></i>
-							<span class="hidden-xs">Add folder</span>
-						</button>
-
-					</div>
-
-					<div class="btn-group offset-right">
-						<button class="btn btn-default btn-icon-text" type="button" @click="loadFolder(currentPath)" title="Refresh">
-							<i class="icon-loop2"></i>
-							<span class="hidden-xs">Refresh</span>
-						</button>
-					</div>
-
-					<div class="btn-group offset-right">
-						<button class="btn btn-default btn-icon-text" type="button" :disabled="!currentFile" @click="showMoveItemModal = true" title="Move">
-							<i class="icon-arrow-right"></i>
-							<span class="hidden-xs">Move</span>
-						</button>
-
-						<button class="btn btn-default btn-icon-text" type="button" :disabled="!currentFile" @click="showDeleteItemModal = true" title="Delete">
-							<i class="icon-bin"></i>
-							<span class="hidden-xs">Delete</span>
-						</button>
-
-						<button class="btn btn-default btn-icon-text" type="button" :disabled="!currentFile" title="Rename" @click="showRenameItemModal = true">
-							<i class="icon-pencil"></i>
-							<span class="hidden-xs">Rename</span>
-						</button>
-					</div>
-
-				</div>
+				<top-toolbar
+						@open-modal-create-folder="showCreateFolderModal = true"
+						@open-modal-delete-item="showDeleteItemModal = true"
+						@open-modal-move-item="showMoveItemModal = true"
+						@open-modal-rename-item="showRenameItemModal = true"
+						@upload-file="uploadFile"
+						:currentFile="currentFile"
+						:currentPath="currentPath"
+				>
+				</top-toolbar>
 
 			</div>
 
@@ -235,7 +203,13 @@
 </template>
 
 <script>
+
     export default {
+
+        components:{
+            'top-toolbar': require('./subcomponents/TopToolBar.vue'),
+
+		},
 
         props: {
             /**
@@ -423,7 +397,10 @@
                 this.currentFile = file;
             },
 
-            uploadFile(fieldName, fileList){
+            uploadFile(payload){
+
+                let fieldName = payload.name;
+                let fileList = payload.files;
 
                 /**
                  * Create a new form request object.
@@ -475,7 +452,9 @@
 
             dragUpload(){
 
-                document.querySelector("div#mediaManagerDropZone").dropzone({
+                let Dropzone = require('dropzone'); //eslint-disable-line
+                Dropzone.autoDiscover = false;
+                this.dropzone = new Dropzone("div#mediaManagerDropZone", {
                     clickable: false,
                     createImageThumbnails: false,
                     dictDefaultMessage: '',

@@ -38,9 +38,3 @@ if (token) {
  * dates that are returned from our Laravel Eloquent models
  */
 window.moment = require('moment');
-
-/**
- * Dropzone
- */
-const dropzone = require('dropzone');
-dropzone.autoDiscover = false;
