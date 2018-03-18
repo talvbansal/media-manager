@@ -21,11 +21,7 @@ window.Vue.mixin(FileManagerMixin);
  * Register Vue components...
  */
 window.Vue.component("media-modal", require("./components/MediaModal.vue"));
-window.Vue.component("media-create-folder-modal", require("./components/CreateFolderModal.vue"));
-window.Vue.component("media-delete-item-modal", require("./components/ConfirmDeleteModal.vue"));
 window.Vue.component("media-errors", require("./components/Errors.vue"));
-window.Vue.component("media-move-item-modal", require("./components/MoveItemModal.vue"));
-window.Vue.component("media-rename-item-modal", require("./components/RenameItemModal.vue"));
 window.Vue.component("media-manager", require("./components/MediaManager.vue"));
 
 

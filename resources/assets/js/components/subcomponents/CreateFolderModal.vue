@@ -1,17 +1,16 @@
 <template>
   <media-modal
-
     v-if="show"
-    :size="size"
+    :size="size" 
     :show="show"
-    @media-modal-close="close()">
+    @media-modal-close="close()" >
     <div>
       <div class="modal-header">
         <button 
           class="close" 
           type="button" 
           @click="close()">×</button>
-        <h4 class="modal-title">Rename item</h4>
+        <h4 class="modal-title">New folder</h4>
       </div>
 
       <div 
@@ -22,18 +21,15 @@
 
       <div v-else>
         <div class="modal-body">
-          <div class="form-group">
-            <label>Current name</label>
-            <p class="form-control-static">{{ getItemName(currentFile) }}</p>
-          </div>
-
           <div class="form-group fg-line">
-            <label>New name</label>
+            <label>Folder name</label>
             <input
-              v-model="newItemName"
+              ref="folderName"
+              v-model="newFolderName"
               type="text"
               class="form-control"
-              @keyup.enter="renameItem()">
+              @keyup.enter="createFolder()"
+            >
           </div>
 
           <media-errors :errors="errors"/>
@@ -44,7 +40,7 @@
           <button 
             class="btn btn-primary" 
             type="button" 
-            @click="renameItem()">
+            @click="createFolder()">
             Apply
           </button>
           <button 
@@ -60,22 +56,14 @@
 </template>
 
 <script>
-
 import axios from "axios";
 
-export default{
 
+export default{
 	props:{
 		currentPath:{
-		    default: "",
+			default: "",
 			type: String
-		},
-
-		currentFile:{
-			default: function(){
-				return {};
-			},
-			type: [Object, Boolean]
 		},
 
 		/**
@@ -96,56 +84,63 @@ export default{
 		return {
 			errors: [],
 			loading: false,
-			newItemName: null,
+			newFolderName: null,
 			size: "modal-md"
 		};
 	},
 
+	watch: {
+		show: function (val) {
+			if (val) {
+				window.Vue.nextTick(() => {
+					this.$refs.folderName.focus();
+				});
+			}
+		}
+	},
+
+
 	mounted(){
 		document.addEventListener("keydown", (e) => {
 			if (this.show && e.keyCode === 13) {
-				this.renameItem();
+				this.createFolder();
 			}
 		});
 	},
 
 	methods: {
 		close(){
-			this.errors = [];
-			this.newItemName = null;
+			this.newFolderName = null;
 			this.loading = false;
+			this.errors = [];
 			this.$emit("media-modal-close");
 		},
 
-		renameItem(){
+		createFolder(){
 
-			if (!this.newItemName) {
-				this.errors = ["Please provide a new name for this item"];
-			} else {
-				this.loading = true;
-				const original = this.getItemName(this.currentFile);
-
-				const data = {
-					"path": this.currentPath,
-					"original": original,
-					"newName": this.newItemName,
-					"type": (this.isFolder(this.currentFile)) ? "Folder" : "File"
-				};
-
-				axios.post(`${this.prefix}browser/rename`, data).then(
-					(response) => {
-						window.eventHub.$emit("media-manager-reload-folder");
-						this.mediaManagerNotify(response.data.success);
-						this.close();
-					},
-					(response) => {
-						this.errors = (response.data.error) ? response.data.error : response.statusText;
-						this.loading = false;
-					}
-				);
+			if (!this.newFolderName) {
+				this.errors = ["Please provide a name for the new folder"];
+				return;
 			}
+
+			const data = {
+				"folder": this.currentPath,
+				"new_folder": this.newFolderName
+			};
+
+			this.loading = true;
+			axios.post(`${this.prefix}browser/folder`, data).then(
+				(response) => {
+					this.mediaManagerNotify(response.data.success);
+					window.eventHub.$emit("media-manager-reload-folder");
+					this.close();
+				},
+				(response) => {
+					this.errors = (response.data.error) ? response.data.error : response.statusText;
+					this.loading =false;
+				}
+			);
 		}
 	}
-
 };
 </script>

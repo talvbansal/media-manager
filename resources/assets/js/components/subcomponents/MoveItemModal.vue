@@ -31,7 +31,9 @@
           <div class="form-group">
             <label>Move to</label>
             <select
+
               id="newFolderLocation"
+              ref="newFolderLocation"
               v-model="newFolderLocation"
               class="form-control"
               name="newFolderLocation" 
@@ -140,6 +142,10 @@ export default{
 
 				}
 			);
+
+			window.Vue.nextTick(() => {
+				this.$refs.newFolderLocation.focus();
+			});
 		},
 
 		moveItem(){

@@ -6,3 +6,4 @@ public/js/*.map
 tests/reports/
 .idea/
 composer.lock
+yarn-error.log

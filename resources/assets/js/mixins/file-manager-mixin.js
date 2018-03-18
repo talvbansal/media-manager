@@ -19,6 +19,11 @@ export default {
 			return file.mimeType.indexOf("image") !== -1;
 		},
 
+
+		isFile: (file) => {
+			return !isEmpty(file);
+		},
+
 		isFolder: (file) => {
 
 			if(isEmpty(file)){

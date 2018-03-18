@@ -215,7 +215,7 @@
         </div>
       </div>
 
-      <media-create-folder-modal
+      <modal-create-folder
         :current-path="currentPath"
         :prefix="prefix"
         :show="showCreateFolderModal"
@@ -223,7 +223,7 @@
         @media-manager-reload-folder="loadFolder( currentPath )"
       />
 
-      <media-delete-item-modal
+      <modal-delete-item
         :current-path="currentPath"
         :current-file="currentFile"
         :prefix="prefix"
@@ -232,7 +232,7 @@
         @media-manager-reload-folder="loadFolder( currentPath )"
       />
 
-      <media-move-item-modal
+      <modal-move-item
         :current-path="currentPath"
         :current-file="currentFile"
         :prefix="prefix"
@@ -242,7 +242,7 @@
 
       />
 
-      <media-rename-item-modal
+      <modal-rename-item
         :current-path="currentPath"
         :current-file="currentFile"
         :prefix="prefix"
@@ -258,21 +258,24 @@
 
 <script>
 import axios from "axios";
-import {orderBy, isEmpty} from "lodash";
+import {orderBy} from "lodash";
 
 export default {
 
 	components:{
+		"modal-rename-item": require("./subcomponents/RenameItemModal.vue"),
+		"modal-create-folder": require("./subcomponents/CreateFolderModal.vue"),
+		"modal-delete-item": require("./subcomponents/ConfirmDeleteModal.vue"),
+		"modal-move-item": require("./subcomponents/MoveItemModal.vue"),
 		"top-toolbar": require("./subcomponents/TopToolBar.vue"),
-
 	},
 
 	props: {
 		/**
-             * Is this instance of the media manager a modal window.
-             * If so then this property is used to show the close
-             * buttons at the top and bottom of the screen.
-             */
+         * Is this instance of the media manager a modal window.
+         * If so then this property is used to show the close
+         * buttons at the top and bottom of the screen.
+         */
 		isModal: {
 			default: false,
 			type: Boolean
@@ -394,16 +397,11 @@ export default {
 
 		if( ! this.prefix.endsWith("/") )
 		{
-			    this.prefix = `${this.prefix}/`;
+			this.prefix = `${this.prefix}/`;
 		}
 	},
 
 	methods: {
-
-	    isFile(){
-	       return !isEmpty(this.currentFile);
-		},
-
 		/**
          * sort files and folders...
          * @param column

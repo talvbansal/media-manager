@@ -40,7 +40,7 @@
 
     <div class="btn-group offset-right">
       <button
-        :disabled="!currentFile"
+        :disabled="!isFile(currentFile)"
         class="btn btn-default btn-icon-text" 
         type="button" 
         title="Move"
@@ -50,7 +50,7 @@
       </button>
 
       <button 
-        :disabled="!currentFile"
+        :disabled="!isFile(currentFile)"
         class="btn btn-default btn-icon-text"
         type="button" 
         title="Delete"
@@ -60,7 +60,7 @@
       </button>
 
       <button
-        :disabled="!currentFile"
+        :disabled="!isFile(currentFile)"
         class="btn btn-default btn-icon-text" 
         type="button" 
         title="Rename"
