@@ -8,6 +8,10 @@
 
 return [
 
+    'breadcrumb' => [
+        'root' => 'Files'
+    ],
+
     'routes' => [
         'middleware' => [],
         'prefix'     => env('MEDIA_MANAGER_ROUTE_PREFIX', '/admin/'),
