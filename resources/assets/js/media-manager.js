@@ -3,40 +3,49 @@
  * include Vue and Vue Resource. This gives a great starting point for
  * building robust, powerful web applications using Vue and Laravel.
  */
-require('./base');
+require("./base");
 
-import FileManagerMixin from './mixins/file-manager-mixin';
-Vue.mixin(FileManagerMixin);
+window.Vue = require("vue");
+
+/**
+ * Moment is a javascript library that we can use to format dates
+ * It's similar to Carbon in PHP so we mostly use it to format
+ * dates that are returned from our Laravel Eloquent models
+ */
+window.moment = require("moment");
+
+import FileManagerMixin from "./mixins/file-manager-mixin";
+window.Vue.mixin(FileManagerMixin);
 
 /**
  * Register Vue components...
  */
-Vue.component('media-modal', require('./components/MediaModal.vue'));
-Vue.component('media-create-folder-modal', require('./components/CreateFolderModal.vue'));
-Vue.component('media-delete-item-modal', require('./components/ConfirmDeleteModal.vue'));
-Vue.component('media-errors', require('./components/Errors.vue'));
-Vue.component('media-move-item-modal', require('./components/MoveItemModal.vue'));
-Vue.component('media-rename-item-modal', require('./components/RenameItemModal.vue'));
-Vue.component('media-manager', require('./components/MediaManager.vue'));
+window.Vue.component("media-modal", require("./components/MediaModal.vue"));
+window.Vue.component("media-create-folder-modal", require("./components/CreateFolderModal.vue"));
+window.Vue.component("media-delete-item-modal", require("./components/ConfirmDeleteModal.vue"));
+window.Vue.component("media-errors", require("./components/Errors.vue"));
+window.Vue.component("media-move-item-modal", require("./components/MoveItemModal.vue"));
+window.Vue.component("media-rename-item-modal", require("./components/RenameItemModal.vue"));
+window.Vue.component("media-manager", require("./components/MediaManager.vue"));
 
 
 /**
  * Register Vue Filters
  */
 // Take any integer of bytes and convert it into something more human readable...
-Vue.filter('humanFileSize', function (size) {
-    var i = Math.floor(Math.log(size) / Math.log(1024));
-    return ( size / Math.pow(1024, i) ).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][i];
+window.Vue.filter("humanFileSize", function (size) {
+	var i = Math.floor(Math.log(size) / Math.log(1024));
+	return ( size / Math.pow(1024, i) ).toFixed(2) * 1 + " " + ["B", "kB", "MB", "GB", "TB"][i];
 });
 
 // Date formatting filter...
-Vue.filter('moment', function (date, format) {
+window.Vue.filter("moment", function (date, format) {
 
-    if (!date) return null;
+	if (!date) return null;
 
-    if (!format) format = 'DD/MM/YYYY LTS';
+	if (!format) format = "DD/MM/YYYY LTS";
 
-    return moment(date).utc().format(format)
+	return window.moment(date).utc().format(format);
 });
 
 /**
@@ -45,5 +54,5 @@ Vue.filter('moment', function (date, format) {
  * any events that may emitted by components...
  */
 if (!window.eventHub) {
-    window.eventHub = new Vue();
+	window.eventHub = new window.Vue();
 }

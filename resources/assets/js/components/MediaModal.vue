@@ -1,30 +1,36 @@
 <template>
-    <transition name="modal">
-        <div class="modal media-modal modal-mask" @click="$emit('media-modal-close')">
-            <div class="modal-dialog" :class="[size]" @click.stop>
-                <div class="modal-content">
-                    <slot></slot>
-                </div>
-            </div>
+  <transition name="modal">
+    <div 
+      class="modal media-modal modal-mask" 
+      @click="$emit('media-modal-close')">
+      <div
+        :class="[size]"
+        class="modal-dialog"
+        @click.stop>
+        <div class="modal-content">
+          <slot/>
         </div>
-    </transition>
+      </div>
+    </div>
+  </transition>
 </template>
 
 <script>
-    export default {
+export default {
 
-        props: {
-            'size' :{
-                default : 'modal-lg'
-            }
-        },
+	props: {
+		"size" :{
+			default : "modal-lg",
+			type: String
+		}
+	},
 
-        mounted(){
-            document.addEventListener("keydown", (e) => {
-                if (this.show && e.keyCode == 27) {
-                    this.close();
-                }
-            });
-        }
-    }
+	mounted(){
+		document.addEventListener("keydown", (e) => {
+			if (this.show && e.keyCode == 27) {
+				this.close();
+			}
+		});
+	}
+};
 </script>

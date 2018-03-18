@@ -1,118 +1,147 @@
 <template>
-    <media-modal @media-modal-close="close()" :size="size" :show="show" v-if="show">
-        <div>
-            <div class="modal-header">
-                <button class="close" type="button" @click="close()">×</button>
-                <h4 class="modal-title">Delete item</h4>
-            </div>
+  <media-modal
+    v-if="show"
+    :size="size" 
+    :show="show"
+    @media-modal-close="close()">
+    <div>
+      <div class="modal-header">
+        <button 
+          class="close" 
+          type="button" 
+          @click="close()">×</button>
+        <h4 class="modal-title">Delete item</h4>
+      </div>
 
-            <div v-if="loading" class="text-center">
-                <span class="spinner icon-spinner2"></span>Loading...
-            </div>
+      <div 
+        v-if="loading" 
+        class="text-center">
+        <span class="spinner icon-spinner2"/>Loading...
+      </div>
 
-            <div v-else>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label>Are you sure you want to delete the following item?</label>
-                        <p class="form-control-static">{{ this.getItemName(this.currentFile) }}</p>
-                    </div>
+      <div v-else>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Are you sure you want to delete the following item?</label>
+            <p class="form-control-static">{{ getItemName(currentFile) }}</p>
+          </div>
 
-                </div>
-
-                <div class="modal-footer">
-                    <button class="btn btn-primary" type="button" @click="deleteItem()">
-                        Delete
-                    </button>
-                    <button class="btn btn-default" type="button" @click="close">
-                        Cancel
-                    </button>
-                </div>
-            </div>
         </div>
-    </media-modal>
+
+        <div class="modal-footer">
+          <button 
+            class="btn btn-primary" 
+            type="button" 
+            @click="deleteItem()">
+            Delete
+          </button>
+          <button 
+            class="btn btn-default" 
+            type="button" 
+            @click="close">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </media-modal>
 </template>
 
 <script>
-    export default{
-        props:{
-            currentPath:{},
-            currentFile:{},
 
-            /**
-             * Default route prefix
-             */
-            prefix: {
-                default : '/admin/'
-            },
+import axios from "axios";
 
-            show:{
-                default : false
-            }
-        },
+export default{
+	props:{
+		currentPath:{
+			default: "",
+			type: String
+		},
 
-        data: () => {
-            return {
-                loading: false,
-                newItemName: null,
-                size: 'modal-md'
-            }
-        },
+		currentFile:{
+			default: function(){
+			    return {};
+			},
+			type: [Object, Boolean]
+		},
 
-        mounted() {
-            document.addEventListener("keydown", (e) => {
-                if (this.show && e.keyCode === 13) {
-                    this.deleteItem();
-                }
-            });
-        },
+		/**
+         * Default route prefix
+         */
+		prefix: {
+			default : "/admin/",
+			type: String
+		},
 
-        methods: {
-            close(){
-                this.newItemName = null;
-                this.loading = false;
-                this.$emit('media-modal-close');
-            },
+		show:{
+			default : false,
+			type: Boolean
+		}
+	},
 
-            deleteItem(route, data){
-                if (this.isFolder(this.currentFile)) {
-                    return this.deleteFolder(route, data);
-                }
-                return this.deleteFile(route, data);
-            },
+	data: () => {
+		return {
+			loading: false,
+			newItemName: null,
+			size: "modal-md"
+		};
+	},
 
-            deleteFile(){
-                if (this.currentFile) {
-                    const data = {
-                        'path': this.currentFile.fullPath
-                    };
-                    this.byeBye(`${this.prefix}browser/file`, data);
-                }
-            },
+	mounted() {
+		document.addEventListener("keydown", (e) => {
+			if (this.show && e.keyCode === 13) {
+				this.deleteItem();
+			}
+		});
+	},
 
-            deleteFolder(){
-                if (this.isFolder(this.currentFile)) {
-                    const data = {
-                        'path' : this.currentFile.fullPath
-                    };
-                    this.byeBye(`${this.prefix}browser/folder`, data);
-                }
-            },
+	methods: {
+		close(){
+			this.newItemName = null;
+			this.loading = false;
+			this.$emit("media-modal-close");
+		},
 
-            byeBye(route, payload){
-                this.loading = true;
-                axios.delete(route, {params: payload}).then(
-                        (response) => {
-                            window.eventHub.$emit('media-manager-reload-folder');
-                            this.mediaManagerNotify(response.data.success);
-                            this.close();
-                        },
-                        (response) => {
-                            const error = (response.data.error) ? response.data.error : response.statusText;
-                            this.mediaManagerNotify(error, 'danger');
-                            this.close();
-                        }
-                );
-            }
-        }
-    }
+		deleteItem(route, data){
+			if (this.isFolder(this.currentFile)) {
+				return this.deleteFolder(route, data);
+			}
+			return this.deleteFile(route, data);
+		},
+
+		deleteFile(){
+			if (this.currentFile) {
+				const data = {
+					"path": this.currentFile.fullPath
+				};
+				this.rm(`${this.prefix}browser/file`, data);
+			}
+		},
+
+		deleteFolder(){
+			if (this.isFolder(this.currentFile)) {
+				const data = {
+					"path" : this.currentFile.fullPath
+				};
+				this.rm(`${this.prefix}browser/folder`, data);
+			}
+		},
+
+		rm(route, payload){
+			this.loading = true;
+			axios.delete(route, {params: payload}).then(
+				(response) => {
+					window.eventHub.$emit("media-manager-reload-folder");
+					this.mediaManagerNotify(response.data.success);
+					this.close();
+				},
+				(response) => {
+					const error = (response.data.error) ? response.data.error : response.statusText;
+					this.mediaManagerNotify(error, "danger");
+					this.close();
+				}
+			);
+		}
+	}
+};
 </script>
