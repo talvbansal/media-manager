@@ -26,7 +26,7 @@ class UsesMediaManagerTest extends TestCase
         $response->assertJsonFragment(
             [
                 'folder'      => '/',
-                'folderName'  => 'Root',
+                'folderName'  => 'Files',
                 'breadCrumbs' => [],
                 'files'       => [],
                 'itemsCount'  => 1,
