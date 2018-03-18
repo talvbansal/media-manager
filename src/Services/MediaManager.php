@@ -45,6 +45,13 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
     private $diskName;
 
     /**
+     * Label of the breadcrumb's root
+     *
+     * @var string
+     */
+    private $breadcrumbRootLabel = 'Root';
+
+    /**
      * UploadsManager constructor.
      *
      * @param PhpRepository $mimeDetect
@@ -53,6 +60,7 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
     {
         $this->diskName = config('media-manager.disk');
         $this->access = config('media-manager.access');
+        $this->breadcrumbRootLabel = config('media-manager.breadcrumb.root');
         $this->disk = Storage::disk($this->diskName);
         $this->mimeDetect = $mimeDetect;
     }
@@ -140,7 +148,7 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
             $crumbs[$path] = $folder;
 
             return $crumbs;
-        }, collect())->prepend('Root', '/');
+        }, collect())->prepend($this->breadcrumbRootLabel , '/');
     }
 
     /**
@@ -328,7 +336,7 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
             $allDirectories[$directory] = $name;
 
             return $allDirectories;
-        }, collect())->prepend('Root', '/');
+        }, collect())->prepend($this->breadcrumbRootLabel , '/');
     }
 
     /**
