@@ -9,7 +9,7 @@
 return [
 
     'breadcrumb' => [
-        'root' => 'Files'
+        'root' => 'Files',
     ],
 
     'routes' => [

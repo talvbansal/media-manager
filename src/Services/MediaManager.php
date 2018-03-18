@@ -45,7 +45,7 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
     private $diskName;
 
     /**
-     * Label of the breadcrumb's root
+     * Label of the breadcrumb's root.
      *
      * @var string
      */
@@ -148,7 +148,7 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
             $crumbs[$path] = $folder;
 
             return $crumbs;
-        }, collect())->prepend($this->breadcrumbRootLabel , '/');
+        }, collect())->prepend($this->breadcrumbRootLabel, '/');
     }
 
     /**
@@ -336,7 +336,7 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
             $allDirectories[$directory] = $name;
 
             return $allDirectories;
-        }, collect())->prepend($this->breadcrumbRootLabel , '/');
+        }, collect())->prepend($this->breadcrumbRootLabel, '/');
     }
 
     /**
