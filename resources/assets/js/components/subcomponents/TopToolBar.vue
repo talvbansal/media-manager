@@ -94,7 +94,7 @@ export default{
 
 	methods:{
 		refresh(){
-			window.eventHub.$emit("media-manager-reload-folder");
+			this.$emit("reload-folder");
 		},
 
 		uploadFile(fileName, fileList){

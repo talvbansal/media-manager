@@ -118,7 +118,6 @@ export default{
 		}
 	},
 
-
 	mounted(){
 		document.addEventListener("keydown", (e) => {
 			if (this.show && e.keyCode === 13) {
@@ -152,15 +151,13 @@ export default{
 
 				axios.post(`${this.prefix}browser/rename`, data).then(
 					(response) => {
-						window.eventHub.$emit("media-manager-reload-folder");
+						this.$emit("reload-folder");
 						this.mediaManagerNotify(response.data.success);
 						this.close();
-					},
-					(response) => {
-						this.errors = (response.data.error) ? response.data.error : response.statusText;
-						this.loading = false;
-					}
-				);
+					}).catch((error) => {
+					this.errors = (error.response.data.error) ? error.response.data.error : error.response.statusText;
+					this.loading = false;
+				});
 			}
 		}
 	}

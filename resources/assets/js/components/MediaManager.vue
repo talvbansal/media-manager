@@ -12,6 +12,7 @@
         <top-toolbar
           :current-file="currentFile"
           :current-path="currentPath"
+          @reload-folder="loadFolder( currentPath )"
           @open-modal-create-folder="showCreateFolderModal = true"
           @open-modal-delete-item="showDeleteItemModal = true"
           @open-modal-move-item="showMoveItemModal = true"
@@ -175,7 +176,7 @@
         :prefix="prefix"
         :show="showCreateFolderModal"
         @media-modal-close="showCreateFolderModal = false"
-        @media-manager-reload-folder="loadFolder( currentPath )"
+        @reload-folder="loadFolder( currentPath )"
       />
 
       <modal-delete-item
@@ -184,7 +185,7 @@
         :prefix="prefix"
         :show="showDeleteItemModal"
         @media-modal-close="showDeleteItemModal = false"
-        @media-manager-reload-folder="loadFolder( currentPath )"
+        @reload-folder="loadFolder( currentPath )"
       />
 
       <modal-move-item
@@ -193,7 +194,7 @@
         :prefix="prefix"
         :show="showMoveItemModal"
         @media-modal-close="showMoveItemModal = false"
-        @media-manager-reload-folder="loadFolder( currentPath )"
+        @reload-folder="loadFolder( currentPath )"
 
       />
 
@@ -203,7 +204,7 @@
         :prefix="prefix"
         :show="showRenameItemModal"
         @media-modal-close="showRenameItemModal = false"
-        @media-manager-reload-folder="loadFolder( currentPath )"
+        @reload-folder="loadFolder( currentPath )"
 
       />
 
@@ -338,15 +339,6 @@ export default{
 		isFolderEmpty(){
 			return ((this.files.length + this.folders.length ) === 0);
 		}
-	},
-
-	created: function () {
-		window.eventHub.$on("media-manager-reload-folder", this.loadFolder);
-	},
-
-	beforeDestroy: function () {
-		// It's good to clean up event listeners before a component is destroyed.
-		window.eventHub.$off("media-manager-reload-folder", this.loadFolder);
 	},
 
 	mounted: function () {

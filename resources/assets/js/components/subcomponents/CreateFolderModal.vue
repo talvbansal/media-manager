@@ -138,12 +138,12 @@ export default{
 			axios.post(`${this.prefix}browser/folder`, data).then(
 				(response) => {
 					this.mediaManagerNotify(response.data.success);
-					window.eventHub.$emit("media-manager-reload-folder");
+					this.$emit("reload-folder");
 					this.close();
 				},
-				(response) => {
-					this.errors = (response.data.error) ? response.data.error : response.statusText;
-					this.loading =false;
+				(errors) => {
+					this.errors = (errors.response.data.error) ? errors.response.data.error : errors.response.statusText;
+					this.loading = false;
 				}
 			);
 		}

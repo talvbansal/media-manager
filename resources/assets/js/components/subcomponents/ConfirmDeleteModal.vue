@@ -134,12 +134,12 @@ export default{
 			this.loading = true;
 			axios.delete(route, {params: payload}).then(
 				(response) => {
-					window.eventHub.$emit("media-manager-reload-folder");
+					this.$emit("reload-folder");
 					this.mediaManagerNotify(response.data.success);
 					this.close();
 				},
-				(response) => {
-					const error = (response.data.error) ? response.data.error : response.statusText;
+				(errors) => {
+					const error = (errors.response.data.error) ? errors.response.data.error : errors.response.statusText;
 					this.mediaManagerNotify(error, "danger");
 					this.close();
 				}

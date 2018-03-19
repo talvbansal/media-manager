@@ -1,22 +1,22 @@
 <template>
   <media-modal
-
     v-if="show"
-    :size="size" 
+    :size="size"
     :show="show"
     @media-modal-close="close()"
   >
     <div>
       <div class="modal-header">
-        <button 
-          class="close" 
-          type="button" 
-          @click="close()">×</button>
+        <button
+          class="close"
+          type="button"
+          @click="close()">×
+        </button>
         <h4 class="modal-title">Move item</h4>
       </div>
 
-      <div 
-        v-if="loading" 
+      <div
+        v-if="loading"
         class="text-center">
         <span class="spinner icon-spinner2"/>Loading...
       </div>
@@ -31,32 +31,33 @@
           <div class="form-group">
             <label>Move to</label>
             <select
-
               id="newFolderLocation"
               ref="newFolderLocation"
               v-model="newFolderLocation"
               class="form-control"
-              name="newFolderLocation" 
+              name="newFolderLocation"
               @keyup.enter="moveItem()">
-              <option 
+              <option
                 v-for="(name, path) in allDirectories"
                 :key="path"
-                :value="path" 
+                :value="path"
                 v-html="name"/>
             </select>
           </div>
+
+          <media-errors :errors="errors"/>
         </div>
 
         <div class="modal-footer">
-          <button 
-            class="btn btn-primary" 
-            type="button" 
+          <button
+            class="btn btn-primary"
+            type="button"
             @click="moveItem()">
             Apply
           </button>
-          <button 
-            class="btn btn-default" 
-            type="button" 
+          <button
+            class="btn btn-default"
+            type="button"
             @click="close()">
             Cancel
           </button>
@@ -71,38 +72,44 @@
 import axios from "axios";
 import fileManagerMixin from "./../../mixins/file-manager-mixin";
 
-export default{
+export default {
+	components: {
+		"media-errors": require("./MediaErrors.vue"),
+	},
+
 	mixins: [fileManagerMixin],
-	props:{
-		currentPath:{
+
+	props: {
+		currentPath: {
 			default: "",
 			type: String
 		},
 
-		currentFile:{
-			default: function(){
+		currentFile: {
+			default: function () {
 				return {};
 			},
 			type: [Object, Boolean]
 		},
 
 		/**
-         * Default route prefix
-         */
+             * Default route prefix
+             */
 		prefix: {
-			default : "/admin/",
+			default: "/admin/",
 			type: String
 		},
 
-		show:{
-			default : false,
+		show: {
+			default: false,
 			type: Boolean
 		}
 	},
 
-	data(){
+	data() {
 		return {
 			allDirectories: {},
+			errors: [],
 			newFolderLocation: null,
 			loading: false,
 			size: "modal-md"
@@ -110,14 +117,14 @@ export default{
 	},
 
 	watch: {
-		show(open){
+		show(open) {
 			if (open) {
 				this.open();
 			}
 		}
 	},
 
-	mounted(){
+	mounted() {
 		document.addEventListener("keydown", (e) => {
 			if (this.show && e.keyCode === 13) {
 				this.moveItem();
@@ -126,13 +133,13 @@ export default{
 	},
 
 	methods: {
-		close(){
+		close() {
 			this.newFolderName = null;
 			this.loading = false;
 			this.$emit("media-modal-close");
 		},
 
-		open(){
+		open() {
 			axios.get(`${this.prefix}browser/directories`).then(
 				(response) => {
 					this.newFolderLocation = this.currentPath;
@@ -150,7 +157,7 @@ export default{
 			});
 		},
 
-		moveItem(){
+		moveItem() {
 
 			const data = {
 				"path": this.currentPath,
@@ -162,16 +169,13 @@ export default{
 			this.loading = true;
 			axios.post(`${this.prefix}browser/move`, data).then(
 				(response) => {
-					window.eventHub.$emit("media-manager-reload-folder");
+					this.$emit("reload-folder");
 					window.eventHub.$emit("media-manager-notification", response.data.success);
 					this.close();
-				},
-				(response) => {
-					window.eventHub.$emit("reload-folder", response.data.success);
-					window.eventHub.$emit("media-manager-notification", (response.data.error) ? response.data.error : response.statusText, "danger");
-					this.loading = false;
-				}
-			);
+				}).catch((error) => {
+				this.errors = (error.response.data.error) ? error.response.data.error : error.response.statusText;
+				this.loading = false;
+			});
 		}
 	}
 };
