@@ -1,6 +1,17 @@
 import { isEmpty } from "lodash";
+import moment from "moment";
 
 export default {
+    filters:{
+        moment: (date, format) => {
+            if (!date) return null;
+
+            if (!format) format = "DD/MM/YYYY LTS";
+
+            return moment(date).utc().format(format);
+        }
+    },
+
 	methods: {
 		getItemName: (file) => {
 			if(isEmpty(file)){
