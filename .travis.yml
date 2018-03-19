@@ -17,7 +17,8 @@ before_install:
 
 install:
   - composer install
+  - yarn
 
 script:
   - vendor/bin/phpunit
-  - npm run eslint
+  - yarn eslint
