@@ -69,8 +69,10 @@
 <script>
 
 import axios from "axios";
+import fileManagerMixin from "./../../mixins/file-manager-mixin";
 
 export default{
+	mixins: [fileManagerMixin],
 	props:{
 		currentPath:{
 			default: "",

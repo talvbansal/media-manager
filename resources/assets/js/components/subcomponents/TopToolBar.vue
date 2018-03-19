@@ -74,7 +74,11 @@
 </template>
 
 <script>
+import fileManagerMixin from "./../../mixins/file-manager-mixin";
+
 export default{
+	mixins: [fileManagerMixin],
+
 	props:{
 		currentFile : {
 		    default: function(){

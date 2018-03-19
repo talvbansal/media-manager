@@ -214,9 +214,9 @@
 <script>
 import axios from "axios";
 import {orderBy} from "lodash";
+import fileManagerMixin from "./../mixins/file-manager-mixin";
 
-export default {
-
+export default{
 	components:{
 		"modal-rename-item": require("./subcomponents/RenameItemModal.vue"),
 		"modal-create-folder": require("./subcomponents/CreateFolderModal.vue"),
@@ -225,6 +225,8 @@ export default {
 		"preview-sidebar": require("./subcomponents/PreviewSideBar.vue"),
 		"top-toolbar": require("./subcomponents/TopToolBar.vue"),
 	},
+
+	mixins: [fileManagerMixin],
 
 	props: {
 		/**

@@ -14,9 +14,6 @@ window.Vue = require("vue");
  */
 window.moment = require("moment");
 
-import FileManagerMixin from "./mixins/file-manager-mixin";
-window.Vue.mixin(FileManagerMixin);
-
 /**
  * Register Vue components...
  */

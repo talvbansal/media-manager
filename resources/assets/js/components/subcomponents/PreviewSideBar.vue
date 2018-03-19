@@ -8,15 +8,13 @@
       id="easel-preview-image"
       :src="currentFile.webPath"
       class="img-responsive center-block"
-      style="max-height: 200px"
     >
 
     <div
       v-else
       class="text-center">
       <i
-        class="icon-file-text2"
-        style="font-size: 15rem"/>
+        class="icon-file-text2"/>
     </div>
 
     <table class="table-responsive table-condensed table-vmiddle easel-file-picker-preview-table">
@@ -47,8 +45,22 @@
   </div>
 </template>
 
+<style scoped>
+	.icon-file-text2{
+		font-size: 15rem;
+	}
+
+	#easel-preview-image{
+		max-height: 200px;
+	}
+</style>
+
 <script>
-export default {
+import fileManagerMixin from "./../../mixins/file-manager-mixin";
+
+export default{
+	mixins: [fileManagerMixin],
+
 	props:{
 		currentFile : {
 			default: function(){
