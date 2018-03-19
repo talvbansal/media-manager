@@ -8,7 +8,7 @@
 
 return [
 
-    /**
+    /*
      * Change the bread crumb behaviour.
      * Here you can configure the text output for the root folder of the media-manager...
      */
@@ -16,7 +16,7 @@ return [
         'root' => 'Files',
     ],
 
-    /**
+    /*
      * Change the route behaviour.
      * Here you can apply additional middleware to be applied to media-manager routes
      * as well as setting a custom path prefix for the media-manager routes to be
@@ -27,13 +27,13 @@ return [
         'prefix'     => env('MEDIA_MANAGER_ROUTE_PREFIX', '/admin/'),
     ],
 
-    /**
+    /*
      * Set the disk for the media manager to use, this can be one of the disks defined
      * within your projects `config/filesystems.php` file...
      */
     'disk'   => env('MEDIA_MANAGER_STORAGE_DISK', 'public'),
 
-    /**
+    /*
      * Configure the Access Mode of the uploaded files.
      * By default S3 uploads are private, we're setting them to public here.
      */
