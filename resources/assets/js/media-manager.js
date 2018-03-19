@@ -21,7 +21,6 @@ window.Vue.mixin(FileManagerMixin);
  * Register Vue components...
  */
 window.Vue.component("media-modal", require("./components/MediaModal.vue"));
-window.Vue.component("media-errors", require("./components/Errors.vue"));
 window.Vue.component("media-manager", require("./components/MediaManager.vue"));
 
 

@@ -66,6 +66,10 @@ import axios from "axios";
 
 export default{
 
+	components: {
+		"media-errors": require("./MediaErrors.vue"),
+	},
+
 	props:{
 		currentPath:{
 		    default: "",
