@@ -20,7 +20,7 @@
       <button 
         class="btn btn-primary btn-icon-text" 
         type="button" 
-        title="Add Folder" 
+        title="Add folder"
         @click="openModalCreateFolder()">
         <i class="icon-folder-plus"/>
         <span class="hidden-xs">Add folder</span>

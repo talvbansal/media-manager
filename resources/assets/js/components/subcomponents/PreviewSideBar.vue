@@ -38,7 +38,7 @@
         </tr>
         <tr>
           <td class="description">Uploaded On</td>
-          <td class="file-value">{{ currentFile.modified.date | moment }}</td>
+          <td class="file-value">{{ currentFile.modified.date | formatDate }}</td>
         </tr>
       </tbody>
     </table>
@@ -61,7 +61,6 @@ import fileManagerMixin from "./../../mixins/file-manager-mixin";
 export default{
 
 	filters: {
-
 		// Take any integer of bytes and convert it into something more human readable...
 		humanFileSize: function (size) {
 			let i = Math.floor(Math.log(size) / Math.log(1024));

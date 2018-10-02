@@ -1,6 +1,15 @@
 import { isEmpty } from "lodash";
+import dayjs from "dayjs";
 
 export default {
+	filters:{
+		formatDate: (date, format = "DD/MM/YYYY hh:mm:ss A") => {
+			if (!date) return null;
+
+			return dayjs(date).format(format);
+		}
+	},
+
 	methods: {
 		getItemName: (file) => {
 			if(isEmpty(file)){

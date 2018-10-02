@@ -108,7 +108,7 @@
                           </a>
                         </td>
                         <td>folder</td>
-                        <td>{{ folder.modified.date | moment('DD/MM/YYYY') }}</td>
+                        <td>{{ folder.modified.date | formatDate('DD/MM/YYYY') }}</td>
                       </tr>
 
                       <tr 
@@ -134,7 +134,7 @@
 
                         </td>
                         <td> {{ file.mimeType }}</td>
-                        <td> {{ file.modified.date | moment('DD/MM/YYYY') }}</td>
+                        <td> {{ file.modified.date | formatDate('DD/MM/YYYY') }}</td>
                       </tr>
                     </tbody>
                   </table>
