@@ -38,7 +38,7 @@
         </tr>
         <tr>
           <td class="description">Uploaded On</td>
-          <td class="file-value">{{ currentFile.modified.date | moment }}</td>
+          <td class="file-value">{{ currentFile.modified.date | formatDate }}</td>
         </tr>
       </tbody>
     </table>

@@ -1,16 +1,14 @@
 import { isEmpty } from "lodash";
-import moment from "moment";
+import dayjs from "dayjs";
 
 export default {
-    filters:{
-        moment: (date, format) => {
-            if (!date) return null;
+	filters:{
+		formatDate: (date, format = "DD/MM/YYYY hh:mm:ss A") => {
+			if (!date) return null;
 
-            if (!format) format = "DD/MM/YYYY LTS";
-
-            return moment(date).utc().format(format);
-        }
-    },
+			return dayjs(date).format(format);
+		}
+	},
 
 	methods: {
 		getItemName: (file) => {

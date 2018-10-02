@@ -1,20 +1,20 @@
-import { shallow } from "@vue/test-utils"
-import PreviewSideBar from './../../../resources/assets/js/components/subcomponents/PreviewSideBar.vue';
-import moment from "moment";
+import { shallow } from "@vue/test-utils";
+import PreviewSideBar from "./../../../resources/assets/js/components/subcomponents/PreviewSideBar.vue";
+import dayjs from "dayjs";
 
-describe('Preview Sidebar', () => {
+describe("Preview Sidebar", () => {
     const wrapper = shallow(PreviewSideBar);
 
-    it('it shows a file summary', () => {
+    it("it shows a file summary", () => {
         wrapper.setProps({
             currentFile:{
-                name: 'TestFile.jpg',
+                name: "TestFile.jpg",
                 size: (1024 * 1024 * 32),
-                mimeType: 'image/jpg',
-                webPath: 'https://localhost/TestFile.jpg',
-                relativePath: '/TestFile.jpg',
+                mimeType: "image/jpg",
+                webPath: "https://localhost/TestFile.jpg",
+                relativePath: "/TestFile.jpg",
                 modified: {
-                    date: moment("2018-03-19")
+                    date: dayjs("2018-03-19")
                 }
             }
         });
