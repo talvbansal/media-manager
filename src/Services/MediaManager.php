@@ -434,7 +434,7 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
 
             if (!$file->storeAs($path, $fileName, [
                 'disk' => $this->diskName,
-                'visibility' => $this->access
+                'visibility' => $this->access,
             ])) {
                 $this->errors[] = trans('media-manager::messages.upload_error', ['entity' => $fileName]);
 
