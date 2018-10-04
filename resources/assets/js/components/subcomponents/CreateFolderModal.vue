@@ -58,10 +58,11 @@
 <script>
 import axios from "axios";
 import fileManagerMixin from "./../../mixins/file-manager-mixin";
+import MediaErrors from "./MediaErrors";
 
 export default{
 	components: {
-		"media-errors": require("./MediaErrors.vue"),
+		"media-errors": MediaErrors,
 	},
 
 	mixins: [fileManagerMixin],

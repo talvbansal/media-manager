@@ -123,7 +123,7 @@ $editor-height: 60vh;
 }
 
 // Media Manager Styles...
-#easel-file-picker {
+#media-manager-file-picker {
 
   .modal-footer {
 
@@ -140,7 +140,7 @@ $editor-height: 60vh;
 
   }
 
-  .easel-alternative-content {
+  .media-manager-alternative-content {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -156,7 +156,7 @@ $editor-height: 60vh;
     }
   }
 
-  .easel-file-browser {
+  .media-manager-file-browser {
     color: #5e5e5e;
     height: $editor-height + 6.5vh;
     margin-bottom: 0;
@@ -196,7 +196,7 @@ $editor-height: 60vh;
     }
 
 
-    .easel-file-picker-list {
+    .media-manager-file-picker-list {
       height: $editor-height;
       overflow-y: scroll;
 
@@ -241,13 +241,13 @@ $editor-height: 60vh;
 
     }
 
-    .easel-file-picker-sidebar {
+    .media-manager-file-picker-sidebar {
       height: $editor-height;
       overflow-y: auto;
       border-left: 1px solid rgb(240, 240, 240);
     }
 
-    .easel-file-picker-preview-table {
+    .media-manager-file-picker-preview-table {
       margin-top: 1em;
 
       td {

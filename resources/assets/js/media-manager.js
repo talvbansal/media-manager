@@ -1,3 +1,4 @@
+/* global Vue */
 /**
  * First we will load all of this project's JavaScript dependencies which
  * include Vue and Vue Resource. This gives a great starting point for
@@ -10,8 +11,11 @@ window.Vue = require("vue");
 /**
  * Register Vue components...
  */
-window.Vue.component("media-modal", require("./components/MediaModal.vue"));
-window.Vue.component("media-manager", require("./components/MediaManager.vue"));
+import MediaModal from "./components/MediaModal.vue";
+import MediaManager from "./components/MediaManager.vue";
+
+Vue.component("media-modal", MediaModal);
+Vue.component("media-manager", MediaManager);
 
 /**
  * If it doesn't already exist, register a separate empty vue instance that
@@ -19,5 +23,5 @@ window.Vue.component("media-manager", require("./components/MediaManager.vue"));
  * any events that may emitted by components...
  */
 if (!window.eventHub) {
-	window.eventHub = new window.Vue();
+	window.eventHub = new Vue();
 }
