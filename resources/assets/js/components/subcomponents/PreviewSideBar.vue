@@ -1,11 +1,11 @@
 <template>
   <div
     v-if="isFile(currentFile) && !isFolder(currentFile)"
-    class="easel-file-picker-sidebar hidden-xs col-sm-3">
+    class="media-manager-file-picker-sidebar hidden-xs col-sm-3">
 
     <img
       v-if="isImage(currentFile)"
-      id="easel-preview-image"
+      id="media-manager-preview-image"
       :src="currentFile.webPath"
       class="img-responsive center-block"
     >
@@ -17,7 +17,7 @@
         class="icon-file-text2"/>
     </div>
 
-    <table class="table-responsive table-condensed table-vmiddle easel-file-picker-preview-table">
+    <table class="table-responsive table-condensed table-vmiddle media-manager-file-picker-preview-table">
       <tbody>
         <tr>
           <td class="description">Name</td>
@@ -50,7 +50,7 @@
 		font-size: 15rem;
 	}
 
-	#easel-preview-image{
+	#media-manager-preview-image{
 		max-height: 200px;
 	}
 </style>

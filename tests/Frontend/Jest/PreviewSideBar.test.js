@@ -20,7 +20,7 @@ describe("Preview Sidebar", () => {
         });
 
         expect(wrapper.html().indexOf(
-            `<img id="easel-preview-image" src="https://localhost/TestFile.jpg" class="img-responsive center-block">`
+            `<img id="media-manager-preview-image" src="https://localhost/TestFile.jpg" class="img-responsive center-block">`
         ) !== -1).toBe(true);
 
         expect(wrapper.html().indexOf(

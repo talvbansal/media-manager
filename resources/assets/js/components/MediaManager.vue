@@ -1,6 +1,6 @@
 <template>
   <transition name="modal">
-    <div id="easel-file-picker">
+    <div id="media-manager-file-picker">
       <div class="modal-header">
         <!-- Close button for modal windows -->
         <button 
@@ -27,7 +27,7 @@
         class="dropzone">
         <div 
           v-if="loading" 
-          class="easel-alternative-content loading">
+          class="media-manager-alternative-content loading">
           <p>
             <span class="spinner icon-spinner2"/>Loading...
           </p>
@@ -37,7 +37,7 @@
 
         <div v-else>
 
-          <div class="easel-file-browser">
+          <div class="media-manager-file-browser">
             <div class="row">
               <div class="col-xs-12">
                 <ol class="breadcrumb">
@@ -59,7 +59,7 @@
 
             <div 
               v-if="isFolderEmpty" 
-              class="easel-alternative-content">
+              class="media-manager-alternative-content">
               <h4>This folder is empty.</h4>
               <p>
                 Drag and drop files onto this window to upload files.
@@ -73,7 +73,7 @@
                 :class="{ 'col-sm-12' : !isFile(currentFile) || isFolder(currentFile), 'col-sm-9' : isFile(currentFile) && ! isFolder(currentFile) }"
                 class="col-xs-12">
 
-                <div class="table-responsive easel-file-picker-list">
+                <div class="table-responsive media-manager-file-picker-list">
 
                   <table class="table table-condensed table-vmiddle">
                     <thead>
