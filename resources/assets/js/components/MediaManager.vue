@@ -217,14 +217,21 @@ import axios from "axios";
 import {orderBy} from "lodash";
 import fileManagerMixin from "./../mixins/file-manager-mixin";
 
+import RenameItemModal from "./subcomponents/RenameItemModal";
+import CreateFolderModal from "./subcomponents/CreateFolderModal";
+import ConfirmDeleteModal from "./subcomponents/ConfirmDeleteModal";
+import MoveItemModal from "./subcomponents/MoveItemModal";
+import PreviewSideBar from "./subcomponents/PreviewSideBar";
+import TopToolBar from "./subcomponents/TopToolBar";
+
 export default{
 	components:{
-		"modal-rename-item": require("./subcomponents/RenameItemModal.vue"),
-		"modal-create-folder": require("./subcomponents/CreateFolderModal.vue"),
-		"modal-delete-item": require("./subcomponents/ConfirmDeleteModal.vue"),
-		"modal-move-item": require("./subcomponents/MoveItemModal.vue"),
-		"preview-sidebar": require("./subcomponents/PreviewSideBar.vue"),
-		"top-toolbar": require("./subcomponents/TopToolBar.vue"),
+		"modal-rename-item": RenameItemModal,
+		"modal-create-folder": CreateFolderModal,
+		"modal-delete-item": ConfirmDeleteModal,
+		"modal-move-item": MoveItemModal,
+		"preview-sidebar": PreviewSideBar,
+		"top-toolbar": TopToolBar,
 	},
 
 	mixins: [fileManagerMixin],
