@@ -54,7 +54,7 @@ class MediaManagerServiceProvider extends ServiceProvider
     private function defineResources()
     {
         $this->publishes([
-            MEDIA_MANAGER_BASE_PATH.'/public' => resource_path('/assets/talvbansal/media-manager'),
+            MEDIA_MANAGER_BASE_PATH.'/public' => resource_path('/vendor/talvbansal/media-manager'),
         ], 'media-manager');
     }
 }
