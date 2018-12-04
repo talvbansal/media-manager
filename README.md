@@ -53,18 +53,18 @@ After registering the Media Manager service provider, you should publish the Med
 ```bash
 php artisan vendor:publish --tag=media-manager --force
 ```
-Media Manager assets are **not** published to the `public` folder as would be normally expected, instead they will be published to `/resources/assets/talvbansal`.
+Media Manager assets are **not** published to the `public` folder as would be normally expected, instead they will be published to `/resources/vendor/talvbansal`.
 Since the Media Manger is written in `vue.js 2.0` you'll need to use webpack or another bundler to get the code ready for the browser. You can then bundle these with your existing project assets.
 
 ##### Examples 
 
-First you'll need to add the media-manager reference within your `resources/assets/js/app.js` file:
+First you'll need to add the media-manager reference within your `resources/js/app.js` file:
 
 ```javascript
 require('./bootstrap');
 
 // Add this line...
-require('./../talvbansal/media-manager/js/media-manager');
+require('./../vendor/talvbansal/media-manager/js/media-manager');
 
 const app = new Vue({
     el: '#app'
@@ -78,7 +78,7 @@ const app = new Vue({
 const { mix } = require('laravel-mix');
 
 // Copy SVG images into the public directory...
-mix.copy('resources/assets/talvbansal/media-manager/fonts/', 'public/fonts/');
+mix.copy('resources/vendor/talvbansal/media-manager/fonts/', 'public/fonts/');
 ```
 
 
@@ -86,7 +86,7 @@ Then make sure that the styles are bundled and icons copied to the public direct
 
 ```sass
 // -- app.scss --
-@import "../talvbansal/media-manager/css/media-manager.css";
+@import "../vendor/talvbansal/media-manager/css/media-manager.css";
 ```
 
 ##### # Laravel Elixir (Laravel 5.3)
@@ -97,12 +97,12 @@ require('laravel-elixir-vue-2');
 
 elixir(function(mix) {
     // Copy SVG images into the public directory...
-    mix.copy( 'resources/assets/talvbansal/media-manager/fonts', 'public/fonts' );
+    mix.copy( 'resources/vendor/talvbansal/media-manager/fonts', 'public/fonts' );
     
     // Add the media-manager styles to the app.css file
     mix.styles(
         [
-            "../talvbansal/media-manager/css/media-manager.css",
+            "../vendor/talvbansal/media-manager/css/media-manager.css",
             "app.scss"
         ],'public/css/app.css'
     );
