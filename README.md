@@ -89,28 +89,6 @@ Then make sure that the styles are bundled and icons copied to the public direct
 @import "../vendor/talvbansal/media-manager/css/media-manager.css";
 ```
 
-##### # Laravel Elixir (Laravel 5.3)
-```javascript
-// -- gulpfile.js --
-var elixir = require('laravel-elixir');
-require('laravel-elixir-vue-2');
-
-elixir(function(mix) {
-    // Copy SVG images into the public directory...
-    mix.copy( 'resources/vendor/talvbansal/media-manager/fonts', 'public/fonts' );
-    
-    // Add the media-manager styles to the app.css file
-    mix.styles(
-        [
-            "../vendor/talvbansal/media-manager/css/media-manager.css",
-            "app.scss"
-        ],'public/css/app.css'
-    );
-    
-});
-
-```
-
 By default the media manager uses the `public` disk to store its uploads. The storage path for the `public` disk by default is `storage/app/public`. To make these files accessible from the web, use the following `storage:link` artisan command to generate a symbolic link to `public/storage`:
 ```bash
 php artisan storage:link
@@ -125,7 +103,7 @@ Some cloud flysystems like `AWS S3` supports access modes. All File Uploads via 
 
 ## # Getting Started
 
-The Media Manager is written in `vue.js 2.0` and comes bundled with all the dependencies required to get going very quickly.
+The Media Manager is written in **Vue.js 2.x** and comes bundled with all the dependencies required to get going very quickly.
 
 To avoid CSRF issues you will need to add the following to your layout if it does not already exist:
 ```html
@@ -254,7 +232,7 @@ For example if the `selected-event-name` property was set to `editor` the event 
 ```javascript
 <script>
     new Vue({
-        el : 'body',
+        el : '#app',
         data:{
             showMediaManager: false,
             selectedEventName: 'editor'
