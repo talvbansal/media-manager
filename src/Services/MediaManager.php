@@ -407,7 +407,7 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
     {
         $path = $this->fileWebpath($path);
         // @todo This wont work for files not located on the current server...
-        $path = str_replace_first(env('APP_URL'), '', $path);
+        $path = Str::replaceFirst(env('APP_URL'), '', $path);
         $path = str_replace(' ', '%20', $path);
 
         return $path;
