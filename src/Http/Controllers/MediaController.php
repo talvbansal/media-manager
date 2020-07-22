@@ -9,6 +9,7 @@
 namespace TalvBansal\MediaManager\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use TalvBansal\MediaManager\Http\Requests\UploadFileRequest;
 use TalvBansal\MediaManager\Http\Requests\UploadNewFolderRequest;
 use TalvBansal\MediaManager\Http\UploadedFiles;
@@ -132,11 +133,11 @@ class MediaController extends Controller
 
             $response = $this->mediaManager->saveUploadedFiles($uploadedFiles, $folder);
             if ($response != 0) {
-                $response = trans('media-manager::messages.upload_success', ['entity' => $response.' New '.str_plural('File', $response)]);
+                $response = trans('media-manager::messages.upload_success', ['entity' => $response.' New '.Str::plural('File', $response)]);
             }
 
             $errors = $this->mediaManager->errors();
-            if (!empty($errors)) {
+            if (! empty($errors)) {
                 return $this->errorResponse($errors, $response);
             }
 
@@ -185,8 +186,8 @@ class MediaController extends Controller
         $newPath = $request->get('newPath');
         $type = $request->get('type');
 
-        $currentFile = str_finish($path, DIRECTORY_SEPARATOR).$currentFileName;
-        $newFile = str_finish($newPath, DIRECTORY_SEPARATOR).$currentFileName;
+        $currentFile = Str::finish($path, DIRECTORY_SEPARATOR).$currentFileName;
+        $newFile = Str::finish($newPath, DIRECTORY_SEPARATOR).$currentFileName;
 
         try {
             if ($type == 'Folder') {
@@ -227,7 +228,7 @@ class MediaController extends Controller
             json_encode($error);
         }
         $payload = ['error' => $error];
-        if (!empty($notices)) {
+        if (! empty($notices)) {
             $payload['notices'] = $notices;
         }
 

@@ -2,13 +2,6 @@
   <transition name="modal">
     <div id="media-manager-file-picker">
       <div class="modal-header">
-        <!-- Close button for modal windows -->
-        <button 
-          v-if="isModal" 
-          type="button" 
-          class="close" 
-          @click="close()">×</button>
-
         <top-toolbar
           :current-file="currentFile"
           :current-path="currentPath"
@@ -19,7 +12,12 @@
           @open-modal-rename-item="showRenameItemModal = true"
           @upload-file="uploadFile"
         />
-
+        <!-- Close button for modal windows -->
+        <button 
+          v-if="isModal" 
+          type="button" 
+          class="close" 
+          @click="close()">×</button>
       </div>
 
       <div 
@@ -153,7 +151,7 @@
           <!-- Buttons to be rendered if the media-manager is in a modal window-->
           <div 
             v-if="isModal" 
-            class="buttons">
+            class="buttons text-right">
             <button
               v-show="currentFile && !isFolder(currentFile)"
               type="button"

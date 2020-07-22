@@ -6,11 +6,11 @@
     @media-modal-close="close()" >
     <div>
       <div class="modal-header">
+        <h4 class="modal-title">New folder</h4>
         <button 
-          class="close" 
+          class="close float-right" 
           type="button" 
           @click="close()">×</button>
-        <h4 class="modal-title">New folder</h4>
       </div>
 
       <div 
