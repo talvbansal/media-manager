@@ -5,7 +5,7 @@
       @click="$emit('media-modal-close')">
       <div
         :class="[size]"
-        class="modal-dialog"
+        class="modal-dialog modal-dialog-centered"
         @click.stop>
         <div class="modal-content">
           <slot/>

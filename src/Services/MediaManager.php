@@ -8,6 +8,7 @@ use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use TalvBansal\MediaManager\Contracts\FileMoverInterface;
 use TalvBansal\MediaManager\Contracts\FileUploaderInterface;
 use TalvBansal\MediaManager\Contracts\UploadedFilesInterface;
@@ -99,7 +100,7 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
 
         // Get the names of the sub folders within this folder
         $subFolders = collect($this->disk->directories($folder))->reduce(function ($subFolders, $subFolder) {
-            if (!$this->isItemHidden($subFolder)) {
+            if (! $this->isItemHidden($subFolder)) {
                 $subFolders[] = $this->folderDetails($subFolder);
             }
 
@@ -108,7 +109,7 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
 
         // Get all files within this folder
         $files = collect($this->disk->files($folder))->reduce(function ($files, $path) {
-            if (!$this->isItemHidden($path)) {
+            if (! $this->isItemHidden($path)) {
                 $files[] = $this->fileDetails($path);
             }
 
@@ -204,7 +205,7 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
     public function fileMimeType($path)
     {
         $type = $this->mimeDetect->findType(strtolower(pathinfo($path, PATHINFO_EXTENSION)));
-        if (!empty($type)) {
+        if (! empty($type)) {
             return $type;
         }
 
@@ -270,7 +271,7 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
     {
         $folder = $this->cleanFolder($folder);
         $filesFolders = array_merge($this->disk->directories($folder), $this->disk->files($folder));
-        if (!empty($filesFolders)) {
+        if (! empty($filesFolders)) {
             $this->errors[] = 'The directory must be empty to delete it.';
 
             return false;
@@ -289,7 +290,7 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
     public function deleteFile($path)
     {
         $path = $this->cleanFolder($path);
-        if (!$this->disk->exists($path)) {
+        if (! $this->disk->exists($path)) {
             $this->errors[] = 'File does not exist.';
 
             return false;
@@ -328,7 +329,7 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
         $directories = $this->disk->allDirectories('/');
 
         return collect($directories)->filter(function ($directory) {
-            return !(starts_with($directory, '.'));
+            return ! (Str::startsWith($directory, '.'));
         })->map(function ($directory) {
             return DIRECTORY_SEPARATOR.$directory;
         })->reduce(function ($allDirectories, $directory) {
@@ -372,7 +373,7 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
             return false;
         }
 
-        if (starts_with($newFolder, $currentFolder)) {
+        if (Str::startsWith($newFolder, $currentFolder)) {
             $this->errors[] = 'You can not move this folder inside of itself.';
 
             return false;
@@ -406,7 +407,7 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
     {
         $path = $this->fileWebpath($path);
         // @todo This wont work for files not located on the current server...
-        $path = str_replace_first(env('APP_URL'), '', $path);
+        $path = Str::replaceFirst(env('APP_URL'), '', $path);
         $path = str_replace(' ', '%20', $path);
 
         return $path;
@@ -432,7 +433,7 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
                 return $uploaded;
             }
 
-            if (!$file->storeAs($path, $fileName, [
+            if (! $file->storeAs($path, $fileName, [
                 'disk' => $this->diskName,
                 'visibility' => $this->access,
             ])) {
@@ -455,6 +456,6 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
      */
     private function isItemHidden($item)
     {
-        return starts_with(last(explode(DIRECTORY_SEPARATOR, $item)), '.');
+        return Str::startsWith(last(explode(DIRECTORY_SEPARATOR, $item)), '.');
     }
 }

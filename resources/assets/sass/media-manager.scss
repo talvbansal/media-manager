@@ -80,7 +80,6 @@ $editor-height: 60vh;
 }
 
 .modal-lg {
-  margin: 2em !important;
   width: auto !important;
 }
 
@@ -153,6 +152,12 @@ $editor-height: 60vh;
 
     &.loading{
       height: $editor-height + 6.5vh;
+    }
+  }
+
+  .btn-toolbar {
+    label {
+      margin-bottom: 0px;
     }
   }
 
