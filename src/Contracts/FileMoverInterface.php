@@ -11,8 +11,8 @@ namespace TalvBansal\MediaManager\Contracts;
 interface FileMoverInterface
 {
     /**
-     * @param   $currentFile
-     * @param   $newFile
+     * @param $currentFile
+     * @param $newFile
      *
      * @return bool
      */

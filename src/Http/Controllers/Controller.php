@@ -14,5 +14,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 
 abstract class Controller extends \Illuminate\Routing\Controller
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    use AuthorizesRequests;
+    use DispatchesJobs;
+    use ValidatesRequests;
 }

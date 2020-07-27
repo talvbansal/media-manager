@@ -43,7 +43,8 @@ class MediaManagerServiceProvider extends ServiceProvider
         ], 'media-manager');
 
         $this->mergeConfigFrom(
-            MEDIA_MANAGER_BASE_PATH.'/src/Config/media-manager.php', 'media-manager'
+            MEDIA_MANAGER_BASE_PATH.'/src/Config/media-manager.php',
+            'media-manager'
         );
     }
 
