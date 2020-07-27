@@ -137,7 +137,7 @@ class MediaController extends Controller
             }
 
             $errors = $this->mediaManager->errors();
-            if (! empty($errors)) {
+            if (!empty($errors)) {
                 return $this->errorResponse($errors, $response);
             }
 
@@ -228,7 +228,7 @@ class MediaController extends Controller
             json_encode($error);
         }
         $payload = ['error' => $error];
-        if (! empty($notices)) {
+        if (!empty($notices)) {
             $payload['notices'] = $notices;
         }
 

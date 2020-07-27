@@ -100,7 +100,7 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
 
         // Get the names of the sub folders within this folder
         $subFolders = collect($this->disk->directories($folder))->reduce(function ($subFolders, $subFolder) {
-            if (! $this->isItemHidden($subFolder)) {
+            if (!$this->isItemHidden($subFolder)) {
                 $subFolders[] = $this->folderDetails($subFolder);
             }
 
@@ -109,7 +109,7 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
 
         // Get all files within this folder
         $files = collect($this->disk->files($folder))->reduce(function ($files, $path) {
-            if (! $this->isItemHidden($path)) {
+            if (!$this->isItemHidden($path)) {
                 $files[] = $this->fileDetails($path);
             }
 
@@ -205,7 +205,7 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
     public function fileMimeType($path)
     {
         $type = $this->mimeDetect->findType(strtolower(pathinfo($path, PATHINFO_EXTENSION)));
-        if (! empty($type)) {
+        if (!empty($type)) {
             return $type;
         }
 
@@ -271,7 +271,7 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
     {
         $folder = $this->cleanFolder($folder);
         $filesFolders = array_merge($this->disk->directories($folder), $this->disk->files($folder));
-        if (! empty($filesFolders)) {
+        if (!empty($filesFolders)) {
             $this->errors[] = 'The directory must be empty to delete it.';
 
             return false;
@@ -290,7 +290,7 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
     public function deleteFile($path)
     {
         $path = $this->cleanFolder($path);
-        if (! $this->disk->exists($path)) {
+        if (!$this->disk->exists($path)) {
             $this->errors[] = 'File does not exist.';
 
             return false;
@@ -329,7 +329,7 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
         $directories = $this->disk->allDirectories('/');
 
         return collect($directories)->filter(function ($directory) {
-            return ! (Str::startsWith($directory, '.'));
+            return !(Str::startsWith($directory, '.'));
         })->map(function ($directory) {
             return DIRECTORY_SEPARATOR.$directory;
         })->reduce(function ($allDirectories, $directory) {
@@ -343,8 +343,8 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
     }
 
     /**
-     * @param   $currentFile
-     * @param   $newFile
+     * @param $currentFile
+     * @param $newFile
      *
      * @return bool
      */
@@ -433,7 +433,7 @@ class MediaManager implements FileUploaderInterface, FileMoverInterface
                 return $uploaded;
             }
 
-            if (! $file->storeAs($path, $fileName, [
+            if (!$file->storeAs($path, $fileName, [
                 'disk' => $this->diskName,
                 'visibility' => $this->access,
             ])) {
