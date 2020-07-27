@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@vue/test-utils": "^1.0.0-beta.12",
-    "axios": "^0.16.2",
+    "axios": "^0.18.1",
     "babel-jest": "^23.0.0-alpha.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-stage-2": "^6.24.1",
