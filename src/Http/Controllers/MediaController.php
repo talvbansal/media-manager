@@ -65,7 +65,7 @@ class MediaController extends Controller
             }
 
             return response()->json([
-                'success' => trans('media-manager::messages.create_success', ['entity' => 'folder'])
+                'success' => trans('media-manager::messages.create_success', ['entity' => 'folder']),
             ], 200);
         } catch (\Exception $e) {
             return $this->errorResponse($e->getMessage());
@@ -92,7 +92,7 @@ class MediaController extends Controller
             }
 
             return response()->json([
-                'success' => trans('media-manager::messages.delete_success', ['entity' => 'folder'])
+                'success' => trans('media-manager::messages.delete_success', ['entity' => 'folder']),
             ], 200);
         } catch (\Exception $e) {
             return $this->errorResponse($e->getMessage());
@@ -116,7 +116,7 @@ class MediaController extends Controller
             }
 
             return response()->json([
-                'success' => trans('media-manager::messages.delete_success', ['entity' => 'File'])
+                'success' => trans('media-manager::messages.delete_success', ['entity' => 'File']),
             ], 200);
         } catch (\Exception $e) {
             return $this->errorResponse($e->getMessage());
@@ -148,7 +148,7 @@ class MediaController extends Controller
             }
 
             return response()->json([
-                'success' => $response
+                'success' => $response,
             ], 200);
         } catch (\Exception $e) {
             return $this->errorResponse([$e->getMessage()]);
@@ -177,7 +177,7 @@ class MediaController extends Controller
             }
 
             return response()->json([
-                'success' => trans('media-manager::messages.rename_success', ['entity' => $type])
+                'success' => trans('media-manager::messages.rename_success', ['entity' => $type]),
             ], 200);
         } catch (\Exception $e) {
             return $this->errorResponse($e->getMessage());
@@ -213,7 +213,7 @@ class MediaController extends Controller
             }
 
             return response()->json([
-                'success' => trans('media-manager::messages.move_success', ['entity' => $type])
+                'success' => trans('media-manager::messages.move_success', ['entity' => $type]),
             ], 200);
         } catch (\Exception $e) {
             return $this->errorResponse($e->getMessage());
