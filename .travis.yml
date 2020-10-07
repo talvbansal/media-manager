@@ -10,7 +10,7 @@ php:
   - 7.4
 
 env:
-  - NODE_RELEASE=8.x
+  - NODE_RELEASE=12.x
 
 before_install:
   - sudo rm -rf ~/.nvm - curl -sL "https://deb.nodesource.com/setup_${NODE_RELEASE}" | sudo -E bash -
