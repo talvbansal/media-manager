@@ -16,7 +16,7 @@ Media Manager provides a simple way for users to upload and manage content to be
 
 ## # Requirements
 
-- [PHP](https://php.net) >= 5.6
+- [PHP](https://php.net) >= 7.3
 - [Composer](https://getcomposer.org)
 - An existing [Laravel 5.3+](https://laravel.com/docs/master/installation) project
 
