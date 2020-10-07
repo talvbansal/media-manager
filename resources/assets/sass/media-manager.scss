@@ -2,26 +2,8 @@
 @import "animate";
 @import "dropzone";
 
-$editor-height: 60vh;
-// Layout
-
-.vertical-center {
-  display: flex;
-  align-items: center;
-}
-
-.btn {
-  > [class*=" icon-"],
-  > [class^="icon-"] {
-    padding-right: 5px;
-  }
-}
-
-.label {
-  > [class*=" icon-"],
-  > [class^="icon-"] {
-    padding-right: 5px;
-  }
+:root {
+  --editor-height: 60vh;
 }
 
 // Loading Animation
@@ -125,9 +107,6 @@ $editor-height: 60vh;
 #media-manager-file-picker {
 
   .modal-footer {
-
-    &.vertical-center {
-
       .item-count {
         flex: 1 0 0;
         text-align: left;
@@ -135,15 +114,13 @@ $editor-height: 60vh;
       .buttons {
         flex: 4 0 0;
       }
-    }
-
   }
 
   .media-manager-alternative-content {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: $editor-height;
+    height: var(--editor-height);
     flex-direction: column;
 
     h4{
@@ -151,7 +128,7 @@ $editor-height: 60vh;
     }
 
     &.loading{
-      height: $editor-height + 6.5vh;
+      height: var(--editor-height) + 6.5vh;
     }
   }
 
@@ -163,7 +140,7 @@ $editor-height: 60vh;
 
   .media-manager-file-browser {
     color: #5e5e5e;
-    height: $editor-height + 6.5vh;
+    height: calc(var(--editor-height) + 3.2rem);
     margin-bottom: 0;
     margin-top: 0;
     min-height: 200px;
@@ -172,7 +149,6 @@ $editor-height: 60vh;
 
     .breadcrumb {
       background-color: transparent;
-      border-bottom: 1px solid #f0f0f0;
       margin-bottom: 0.25rem;
       padding: 8px 15px 8px 6px;
       li {
@@ -202,7 +178,7 @@ $editor-height: 60vh;
 
 
     .media-manager-file-picker-list {
-      height: $editor-height;
+      height: var(--editor-height);
       overflow-y: scroll;
 
       .table {
@@ -247,7 +223,7 @@ $editor-height: 60vh;
     }
 
     .media-manager-file-picker-sidebar {
-      height: $editor-height;
+      height: var(--editor-height);
       overflow-y: auto;
       border-left: 1px solid rgb(240, 240, 240);
     }

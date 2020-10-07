@@ -37,8 +37,8 @@
 
           <div class="media-manager-file-browser">
             <div class="row">
-              <div class="col-xs-12">
-                <ol class="breadcrumb">
+              <div class="col-sm-12">
+                <ol class="breadcrumb border-bottom-0">
 
                   <li 
                     v-for="(name, key) in breadCrumbs" 
@@ -68,8 +68,7 @@
               v-else 
               class="row">
               <div 
-                :class="{ 'col-sm-12' : !isFile(currentFile) || isFolder(currentFile), 'col-sm-9' : isFile(currentFile) && ! isFolder(currentFile) }"
-                class="col-xs-12">
+                :class="{ 'col-sm-12' : !isFile(currentFile) || isFolder(currentFile), 'col-sm-9' : isFile(currentFile) && ! isFolder(currentFile) }">
 
                 <div class="table-responsive media-manager-file-picker-list">
 
@@ -106,7 +105,7 @@
                           </a>
                         </td>
                         <td>folder</td>
-                        <td>{{ folder.modified.date | formatDate('DD/MM/YYYY') }}</td>
+                        <td>{{ folder.modified | formatDate('DD/MM/YYYY') }}</td>
                       </tr>
 
                       <tr 
@@ -131,8 +130,8 @@
                           </a>
 
                         </td>
-                        <td> {{ file.mimeType }}</td>
-                        <td> {{ file.modified.date | formatDate('DD/MM/YYYY') }}</td>
+                        <td>{{ file.mimeType }}</td>
+                        <td>{{ file.modified | formatDate('DD/MM/YYYY') }}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -143,7 +142,7 @@
           </div>
         </div>
 
-        <div class="modal-footer vertical-center">
+        <div class="modal-footer d-flex align-items-center">
           <div class="item-count">
             {{ itemsCount }} Items
           </div>
@@ -161,7 +160,7 @@
             </button>
             <button 
               type="button" 
-              class="btn btn-default" 
+              class="btn btn-outline-secondary"
               @click="close()">
               Close
             </button>
@@ -213,7 +212,7 @@
 <script>
 import axios from "axios";
 import {orderBy} from "lodash";
-import fileManagerMixin from "./../mixins/file-manager-mixin";
+import FileManagerMixin from "./../mixins/file-manager-mixin";
 
 import RenameItemModal from "./subcomponents/RenameItemModal";
 import CreateFolderModal from "./subcomponents/CreateFolderModal";
@@ -221,8 +220,11 @@ import ConfirmDeleteModal from "./subcomponents/ConfirmDeleteModal";
 import MoveItemModal from "./subcomponents/MoveItemModal";
 import PreviewSideBar from "./subcomponents/PreviewSideBar";
 import TopToolBar from "./subcomponents/TopToolBar";
+import dayjs from "dayjs";
 
 export default{
+  name: 'MediaManager',
+
 	components:{
 		"modal-rename-item": RenameItemModal,
 		"modal-create-folder": CreateFolderModal,
@@ -232,43 +234,51 @@ export default{
 		"top-toolbar": TopToolBar,
 	},
 
-	mixins: [fileManagerMixin],
+	mixins: [FileManagerMixin],
+
+  filters: {
+    formatDate: (date, format = 'DD/MM/YYYY HH:mm:ss A') => {
+      if (!date) return null;
+
+      return dayjs(date).format(format);
+    }
+  },
 
 	props: {
 		/**
-         * Is this instance of the media manager a modal window.
-         * If so then this property is used to show the close
-         * buttons at the top and bottom of the screen.
-         */
+     * Is this instance of the media manager a modal window.
+     * If so then this property is used to show the close
+     * buttons at the top and bottom of the screen.
+     */
 		isModal: {
 			default: false,
 			type: Boolean
 		},
 
 		/**
-             * Default route prefix
-             */
+     * Default route prefix
+     */
 		prefix: {
 			default : "/admin/",
 			type: String
 		},
 
-		/**
-             * The event to be fired when selectItem() is called.
-             * The actual event name emitted is prefixed w/
-             * "media-manager-selected-" so to avoid
-             * clashes w/ other events.
-             */
+		/**m
+     * The event to be fired when selectItem() is called.
+     * The actual event name emitted is prefixed w/
+     * "media-manager-selected-" so to avoid
+     * clashes w/ other events.
+     */
 		selectedEventName: {
 			default: "",
 			type: String
 		},
 
 		/**
-             * If this instance is a modal window then this
-             * property is used to show or hide the
-             * modal window.
-             */
+     * If this instance is a modal window then this
+     * property is used to show or hide the
+     * modal window.
+     */
 		show: {
 			default: false,
 			type: Boolean
@@ -280,62 +290,62 @@ export default{
 		return {
 
 			/**
-             * breadCrumbs for the current path that are used to go
-             * backwards through the directory tree.
-             */
+       * breadCrumbs for the current path that are used to go
+       * backwards through the directory tree.
+       */
 			breadCrumbs: {},
 
 			/**
-             * The currently highlighted file
-             */
+       * The currently highlighted file
+       */
 			currentFile: {},
 
 			/**
-             * The current path that the media manager is displaying
-             */
+       * The current path that the media manager is displaying
+       */
 			currentPath: "",
 
 			/**
-             * All of the files in the current path
-             */
+       * All of the files in the current path
+       */
 			files: [],
 
 			/**
-             * The current path's folder name
-             */
+       * The current path's folder name
+       */
 			folderName: null,
 
 			/**
-             * All of the sub folders in the current path
-             */
+       * All of the sub folders in the current path
+       */
 			folders: [],
 
 			/**
-             * Property to show the loading indicator
-             */
+       * Property to show the loading indicator
+       */
 			loading: true,
 
 			/**
-             * Property to show upload progress
-             */
+       * Property to show upload progress
+       */
 			uploadProgress: 0,
 
 			/**
-             * Total files and folder count
-             */
+       * Total files and folder count
+       */
 			itemsCount: 0,
 
 			/**
-             * properties to show and hide internal modal windows
-             */
+       * properties to show and hide internal modal windows
+       */
 			showCreateFolderModal: false,
 			showDeleteItemModal: false,
 			showMoveItemModal: false,
 			showRenameItemModal: false,
 
 			/**
-             * property to hold direction of column sorting
-             */
+       * property to hold direction of column sorting
+       */
 			sortDirection: false
 		};
 	},
@@ -358,9 +368,9 @@ export default{
 
 	methods: {
 		/**
-         * sort files and folders...
-         * @param column
-         */
+     * sort files and folders...
+     * @param column
+     */
 		orderBy(column)
 		{
 			this.sortDirection = !this.sortDirection;
@@ -421,11 +431,11 @@ export default{
 			let fileList = payload.files;
 
 			/**
-             * Create a new form request object.
-             * Gather all of the files to be uploaded and append them to it.
-             * Attach the current path so the server knows where to upload the files to.
-             * Send a post request to the server...
-             */
+       * Create a new form request object.
+       * Gather all of the files to be uploaded and append them to it.
+       * Attach the current path so the server knows where to upload the files to.
+       * Send a post request to the server...
+       */
 			const form = new FormData();
 			Array
 				.from(Array(fileList.length).keys())
@@ -469,7 +479,7 @@ export default{
 		},
 
 		dragUpload(){
-            let Dropzone = require('dropzone'); //eslint-disable-line
+      let Dropzone = require('dropzone'); //eslint-disable-line
 			Dropzone.autoDiscover = false;
 			this.dropzone = new Dropzone("div#mediaManagerDropZone", {
 				clickable: false,
@@ -478,7 +488,7 @@ export default{
 				enqueueForUpload: true,
 				paramName: "files",
 				previewsContainer: null,
-				previewTemplate: "<span class=\"hidden\"></span>",
+				previewTemplate: "<span class=\"d-none\"></span>",
 				hiddenInputContainer: true,
 				uploadMultiple: true,
 				url: `${this.prefix}browser/file`,

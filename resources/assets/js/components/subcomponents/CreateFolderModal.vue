@@ -44,7 +44,7 @@
             Apply
           </button>
           <button 
-            class="btn btn-default" 
+            class="btn btn-outline-secondary"
             type="button" 
             @click="close()">
             Cancel

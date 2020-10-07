@@ -17,6 +17,7 @@
 
 <script>
 export default {
+  name: 'MediaModal',
 
 	props: {
 		"size" :{

@@ -42,7 +42,7 @@ class MediaController extends Controller
     {
         $path = request('path');
 
-        return $this->mediaManager->folderInfo($path);
+        return response()->json($this->mediaManager->folderInfo($path), 200);
     }
 
     /**
@@ -64,7 +64,9 @@ class MediaController extends Controller
                 return $this->errorResponse($error);
             }
 
-            return ['success' => trans('media-manager::messages.create_success', ['entity' => 'folder'])];
+            return response()->json([
+                'success' => trans('media-manager::messages.create_success', ['entity' => 'folder'])
+            ], 200);
         } catch (\Exception $e) {
             return $this->errorResponse($e->getMessage());
         }
@@ -89,7 +91,9 @@ class MediaController extends Controller
                 return $this->errorResponse($error);
             }
 
-            return ['success' => trans('media-manager::messages.delete_success', ['entity' => 'folder'])];
+            return response()->json([
+                'success' => trans('media-manager::messages.delete_success', ['entity' => 'folder'])
+            ], 200);
         } catch (\Exception $e) {
             return $this->errorResponse($e->getMessage());
         }
@@ -111,7 +115,9 @@ class MediaController extends Controller
                 return $this->errorResponse($error);
             }
 
-            return ['success' => trans('media-manager::messages.delete_success', ['entity' => 'File'])];
+            return response()->json([
+                'success' => trans('media-manager::messages.delete_success', ['entity' => 'File'])
+            ], 200);
         } catch (\Exception $e) {
             return $this->errorResponse($e->getMessage());
         }
@@ -141,7 +147,9 @@ class MediaController extends Controller
                 return $this->errorResponse($errors, $response);
             }
 
-            return ['success' => $response];
+            return response()->json([
+                'success' => $response
+            ], 200);
         } catch (\Exception $e) {
             return $this->errorResponse([$e->getMessage()]);
         }
@@ -168,7 +176,9 @@ class MediaController extends Controller
                 return $this->errorResponse($error);
             }
 
-            return ['success' => trans('media-manager::messages.rename_success', ['entity' => $type])];
+            return response()->json([
+                'success' => trans('media-manager::messages.rename_success', ['entity' => $type])
+            ], 200);
         } catch (\Exception $e) {
             return $this->errorResponse($e->getMessage());
         }
@@ -202,7 +212,9 @@ class MediaController extends Controller
                 return $this->errorResponse($error);
             }
 
-            return ['success' => trans('media-manager::messages.move_success', ['entity' => $type])];
+            return response()->json([
+                'success' => trans('media-manager::messages.move_success', ['entity' => $type])
+            ], 200);
         } catch (\Exception $e) {
             return $this->errorResponse($e->getMessage());
         }
@@ -225,13 +237,13 @@ class MediaController extends Controller
     private function errorResponse($error, $notices = [], $errorCode = 400)
     {
         if (is_array($error)) {
-            json_encode($error);
+            $error = json_encode($error);
         }
         $payload = ['error' => $error];
         if (!empty($notices)) {
             $payload['notices'] = $notices;
         }
 
-        return \Response::json($payload, $errorCode);
+        return response()->json($payload, $errorCode);
     }
 }
