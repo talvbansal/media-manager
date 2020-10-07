@@ -6,8 +6,6 @@
  */
 require("./base");
 
-window.Vue = require("vue");
-
 /**
  * Register Vue components...
  */

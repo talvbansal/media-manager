@@ -43,7 +43,7 @@ Should you wish to add middleware around the Media Manager routes you can using 
 php artisan vendor:publish --tag=media-manager
 ```
 After publishing the packages assets a new config file will appear at `/config/media-manager.php`. 
-Simply add the desired middleware to to the middleware array.
+Simply add the desired middleware to the middleware array.
 
 If you want to change the root prefix of the routes from `/admin/` you can do so by changing the `media-manager.routes.prefix` value in the config file published above. 
 However amending the prefix value will require you to pass a new `prefix` prop to your media-manager markup that corresponds directly to this value.
@@ -80,7 +80,6 @@ const { mix } = require('laravel-mix');
 // Copy SVG images into the public directory...
 mix.copy('resources/vendor/talvbansal/media-manager/fonts/', 'public/fonts/');
 ```
-
 
 Then make sure that the styles are bundled and icons copied to the public directory:
 
@@ -202,7 +201,7 @@ A listener can be added to either the `created()` method of your root `vue` inst
         },
         created: function(){
             window.eventHub.$on('media-manager-notification', function (message, type, time) {
-                // Your custom notifiction call here...
+                // Your custom notification call here...
                 console.log(message);
             });
         }
