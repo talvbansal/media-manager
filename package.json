@@ -51,7 +51,7 @@
     "laravel-mix": "^1.0",
     "lodash": "^4.16.2",
     "node": "8.9.4",
-    "resolve-url-loader": "^3.1.0",
+    "resolve-url-loader": "^5.0.0",
     "vue": "^2.3.0",
     "vue-jest": "^2.2.1",
     "vue-touch2": "^1.0.0"
